@@ -1,3 +1,4 @@
+import { u } from './rutas';
 import ajustes from '../data/ajustes.json';
 
 export { ajustes };
@@ -18,12 +19,12 @@ export const CAT_BITACORA: Record<string, string> = {
 };
 
 export const MENU = [
-  { id: 'esencia', label: 'Esencia', href: '/esencia/' },
-  { id: 'experiencias', label: 'Experiencias', href: '/experiencias/' },
-  { id: 'agenda', label: 'Agenda', href: '/agenda/' },
-  { id: 'productos', label: 'Productos', href: '/productos/' },
-  { id: 'bitacora', label: 'Bitácora', href: '/bitacora/' },
-  { id: 'consultas', label: 'Consultas', href: '/consultas/' },
+  { id: 'esencia', label: 'Esencia', href: u('/esencia/') },
+  { id: 'experiencias', label: 'Experiencias', href: u('/experiencias/') },
+  { id: 'agenda', label: 'Agenda', href: u('/agenda/') },
+  { id: 'productos', label: 'Productos', href: u('/productos/') },
+  { id: 'bitacora', label: 'Bitácora', href: u('/bitacora/') },
+  { id: 'consultas', label: 'Consultas', href: u('/consultas/') },
 ];
 
 const COP = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });

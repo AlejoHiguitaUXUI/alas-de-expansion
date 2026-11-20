@@ -1,4 +1,5 @@
 ---
+import { u } from '../lib/rutas';
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { Image, Picture, getImage } from 'astro:assets';
@@ -65,14 +66,14 @@ const waGeneral = 'Hola, quisiera conversar y conocer más sobre Alas de Expansi
         <p class="p p-l" style="max-width:560px">Un espacio para hacer una pausa, escucharte y reconectar con la naturaleza, la comunidad y la memoria de la vida.</p>
         <div class="fila fila-hero">
           <BotonWa msg={waGeneral} icono />
-          <a class="btn b-lc btn-l" href="/agenda/">Ver próximos encuentros</a>
+          <a class="btn b-lc btn-l" href={u("/agenda/")}>Ver próximos encuentros</a>
         </div>
       </div>
       <div class="proximo" data-lista-fechas="heroe" data-limite="1">
         {encuentros.map((e) => {
           const x = expPor[e.data.experiencia.id];
           return (
-            <a class="glass press lift tarjeta-proximo" href={`/agenda/${e.id}/`} data-fecha={iso(e.data.fecha)} data-proximo>
+            <a class="glass press lift tarjeta-proximo" href={u(`/agenda/${e.id}/`)} data-fecha={iso(e.data.fecha)} data-proximo>
               <span class="foto"><Picture src={e.data.imagen ?? x.data.imagen} alt="" formats={['avif', 'webp']} widths={[400, 760]} sizes="380px" loading="eager" /></span>
               <span class="stack g14" style="padding:18px 8px 8px">
                 <span class="stack g6"><span class="lbl lbl-s">Próximo encuentro</span><span class="d" style="font-size:28px">{e.data.titulo}</span></span>
@@ -100,13 +101,13 @@ const waGeneral = 'Hola, quisiera conversar y conocer más sobre Alas de Expansi
       <Ave w={96} attrs={{ 'data-q': 'ave', style: 'position:absolute;left:0;top:0;opacity:.9;will-change:transform;transform:translate3d(-140px,170px,0)' }} />
       <p class="lbl" style="position:absolute;left:0;right:0;top:116px;text-align:center">Qué es Alas de Expansión</p>
       {FRASES.map(([a, b]) => <p class="d frase" data-q="frase">{a} <span class="t2">{b}</span></p>)}
-      <div class="cta-sec" data-q="cta"><a class="btn b-lc btn-l" href="/esencia/">Conocer nuestra esencia →</a></div>
+      <div class="cta-sec" data-q="cta"><a class="btn b-lc btn-l" href={u("/esencia/")}>Conocer nuestra esencia →</a></div>
       <div class="barra-sec" aria-hidden="true"><div data-q="bar"></div></div>
     </div>
   </section>
 
   <section class="wrap stack g28" data-spy="agenda" style="padding-top:clamp(48px,8vw,80px);padding-bottom:clamp(24px,4vw,40px)">
-    <div class="cabeza"><h2 class="d h-l">Próximos <span class="t2">encuentros</span></h2><a class="btn b-lc" href="/agenda/">Ver agenda completa</a></div>
+    <div class="cabeza"><h2 class="d h-l">Próximos <span class="t2">encuentros</span></h2><a class="btn b-lc" href={u("/agenda/")}>Ver agenda completa</a></div>
     <div class="cols-3 carrusel" data-lista-fechas="inicio" data-limite="3">
       {encuentros.map((e) => <TarjetaEncuentro e={e} />)}
     </div>
@@ -122,7 +123,7 @@ const waGeneral = 'Hola, quisiera conversar y conocer más sobre Alas de Expansi
 
   <section data-spy="productos" class="bg-bosque" style="padding:clamp(24px,4vw,40px) 0 clamp(64px,10vw,110px)">
     <div class="wrap stack g28">
-      <div class="cabeza"><h2 class="d h-l">De la tierra <span class="t2">a tu mesa</span></h2><a class="btn b-lc" href="/productos/">Ver todos los productos</a></div>
+      <div class="cabeza"><h2 class="d h-l">De la tierra <span class="t2">a tu mesa</span></h2><a class="btn b-lc" href={u("/productos/")}>Ver todos los productos</a></div>
       <div class="cols-4">{destacados.map((p) => <TarjetaProducto p={p} />)}</div>
     </div>
   </section>
@@ -133,7 +134,7 @@ const waGeneral = 'Hola, quisiera conversar y conocer más sobre Alas de Expansi
         <span class="lbl">Nuestro compromiso</span>
         <h2 id="d-compromiso" class="d h-m">Cuidamos el camino <span class="t2">que compartimos</span></h2>
         <p class="p" style="max-width:440px">Lo que hacemos toca lo más íntimo de cada persona. Estos son los acuerdos con los que acompañamos cada encuentro y cada producto.</p>
-        <a class="enlace" href="/preguntas/">Preguntas frecuentes y cuidado →</a>
+        <a class="enlace" href={u("/preguntas/")}>Preguntas frecuentes y cuidado →</a>
       </div>
       <ol class="c7 votos">
         {VOTOS.map(([n, t, d]) => (

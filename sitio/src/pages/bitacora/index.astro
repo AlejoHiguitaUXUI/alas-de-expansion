@@ -1,4 +1,5 @@
 ---
+import { u } from '../../lib/rutas';
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { Picture } from 'astro:assets';
@@ -21,7 +22,7 @@ const resto = arts.filter((a) => a.id !== dest?.id);
         {Object.entries(CAT_BITACORA).map(([id, l]) => <button type="button" class="chip press" data-filtro={id} aria-pressed="false">{l}</button>)}
       </div>
       {dest && (
-        <a class="grid12 press" href={`/bitacora/${dest.id}/`} data-destacado-de="bitacora" style="align-items:center;color:var(--crema);text-decoration:none">
+        <a class="grid12 press" href={u(`/bitacora/${dest.id}/`)} data-destacado-de="bitacora" style="align-items:center;color:var(--crema);text-decoration:none">
           <span class="c7 foto lift" style="display:block;height:clamp(280px,34vw,480px);border-radius:28px;box-shadow:0 30px 60px rgba(0,0,0,.4)"><Picture src={dest.data.imagen} alt="" formats={['avif', 'webp']} widths={[600, 1000]} sizes="(max-width: 900px) 92vw, 56vw" class="cubre" loading="eager" /></span>
           <span class="c5 stack g18">
             <span class="lbl lbl-s">{CAT_BITACORA[dest.data.categoria]} · {dest.data.minutos} min de lectura</span>

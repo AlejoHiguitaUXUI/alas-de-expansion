@@ -5,7 +5,7 @@ import { Picture, Image } from 'astro:assets';
 import BotonWa from '../../components/BotonWa.astro';
 import Icono from '../../components/Icono.astro';
 import { ajustes, fecha, iso, waHref } from '../../lib/sitio';
-import { urlExp } from '../../lib/rutas';
+import { urlExp, u } from '../../lib/rutas';
 
 export async function getStaticPaths() {
   const encuentros = await getCollection('encuentros');
@@ -48,7 +48,7 @@ const SECCIONES = ceremonia
       <div data-solo-pasado hidden class="nota stack g10">
         <p class="lbl lbl-s">Este encuentro ya se realizó</p>
         <p class="p">{d.relato || 'Gracias a quienes caminaron con nosotros.'}</p>
-        <a class="enlace" href="/agenda/">Ver próximos encuentros →</a>
+        <a class="enlace" href={u("/agenda/")}>Ver próximos encuentros →</a>
       </div>
       {SECCIONES.filter(([, t]) => t).map(([h, t]) => (
         <div class="stack g10"><h2 class="d h-s">{h}</h2><p class="p">{t}</p></div>
@@ -56,7 +56,7 @@ const SECCIONES = ceremonia
       {!ceremonia && (
         <div class="glass stack g6" style="padding:22px;border-radius:22px" data-solo-proximo>
           <p style="margin:0;font-weight:600;font-size:17px">¿Qué pasa si no puedo asistir?</p>
-          <p class="ps">Escríbenos por WhatsApp lo antes posible. <a href="/legal/participacion/">Condiciones de participación</a>.</p>
+          <p class="ps">Escríbenos por WhatsApp lo antes posible. <a href={u("/legal/participacion/")}>Condiciones de participación</a>.</p>
         </div>
       )}
     </div>
@@ -86,7 +86,7 @@ const SECCIONES = ceremonia
             <a class="btn b-lc btn-full" href={waHref(msgPregunta)} target="_blank" rel="noopener">Tengo una pregunta</a>
           </div>
           {prod && (
-            <a class="press carta" href={`/productos/${prod.id}/`} style="display:flex;align-items:center;gap:12px;margin-top:6px;text-decoration:none">
+            <a class="press carta" href={u(`/productos/${prod.id}/`)} style="display:flex;align-items:center;gap:12px;margin-top:6px;text-decoration:none">
               <span class="marco foto" style="flex-shrink:0;width:60px;height:60px"><Image src={prod.data.imagen} alt="" width={120} height={120} class="cubre" /></span>
               <span class="stack" style="gap:3px"><span class="oro">Para llevar a casa</span><span class="d" style="font-size:17px;color:#1E1A3F">{prod.data.nombre}</span></span>
             </a>
@@ -114,7 +114,7 @@ const SECCIONES = ceremonia
           <div class="campo"><label for="f-correo">Correo</label><input id="f-correo" name="correo" class="inp" type="email" autocomplete="email" required /></div>
         </div>
         <div class="trampa" aria-hidden="true"><label>No llenar <input name="sitio" tabindex="-1" autocomplete="off" /></label></div>
-        <div class="chk" style="margin-top:4px"><input id="f-datos" name="acepta" type="checkbox" value="si" /><label for="f-datos">Autorizo el tratamiento de mis datos según la <a href="/legal/datos/" style="color:#4A2C6E">política de datos</a>.</label></div>
+        <div class="chk" style="margin-top:4px"><input id="f-datos" name="acepta" type="checkbox" value="si" /><label for="f-datos">Autorizo el tratamiento de mis datos según la <a href={u("/legal/datos/")} style="color:#4A2C6E">política de datos</a>.</label></div>
         <p class="sub">{notaPago}</p>
         <div style="display:flex;gap:10px;margin-top:6px"><button type="button" class="btn b-ln" style="flex:1" data-cerrar>Cancelar</button><button type="submit" class="btn b-noche" style="flex:1.6">Confirmar inscripción</button></div>
       </form>

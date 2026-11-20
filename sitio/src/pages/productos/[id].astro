@@ -1,4 +1,5 @@
 ---
+import { u } from '../../lib/rutas';
 import Base from '../../layouts/Base.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { Picture, Image } from 'astro:assets';
@@ -23,7 +24,7 @@ const msgAvisar = `Hola, ¿me avisan cuando vuelva a estar disponible «${d.nomb
   <section class="pad-top bg-bosque" style="padding-bottom:120px">
     <div class="wrap grid12" style="gap:56px">
       <div class="c6 sticky" style="top:110px">
-        <a class="enlace" href={`/productos/#${d.categoria}`} style="font-size:15px;color:var(--crema);margin-bottom:12px">← {cat.label}</a>
+        <a class="enlace" href={u(`/productos/#${d.categoria}`)} style="font-size:15px;color:var(--crema);margin-bottom:12px">← {cat.label}</a>
         <div class="carta">
           <div class="marco foto" style="height:clamp(360px,44vw,600px)"><Picture src={d.imagen} alt={d.nombre} formats={['avif', 'webp']} widths={[480, 800, 1200]} sizes="(max-width: 900px) 92vw, 46vw" class="cubre" loading="eager" /></div>
           <p class="oro" style="margin:12px 0 6px;text-align:center">{cat.label}</p>
@@ -57,7 +58,7 @@ const msgAvisar = `Hola, ¿me avisan cuando vuelva a estar disponible «${d.nomb
         </div>
         {comida && d.registro_sanitario && <p class="ps">Registro sanitario: {d.registro_sanitario}</p>}
         {encuentro && (
-          <a class="press glass" href="/experiencias/circulos/" style="display:flex;align-items:center;gap:14px;padding:12px;border-radius:22px;color:var(--crema);text-decoration:none">
+          <a class="press glass" href={u("/experiencias/circulos/")} style="display:flex;align-items:center;gap:14px;padding:12px;border-radius:22px;color:var(--crema);text-decoration:none">
             <span class="foto" style="flex-shrink:0;width:72px;height:72px;border-radius:16px"><Image src={encuentro.data.imagen} alt="" width={144} height={144} class="cubre" /></span>
             <span class="stack" style="gap:4px"><span class="lbl lbl-s">También te puede interesar</span><span class="d" style="font-size:20px">{encuentro.data.nombre}</span></span>
           </a>

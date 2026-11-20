@@ -1,11 +1,12 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Picture } from 'astro:assets';
+import { urlProd } from "../lib/rutas";
 import { precio, waHref } from '../lib/sitio';
 interface Props { p: CollectionEntry<'productos'>; grupo?: string }
 const { p, grupo } = Astro.props;
 const d = p.data;
-const href = `/productos/${p.id}/`;
+const href = urlProd(p.id);
 const edad = d.categoria === 'chichas';
 ---
 <div class="carta prod lift" data-prod-card={p.id} data-grupo={grupo} data-cat={d.categoria}>

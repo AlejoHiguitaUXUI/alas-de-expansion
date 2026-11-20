@@ -1,4 +1,5 @@
 ---
+import { u } from '../lib/rutas';
 import Base from '../layouts/Base.astro';
 import Mandala from '../components/Mandala.astro';
 ---
@@ -10,8 +11,8 @@ import Mandala from '../components/Mandala.astro';
       <h1 class="d h-l" style="max-width:860px">Gracias por <span class="t2">caminar con nosotros</span></h1>
       <p class="p" style="max-width:520px">Tu suscripción quedó confirmada. Te escribiremos con nuevos encuentros y textos de la bitácora.</p>
       <div class="fila" style="justify-content:center;margin-top:8px">
-        <span class="tornasol"><a class="btn brillo" href="/agenda/">Ver próximos encuentros</a></span>
-        <a class="btn b-lc" href="/bitacora/">Leer la bitácora</a>
+        <span class="tornasol"><a class="btn brillo" href={u("/agenda/")}>Ver próximos encuentros</a></span>
+        <a class="btn b-lc" href={u("/bitacora/")}>Leer la bitácora</a>
       </div>
     </div>
   </section>

@@ -1,4 +1,5 @@
 ---
+import { u } from '../lib/rutas';
 // Suscripción al boletín (doble confirmación por correo, vía Brevo).
 interface Props { id: string; etiqueta?: string; compacto?: boolean }
 const { id, etiqueta = 'Recibe novedades en tu correo', compacto = false } = Astro.props;
@@ -10,5 +11,5 @@ const { id, etiqueta = 'Recibe novedades en tu correo', compacto = false } = Ast
     <button type="submit" class="btn b-crema">Suscribirme</button>
   </div>
   <div class="trampa" aria-hidden="true"><label>No llenar <input name="sitio" tabindex="-1" autocomplete="off" /></label></div>
-  <div class="chk" style="color:var(--texto-2)"><input id={`${id}-datos`} type="checkbox" style="accent-color:#CFA24E;width:24px;height:24px" /><label for={`${id}-datos`}>Acepto la <a href="/legal/datos/">política de tratamiento de datos</a>.</label></div>
+  <div class="chk" style="color:var(--texto-2)"><input id={`${id}-datos`} type="checkbox" style="accent-color:#CFA24E;width:24px;height:24px" /><label for={`${id}-datos`}>Acepto la <a href={u("/legal/datos/")}>política de tratamiento de datos</a>.</label></div>
 </form>

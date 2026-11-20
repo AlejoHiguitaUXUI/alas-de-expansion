@@ -1,4 +1,5 @@
 ---
+import { u } from '../lib/rutas';
 import Base from '../layouts/Base.astro';
 import { Image, Picture } from 'astro:assets';
 import BotonWa from '../components/BotonWa.astro';
@@ -108,7 +109,7 @@ const ELEGIMOS = [['El amor', 'sobre el miedo'], ['La escucha', 'sobre el juicio
       <p class="lbl">El horizonte que soñamos</p>
       <p class="d" style="font-size:clamp(32px,3.8vw,52px);line-height:1.12;max-width:1000px">Que quien llegue recuerde la belleza de estar vivo, la fuerza de la escucha y <span class="t2">la posibilidad de caminar con mayor conciencia</span></p>
       <div class="fila" style="justify-content:center">
-        <span class="tornasol"><a class="btn brillo btn-l" href="/experiencias/">Explorar experiencias</a></span>
+        <span class="tornasol"><a class="btn brillo btn-l" href={u("/experiencias/")}>Explorar experiencias</a></span>
         <BotonWa msg="Hola, quisiera conversar y conocer más sobre Alas de Expansión." clase="" />
       </div>
     </div>

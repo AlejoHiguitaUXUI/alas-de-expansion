@@ -1,3 +1,4 @@
+import { u } from '../lib/rutas';
 // Interacciones del sitio: cabecera, menú, pedido por WhatsApp, filtros, edad, avisos,
 // inscripción a encuentros y boletín. Sin dependencias.
 
@@ -185,7 +186,7 @@ document.addEventListener('click', (e) => {
 // Ficha de chicha abierta directamente: pide la edad al entrar
 if (document.body.querySelector('[data-pagina-edad]') && !edadOk()) {
   conEdad(() => {});
-  $$('[data-edad="no"]').forEach((b) => b.addEventListener('click', () => { location.href = '/productos/'; }, { once: true }));
+  $$('[data-edad="no"]').forEach((b) => b.addEventListener('click', () => { location.href = u('/productos/'); }, { once: true }));
 }
 
 // ---------- Pedido ----------
@@ -382,7 +383,7 @@ $$<HTMLFormElement>('form[data-boletin]').forEach((f) => f.addEventListener('sub
   if (chk && !chk.checked) { aviso('Acepta la política de datos para suscribirte.'); return; }
   const btn = $<HTMLButtonElement>('button[type=submit]', f); if (btn) btn.disabled = true;
   try {
-    const r = await fetch('/api/boletin', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ correo, sitio: ($<HTMLInputElement>('.trampa input', f)?.value || '') }) });
+    const r = await fetch(u('/api/boletin'), { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ correo, sitio: ($<HTMLInputElement>('.trampa input', f)?.value || '') }) });
     if (!r.ok) throw new Error(String(r.status));
     $('[data-sus-correo]')!.textContent = correo; volverA = btn; abrirHoja('suscripcion'); f.reset();
   } catch {
@@ -407,7 +408,7 @@ if (fIns) {
     const btn = $<HTMLButtonElement>('button[type=submit]', fIns)!; btn.disabled = true; btn.textContent = 'Enviando…';
     const ficha = fIns.dataset;
     try {
-      const r = await fetch('/api/inscripcion', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ encuentro: ficha.encuentro, nombre, celular, correo, acepta: true, sitio: d.sitio || '' }) });
+      const r = await fetch(u('/api/inscripcion'), { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ encuentro: ficha.encuentro, nombre, celular, correo, acepta: true, sitio: d.sitio || '' }) });
       const j = await r.json().catch(() => ({}));
       if (r.status === 409) { aviso(j.mensaje || 'Este encuentro ya no tiene cupos.'); return; }
       if (!r.ok) throw new Error(String(r.status));

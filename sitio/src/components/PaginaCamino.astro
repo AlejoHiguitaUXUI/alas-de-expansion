@@ -1,4 +1,5 @@
 ---
+import { u } from '../lib/rutas';
 // Página de un camino (experiencia): presentación, cómo es, próximos encuentros y lo práctico.
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
@@ -25,7 +26,7 @@ const msg = consulta
     <span class="estrella s" aria-hidden="true" style="left:30%;top:520px;animation-delay:1.4s"></span>
     <div class="wrap grid12" style="align-items:center">
       <div class="c7 stack g22">
-        <a class="enlace" href="/experiencias/" style="font-size:15px;color:var(--crema)">← Experiencias</a>
+        <a class="enlace" href={u("/experiencias/")} style="font-size:15px;color:var(--crema)">← Experiencias</a>
         <p class="lbl">{d.etiqueta}</p>
         <h1 class="d h-xxl">{d.nombre}</h1>
         <p class="p p-l" style="max-width:560px">{d.intro}</p>
@@ -98,7 +99,7 @@ const msg = consulta
   {!consulta && (
     <section id="fechas" class="sec bg-noche-bosque">
       <div class="wrap stack g28">
-        <div class="cabeza"><h2 class="d h-l">Próximas <span class="t2">fechas</span></h2><a class="btn b-lc" href="/agenda/">Ver agenda completa</a></div>
+        <div class="cabeza"><h2 class="d h-l">Próximas <span class="t2">fechas</span></h2><a class="btn b-lc" href={u("/agenda/")}>Ver agenda completa</a></div>
         <div class="cols-3" data-lista-fechas="camino">{encuentros.map((e) => <TarjetaEncuentro e={e} alto={460} />)}</div>
         <div class="stack g14" data-vacio-fechas="camino" hidden style="align-items:flex-start">
           <p class="p">Por ahora no hay fechas abiertas de este camino.</p>
