@@ -1,0 +1,6 @@
+---
+import { getEntry } from 'astro:content';
+import PaginaCamino from '../components/PaginaCamino.astro';
+const x = (await getEntry('experiencias', 'consultas'))!;
+---
+<PaginaCamino x={x} seccion="consultas" />

@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Mandala from '../components/Mandala.astro';
+---
+<Base titulo="Página no encontrada">
+  <section style="position:relative;overflow:hidden;min-height:100svh;display:flex;align-items:center;padding:140px 0;background:radial-gradient(100% 80% at 50% 40%,#2A2052 0%,#14122C 70%)">
+    <div aria-hidden="true" style="position:absolute;left:50%;top:50%;width:min(820px,130vw);aspect-ratio:1;translate:-50% -50%;opacity:.22"><Mandala id="m-404" size="100%" variante="anillo" grosor={1.2} clase="girar" /></div>
+    <span class="estrella" aria-hidden="true" style="left:22%;top:26%"></span>
+    <span class="estrella s" aria-hidden="true" style="left:74%;top:64%;animation-delay:1.8s"></span>
+    <div class="wrap stack g22" style="position:relative;align-items:center;text-align:center">
+      <p class="num" style="margin:0;font-size:clamp(110px,14vw,180px)">404</p>
+      <h1 class="d h-l" style="max-width:860px">Este sendero <span class="t2">no lleva a ningún lugar</span></h1>
+      <p class="p" style="max-width:520px">Puede que la página haya cambiado de lugar o que ya no exista. Volvamos a un camino conocido.</p>
+      <div class="fila" style="justify-content:center;margin-top:8px">
+        <span class="tornasol"><a class="btn brillo" href="/">Volver al inicio</a></span>
+        <a class="btn b-lc" href="/experiencias/">Ver experiencias</a>
+        <a class="btn b-lc" href="/productos/">Ver productos</a>
+      </div>
+    </div>
+  </section>
+</Base>

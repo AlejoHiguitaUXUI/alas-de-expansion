@@ -1,0 +1,60 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Desktop.dc.html": {
+      "expand": "fill",
+      "h": 8400,
+      "is_interactive": true,
+      "title": "Desktop · v2",
+      "w": 1440,
+      "x": 0,
+      "y": 964
+    },
+    "Main.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 40,
+      "title": "Celular · v2",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-17T16:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "noteOrder": [
+    "tareas",
+    "imagenes"
+  ],
+  "notes": {
+    "imagenes": {
+      "fill": "orange",
+      "size": 24,
+      "text": "Imágenes generadas con IA, provisionales. Se reemplazan por fotos reales antes del lanzamiento (principio de autenticidad).",
+      "w": 380,
+      "x": 930,
+      "y": 0
+    },
+    "tareas": {
+      "fill": "purple",
+      "size": 24,
+      "text": "Tareas para probar (dale Play):\n1. Inscríbete al próximo círculo de palabra.\n2. Pide dos mermeladas y una miel para que te lleguen a casa.\n3. Averigua cómo es una ceremonia y qué necesitas para participar.\n4. Agenda una lectura de tarot.\n\nCada botón de WhatsApp muestra el mensaje que se abriría.",
+      "w": 380,
+      "x": 470,
+      "y": 0
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Desktop.dc.html"
+  ],
+  "pages": [],
+  "title": "Alas de Expansión — Prototipo"
+}

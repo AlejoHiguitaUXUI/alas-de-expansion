@@ -1,0 +1,13 @@
+tema: "Encuentros e inscripción"
+orden: 1
+preguntas:
+  - pregunta: "¿Cómo me inscribo a un encuentro?"
+    respuesta: "Elige el encuentro en la agenda y llena el formulario corto. Te escribimos por WhatsApp con los detalles y, si tiene valor, con los datos de pago. Tu cupo queda confirmado cuando te avisamos."
+  - pregunta: "¿Necesito experiencia previa?"
+    respuesta: "No para los círculos de palabra ni las meditaciones. Algunas ceremonias piden una conversación previa; cada encuentro lo indica."
+  - pregunta: "¿Qué debo llevar?"
+    respuesta: "Cada encuentro dice qué llevar. En general: ropa cómoda, abrigo, agua y disposición para el silencio."
+  - pregunta: "¿Hay edad mínima?"
+    respuesta: "Depende del encuentro y siempre se indica en su página. [EDAD MÍNIMA POR TIPO DE ENCUENTRO]"
+  - pregunta: "¿Los encuentros son presenciales?"
+    respuesta: "La mayoría son presenciales en Medellín. [CONFIRMAR SI HABRÁ ENCUENTROS O LECTURAS VIRTUALES]"

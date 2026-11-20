@@ -1,0 +1,15 @@
+tema: "Productos y entregas"
+orden: 4
+preguntas:
+  - pregunta: "¿Cómo hago un pedido?"
+    respuesta: "Agrega los productos a tu pedido y envíalo por WhatsApp. Te confirmamos disponibilidad, total y forma de entrega."
+  - pregunta: "¿Hacen envíos?"
+    respuesta: "Sí: domicilio en Medellín y envío nacional por transportadora. [COSTOS Y TIEMPOS DE ENTREGA]"
+  - pregunta: "¿Por qué las chichas solo se entregan en Medellín?"
+    respuesta: "Son bebidas fermentadas con alcohol, solo para mayores de 18 años, y las transportadoras no suelen llevarlas."
+  - pregunta: "¿Las esencias se pueden consumir?"
+    respuesta: "No. Son para uso aromático o ambiental, y siempre las mantenemos separadas de los alimentos."
+  - pregunta: "¿Los alimentos tienen registro sanitario?"
+    respuesta: "El registro está en trámite. [CÓMO SE INFORMA MIENTRAS TANTO]"
+  - pregunta: "¿Puedo cambiar o devolver un producto?"
+    respuesta: "[POLÍTICA DE CAMBIOS Y DEVOLUCIONES]"

@@ -1,0 +1,12 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { urlExp } from '../lib/rutas';
+interface Props { x: CollectionEntry<'experiencias'>; titulo?: 'mayus' | 'display' }
+const { x, titulo = 'mayus' } = Astro.props;
+---
+<a class="camino press lift" href={urlExp(x.id)}>
+  <span class="naipe"><Image src={x.data.carta} alt="" widths={[240, 420]} sizes="(max-width: 640px) 44vw, 18vw" /></span>
+  {titulo === 'mayus' ? <span class="nombre">{x.data.nombre}</span> : <span class="d" style="font-size:22px">{x.data.nombre}</span>}
+  <span class="ps">{x.data.resumen}</span>
+</a>

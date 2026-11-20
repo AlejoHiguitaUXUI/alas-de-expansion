@@ -1,0 +1,43 @@
+---
+// Geometría sagrada en los tonos Crepúsculo. variante: flor (héroe) · semilla (sección) · anillo (leyes, 404)
+interface Props { id: string; size?: number | string; variante?: 'flor' | 'semilla' | 'anillo'; clase?: string; grosor?: number; trazo?: boolean }
+const { id, size = 520, variante = 'flor', clase = '', grosor = 1.6, trazo = false } = Astro.props;
+const sz = typeof size === 'number' ? `${size}` : size;
+const r60 = [[260, 200], [230, 252], [170, 252], [140, 200], [170, 148], [230, 148]];
+const r70 = [[270, 200], [235, 260.6], [165, 260.6], [130, 200], [165, 139.4], [235, 139.4]];
+const puntos = Array.from({ length: 12 }, (_, i) => {
+  const a = (i * Math.PI) / 6;
+  return [200 + 140 * Math.cos(a), 200 + 140 * Math.sin(a)];
+});
+---
+<svg class={clase} width={sz} height={sz} viewBox="0 0 400 400" aria-hidden="true">
+  <defs>
+    <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#CFA24E" /><stop offset=".35" stop-color="#E08A5A" /><stop offset=".65" stop-color="#9B5FB5" /><stop offset="1" stop-color="#6E9B8A" />
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke={`url(#${id})`} stroke-width={grosor} data-trazo={trazo ? '' : undefined} style={trazo ? 'stroke-dasharray:1200;stroke-dashoffset:1200' : undefined}>
+    {variante === 'flor' && (
+      <>
+        <circle cx="200" cy="200" r="180" /><circle cx="200" cy="200" r="168" /><circle cx="200" cy="200" r="120" /><circle cx="200" cy="200" r="60" />
+        {r60.map(([x, y]) => <circle cx={x} cy={y} r="60" />)}
+        <polygon points="200,20 355.9,290 44.1,290" /><polygon points="200,380 355.9,110 44.1,110" />
+      </>
+    )}
+    {variante === 'semilla' && (
+      <>
+        <circle cx="200" cy="200" r="190" /><circle cx="200" cy="200" r="150" /><circle cx="200" cy="200" r="60" />
+        {r60.map(([x, y]) => <circle cx={x} cy={y} r="60" />)}
+        <polygon points="200,10 334,66 390,200 334,334 200,390 66,334 10,200 66,66" /><polygon points="200,10 390,200 200,390 10,200" />
+        <polygon points="66,66 334,66 334,334 66,334" /><polygon points="200,50 330,275 70,275" /><polygon points="200,350 330,125 70,125" />
+      </>
+    )}
+    {variante === 'anillo' && (
+      <>
+        <circle cx="200" cy="200" r="190" /><circle cx="200" cy="200" r="140" /><circle cx="200" cy="200" r="70" />
+        {r70.map(([x, y]) => <circle cx={x} cy={y} r="70" />)}
+        {puntos.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="8" />)}
+      </>
+    )}
+  </g>
+</svg>

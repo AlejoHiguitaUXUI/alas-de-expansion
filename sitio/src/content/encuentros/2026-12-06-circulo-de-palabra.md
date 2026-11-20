@@ -1,0 +1,18 @@
+---
+titulo: "Círculo de palabra"
+experiencia: "circulos"
+fecha: "2026-12-06"
+hora: "[HORA]"
+lugar: "Medellín · [ZONA]"
+valor: "Aporte voluntario"
+cobro: "voluntario"
+estado: "Disponible"
+imagen: "../media/circulo.jpg"
+guia: "[NOMBRE DE QUIEN GUÍA]"
+descripcion: "Un espacio de escucha y expresión en el que la palabra circula con respeto, sin afán de corregir ni juzgar."
+desarrollo: "Abrimos con un momento de silencio, compartimos la palabra en ronda y cerramos con gratitud."
+llevar: "Ropa cómoda, agua y disposición para escuchar."
+cuidados: "La participación es voluntaria: puedes hacer preguntas, expresar límites o retirarte."
+edad: "Edad mínima: [EDAD] años."
+producto: "mermelada-artesanal"
+---

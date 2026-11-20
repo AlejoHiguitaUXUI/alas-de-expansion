@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Alas de Expansión · Prototipo celular v2</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#CFA24E}a:hover{color:#F5EDE1}
+.d{margin:0;font-family:'Marcellus SC',serif;font-weight:400;letter-spacing:.01em;line-height:1.04;color:#F5EDE1}
+.t2{color:#C9C0D9}
+.lbl{margin:0;font-size:12px;letter-spacing:.22em;font-weight:700;color:#E8C78A}
+.p{margin:0;font-size:16px;line-height:1.6;color:#E6DEEC}
+.ps{margin:0;font-size:14px;line-height:1.5;color:#C9C0D9}
+.btn{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border:0;border-radius:999px;font-family:'Figtree',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:transform 120ms ease-out}
+.btn:active{transform:scale(.97)}
+.b-crema{background:#F5EDE1;color:#1D1A2E}
+.b-noche{background:#1E1A3F;color:#F5EDE1}
+.b-terra{background:#A24A28;color:#F5EDE1}
+.b-lc{background:transparent;color:#F5EDE1;box-shadow:inset 0 0 0 1.5px rgba(245,237,225,.7)}
+.b-ln{background:transparent;color:#1E1A3F;box-shadow:inset 0 0 0 1.5px #1E1A3F}
+.press{transition:transform 120ms ease-out}
+.press:active{transform:scale(.97)}
+.glass{background:rgba(22,20,44,.42);-webkit-backdrop-filter:blur(22px) saturate(140%);backdrop-filter:blur(22px) saturate(140%);border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 20px 50px rgba(8,6,20,.35)}
+.img{position:relative;overflow:hidden;background-color:#1E1A3F;background-size:cover;background-position:center}
+.img-hero{background-image:url(/_blob/007f33ce74aff840bd1cfb6a68f1a43c);background-position:64% center}
+.img-circulo{background-image:url(/_blob/73d299cd448dfa25233f6e16cd44fe5f)}
+.img-caminata{background-image:url(/_blob/bacf87edd4dac9973d1f55e9ce28a105)}
+.img-ceremonia{background-image:url(/_blob/d828d8f671b5d06fae94f8b2d629ac18)}
+.img-cierre{background-image:url(/_blob/24b134b77557ac3d3f8afe953df8b4a5);background-position:center 60%}
+.img-tarot{background-image:url(/_blob/4cbda2d5a8833f357c6ad451a1c8b6dc)}
+.img-mermelada{background-image:url(/_blob/6babbf4fcf6555d33199ec25d8d7c5c5)}
+.img-miel{background-image:url(/_blob/29405f896c054bb88dc96085bb3f83f2)}
+.img-chicha{background-image:url(/_blob/61e2e1743461b776d3904c639daa17ea)}
+.img-esencia{background-image:url(/_blob/bfe82384f31f7a106b1ec5a83f087282)}
+.img-objeto{background-image:url(/_blob/6e990d9ff8be59fa95f8a88c1d5d2914)}
+.orn{background:#12302A url(/_blob/5d183c660ec4f89130c1791f0e6291c8) center/cover no-repeat}
+.carta-colibri{background:#FBF6EE url(/_blob/63ba04b6d10860310392a15208cf9ac2) center/cover no-repeat}
+.carta-orquidea{background:#FBF6EE url(/_blob/d2751009a309dc8af20a702611734086) center/cover no-repeat}
+.carta-mariposa{background:#FBF6EE url(/_blob/cbf785f8e1bd39d535957d5e6def053f) center/cover no-repeat}
+.carta-frailejon{background:#FBF6EE url(/_blob/499a34ca774256fd9e0ed2be78c018f7) center/cover no-repeat}
+.carta{background:#FBF6EE;border-radius:20px;padding:8px;box-shadow:0 18px 40px rgba(4,10,8,.35)}
+.marco{border:1.5px solid #CFA24E;border-radius:13px;overflow:hidden}
+.oro{font-size:12px;letter-spacing:.14em;font-weight:700;color:#7A5C1C;text-transform:uppercase}
+.tile{padding:12px 14px;border-radius:16px;background:rgba(10,8,24,.38);border:1px solid rgba(255,255,255,.1)}
+.tile span{display:block}
+.bar{position:absolute;left:0;right:0;bottom:0;z-index:10;display:flex;gap:10px;padding:12px 16px 22px;background:rgba(18,16,40,.6);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);border-top:1px solid rgba(255,255,255,.1)}
+.inp{min-height:48px;padding:0 14px;border:1px solid #CDBFAE;border-radius:14px;background:#fff;color:#26203C;font-family:'Figtree',sans-serif;font-size:16px}
+.scroll{scrollbar-width:none}.scroll::-webkit-scrollbar{display:none}
+.chips{scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+input:focus-visible,button:focus-visible{outline:2px solid #CFA24E;outline-offset:2px}
+@keyframes tornasol{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+@keyframes halo{0%,100%{box-shadow:0 0 10px rgba(207,162,78,.12),0 0 24px rgba(123,63,142,.16)}50%{box-shadow:0 0 18px rgba(207,162,78,.3),0 0 40px rgba(123,63,142,.32)}}
+@keyframes brillo{0%{background-position:130% 0}55%,100%{background-position:-130% 0}}
+@keyframes aleteo{0%,100%{transform:scaleY(1)}50%{transform:scaleY(-.5)}}
+@keyframes titilar{0%,100%{opacity:.15}50%{opacity:1}}
+.tornasol{background:linear-gradient(115deg,#3A2460,#CFA24E,#7B3F8E,#B4552F,#34338A,#E8C78A,#2E5A48,#CFA24E);background-size:400% 400%;animation:tornasol 14s ease-in-out infinite alternate,halo 6s ease-in-out infinite}
+.tornasol:has(> .brillo){animation:none;background-size:300% 300%;background-position:var(--tx,0%) 50%;transition:box-shadow 300ms ease,background-position 400ms ease-out}
+.tornasol:has(> .brillo):active{box-shadow:0 0 18px rgba(207,162,78,.28),0 0 44px rgba(123,63,142,.3)}
+.brillo{position:relative;isolation:isolate;overflow:hidden;background:#CFA24E;color:#1D1A2E}
+.brillo::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:radial-gradient(circle 110px at var(--mx,50%) var(--my,50%),rgba(250,236,196,.95) 0%,rgba(233,169,137,.65) 28%,rgba(205,176,238,.5) 48%,rgba(159,176,240,.28) 64%,rgba(207,162,78,0) 80%);opacity:0;transition:opacity 220ms ease}
+.brillo:hover::before,.brillo:active::before{opacity:1}
+.ala{transform-box:fill-box;transform-origin:50% 100%;animation:aleteo 2.2s ease-in-out infinite}
+.estrella{animation:titilar 4.5s ease-in-out infinite}
+@keyframes pop{0%{transform:scale(.92);opacity:.6}60%{transform:scale(1.03);opacity:1}100%{transform:scale(1);opacity:1}}
+.pop{animation:pop 340ms cubic-bezier(.34,1.56,.64,1)}
+.voto{position:relative;display:grid;gap:28px;border-top:1px solid rgba(232,199,138,.2)}
+.voto:last-child{border-bottom:1px solid rgba(232,199,138,.2)}
+.voto::before{content:'';position:absolute;left:0;top:-1px;width:100%;height:1px;background:linear-gradient(90deg,#E8C78A,rgba(232,199,138,0));transform:scaleX(0);transform-origin:left;transition:transform 700ms cubic-bezier(.2,.8,.2,1)}
+.voto:hover::before{transform:scaleX(1)}
+.num{font-family:'Marcellus SC',serif;line-height:1;background:linear-gradient(160deg,#F3D9A0 0%,#CFA24E 45%,#9C6FB8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (prefers-reduced-motion: reduce){.voto::before{transition:none}}
+.tenue{color:#9A90B4}
+@keyframes revela{from{opacity:.12;transform:translate3d(0,36px,0)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){.revela{animation:revela linear both;animation-timeline:view();animation-range:entry 0% cover 38%}}
+@media (prefers-reduced-motion: reduce){.revela{animation:none !important}}
+.acc{display:grid;transition:grid-template-rows 360ms cubic-bezier(.2,.8,.2,1),opacity 260ms ease}
+.acc>div{overflow:hidden;min-height:0}
+.mas{transition:transform 300ms cubic-bezier(.34,1.56,.64,1)}
+.pq:hover .pqt{color:#F3D9A0}
+@media (prefers-reduced-motion: reduce){.acc,.mas{transition:none}}
+.hilo{transform-origin:top}
+@keyframes hilo{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@supports (animation-timeline: view()){.hilo{animation:hilo linear both;animation-timeline:view();animation-range:entry 30% cover 75%}}
+@media (prefers-reduced-motion: reduce){.hilo{animation:none !important}}
+.capital::first-letter{float:left;font-family:'Marcellus SC',serif;font-size:3.6em;line-height:.82;padding:8px 12px 0 0;color:#E8C78A}
+@media (prefers-reduced-motion: reduce){.pop{animation:none}}
+@media (prefers-reduced-motion: reduce){.tornasol,.brillo,.ala,.estrella{animation:none !important}.btn:active,.press:active{transform:none}}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #14122C; font-family: 'Figtree', sans-serif; color: #F5EDE1">
+
+<sc-if value="{{isInicio}}" hint-placeholder-val="{{true}}">
+<div class="scroll" onScroll="{{onScroll}}" style="position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden">
+
+<section class="img img-hero" style="height: 800px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 20px 28px; box-sizing: border-box">
+<div aria-hidden="true" style="position: absolute; left: -100px; top: 40px; width: 340px; height: 320px; border-radius: 50%; background: {{cA}}; filter: blur(70px); opacity: .45; mix-blend-mode: screen"></div>
+<div aria-hidden="true" style="position: absolute; right: -120px; top: 260px; width: 320px; height: 320px; border-radius: 50%; background: {{cB}}; filter: blur(70px); opacity: .4; mix-blend-mode: screen"></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,44,.15) 0%, rgba(20,18,44,0) 35%, rgba(20,18,44,.55) 70%, #14122C 100%)"></div>
+<span class="estrella" aria-hidden="true" style="position: absolute; left: 300px; top: 120px; width: 3px; height: 3px; border-radius: 50%; background: #F5EDE1"></span>
+<span class="estrella" aria-hidden="true" style="position: absolute; left: 70px; top: 170px; width: 2px; height: 2px; border-radius: 50%; background: #E8C78A; animation-delay: 1.4s"></span>
+<div aria-hidden="true" style="position: absolute; right: -140px; top: 90px; width: 320px; height: 320px; opacity: .8; transform: rotate({{rot}}deg)">
+<svg width="320" height="320" viewBox="0 0 400 400"><defs><linearGradient id="pm-a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#CFA24E"></stop><stop offset=".35" stop-color="#E08A5A"></stop><stop offset=".65" stop-color="#9B5FB5"></stop><stop offset="1" stop-color="#6E9B8A"></stop></linearGradient></defs><g fill="none" stroke="url(#pm-a)" stroke-width="1.6"><circle cx="200" cy="200" r="180"></circle><circle cx="200" cy="200" r="120"></circle><circle cx="200" cy="200" r="60"></circle><circle cx="260" cy="200" r="60"></circle><circle cx="230" cy="252" r="60"></circle><circle cx="170" cy="252" r="60"></circle><circle cx="140" cy="200" r="60"></circle><circle cx="170" cy="148" r="60"></circle><circle cx="230" cy="148" r="60"></circle><polygon points="200,20 355.9,290 44.1,290"></polygon><polygon points="200,380 355.9,110 44.1,110"></polygon></g></svg>
+</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 18px">
+<svg width="64" height="32" viewBox="0 0 80 40" aria-hidden="true"><g class="ala"><path d="M40 22 Q 22 2 2 10 Q 20 16 40 26 Z" fill="#CFA24E"></path></g><g class="ala"><path d="M40 22 Q 58 2 78 10 Q 60 16 40 26 Z" fill="#E08A5A"></path></g><ellipse cx="40" cy="25" rx="3" ry="6" fill="#F5EDE1"></ellipse></svg>
+<h1 class="d" style="font-size: 50px">Expande tu conciencia, <span class="t2">expande tu ser</span></h1>
+<p class="p" style="font-size: 17px">Un espacio para hacer una pausa, escucharte y reconectar con la naturaleza y la comunidad.</p>
+<button type="button" class="press glass" onClick="{{openPrimero}}" style="display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px; border-radius: 24px; text-align: left; color: #F5EDE1; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="img img-circulo" aria-hidden="true" style="flex-shrink: 0; width: 64px; height: 64px; border-radius: 16px"></span>
+<span style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0"><span class="lbl" style="font-size: 11px">PRÓXIMO ENCUENTRO</span><span style="font-family: 'Marcellus SC', serif; font-size: 18px">Círculo de palabra</span><span class="ps">[FECHA] · Aporte voluntario</span></span>
+<span aria-hidden="true" style="font-size: 20px; color: #E8C78A">→</span>
+</button>
+<div class="tornasol" style="padding: 2px; border-radius: 999px">
+<button type="button" class="btn brillo" onClick="{{waGeneral}}" style="width: 100%; min-height: 56px; font-size: 17px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>Conversemos por WhatsApp</button>
+</div>
+</div>
+</section>
+
+<section style="padding: 40px 20px 8px; display: flex; flex-direction: column; gap: 14px">
+<p class="lbl">QUÉ ES ALAS DE EXPANSIÓN</p>
+<p class="d" style="font-size: 30px; line-height: 1.12">Un camino de reconexión con la esencia, <span class="t2">la naturaleza y la memoria de la vida</span></p>
+<p class="p">Honramos los ciclos de la tierra, la palabra compartida y la memoria de los pueblos.</p>
+<button type="button" class="press" onClick="{{goEsencia}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: 0; background: transparent; color: #E8C78A; font-family: 'Figtree', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer">Conocer nuestra esencia →</button>
+</section>
+
+<section style="padding: 32px 0 8px; display: flex; flex-direction: column; gap: 16px">
+<div style="padding: 0 20px; display: flex; justify-content: space-between; align-items: flex-end">
+<h2 class="d" style="font-size: 34px">Próximos <span class="t2">encuentros</span></h2>
+<button type="button" class="press" onClick="{{goAgenda}}" style="min-height: 44px; padding: 0; border: 0; background: transparent; color: #E8C78A; font-family: 'Figtree', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer">Agenda</button>
+</div>
+<div class="chips" style="display: flex; gap: 14px; overflow-x: auto; padding: 0 20px 6px; scroll-snap-type: x mandatory">
+<sc-for list="{{encAll}}" as="e" hint-placeholder-count="3">
+<button type="button" class="press" onClick="{{e.open}}" style="position: relative; flex-shrink: 0; width: 290px; min-height: 400px; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; border: 0; border-radius: 28px; overflow: hidden; background: #1E1A3F; text-align: left; color: #F5EDE1; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="img {{e.img}}" aria-hidden="true" style="position: absolute; inset: 0"></span>
+<span aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,44,0) 35%, rgba(20,18,44,.6) 100%)"></span>
+<span class="glass" style="display: flex; flex-direction: column; gap: 6px; position: relative; padding: 16px; border-radius: 20px">
+<span class="lbl" style="font-size: 11px">{{e.tipo}}</span>
+<span style="font-family: 'Marcellus SC', serif; font-size: 22px; line-height: 1.15">{{e.nombre}}</span>
+<span class="ps">{{e.fecha}} · {{e.valor}}</span>
+<span style="align-self: flex-start; margin-top: 6px; padding: 9px 18px; border-radius: 999px; background: #F5EDE1; color: #1D1A2E; font-size: 14px; font-weight: 600">Ver encuentro</span>
+</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<section style="padding: 36px 0 8px; display: flex; flex-direction: column; gap: 16px; background: linear-gradient(180deg, #14122C 0%, #0F241F 100%)">
+<div style="padding: 0 20px; display: flex; flex-direction: column; gap: 8px">
+<h2 class="d" style="font-size: 34px">Caminos</h2>
+<p class="ps">Cinco formas de hacer una pausa. Toca una carta.</p>
+</div>
+<div class="chips" style="display: flex; gap: 14px; overflow-x: auto; padding: 4px 20px 10px">
+<sc-for list="{{caminos}}" as="c" hint-placeholder-count="5">
+<button type="button" class="press" onClick="{{c.go}}" style="flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; align-items: center; width: 150px; padding: 0; border: 0; background: transparent; color: #F5EDE1; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="{{c.carta}}" style="display: block; width: 150px; height: 200px; border-radius: 12px; box-shadow: 0 16px 30px rgba(0,0,0,.35)"></span>
+<span style="font-size: 12px; letter-spacing: .14em; font-weight: 700; color: #E8C78A; text-align: center">{{c.nombre}}</span>
+</button>
+</sc-for>
+</div>
+</section>
+
+<section style="padding: 36px 20px 16px; display: flex; flex-direction: column; gap: 16px; background: #0F241F">
+<h2 class="d" style="font-size: 34px">De la tierra <span class="t2">a tu mesa</span></h2>
+<p class="ps">Preparaciones y objetos hechos a mano, con todo lo que contienen a la vista.</p>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<sc-for list="{{prodDest}}" as="p" hint-placeholder-count="4">
+<div class="carta" style="display: flex; flex-direction: column; gap: 8px">
+<button type="button" class="press marco img {{p.img}}" onClick="{{p.open}}" aria-label="Ver {{p.nombre}}" style="height: 150px; padding: 0; cursor: pointer; color: #F5EDE1; font-family: 'Figtree', sans-serif; font-size: 11px"><sc-if value="{{p.agot}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 999px; background: rgba(20,18,44,.82); color: #F5EDE1; font-size: 11px; font-weight: 700; letter-spacing: .14em">AGOTADO</span></sc-if></button>
+<span class="oro" style="text-align: center">{{p.nombre}}</span>
+<span style="font-size: 14px; color: #3A3450; text-align: center">{{p.precio}}</span>
+<sc-if value="{{p.fuera}}" hint-placeholder-val="{{true}}"><button type="button" class="btn b-terra" onClick="{{p.add}}" style="width: 100%; min-height: 44px; font-size: 15px">Agregar</button></sc-if>
+<sc-if value="{{p.dentro}}" hint-placeholder-val="{{false}}"><div class="pop" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; border-radius: 999px; background: #1E1A3F; color: #F5EDE1"><button type="button" class="press" onClick="{{p.menos}}" aria-label="Quitar uno de {{p.nombre}}" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F5EDE1; font-size: 20px; cursor: pointer">−</button><span aria-live="polite" style="font-size: 15px; font-weight: 700">{{p.cant}}</span><button type="button" class="press" onClick="{{p.mas}}" aria-label="Agregar otro {{p.nombre}}" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F5EDE1; font-size: 20px; cursor: pointer">+</button></div></sc-if>
+<sc-if value="{{p.agot}}" hint-placeholder-val="{{false}}"><button type="button" class="btn b-ln" onClick="{{p.avisar}}" style="width: 100%; min-height: 44px; font-size: 15px;">Avísame</button></sc-if>
+</div>
+</sc-for>
+</div>
+<button type="button" class="btn b-lc" onClick="{{goCatalogo}}" style="width: 100%">Ver todos los productos</button>
+</section>
+
+<section aria-labelledby="b-compromiso" style="padding: 44px 20px 48px; display: flex; flex-direction: column; gap: 14px; background: #0F241F">
+<span class="lbl">NUESTRO COMPROMISO</span>
+<h2 id="b-compromiso" class="d" style="font-size: 30px">Cuidamos el camino <span class="t2">que compartimos</span></h2>
+<p class="p">Lo que hacemos toca lo más íntimo de cada persona. Estos son los acuerdos con los que acompañamos cada encuentro y cada producto.</p>
+<ol style="margin: 8px 0 0; padding: 0; list-style: none">
+<li class="voto" style="grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding: 20px 0"><span class="num" aria-hidden="true" style="font-size: 30px">I</span><div style="display: flex; flex-direction: column; gap: 6px"><h3 class="d" style="font-size: 19px">Honramos el origen</h3><p class="ps">Contamos de dónde viene cada práctica y a quién pertenece, sin apropiarnos de los saberes de otros pueblos.</p></div></li>
+<li class="voto" style="grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding: 20px 0"><span class="num" aria-hidden="true" style="font-size: 30px">II</span><div style="display: flex; flex-direction: column; gap: 6px"><h3 class="d" style="font-size: 19px">Tú decides</h3><p class="ps">Participas libremente, con información clara antes de cada encuentro y con tu consentimiento. Puedes preguntar, poner límites o retirarte.</p></div></li>
+<li class="voto" style="grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding: 20px 0"><span class="num" aria-hidden="true" style="font-size: 30px">III</span><div style="display: flex; flex-direction: column; gap: 6px"><h3 class="d" style="font-size: 19px">Acompañamos, no prometemos</h3><p class="ps">No ofrecemos curaciones ni resultados espirituales garantizados. Cada proceso es tuyo.</p></div></li>
+<li class="voto" style="grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding: 20px 0"><span class="num" aria-hidden="true" style="font-size: 30px">IV</span><div style="display: flex; flex-direction: column; gap: 6px"><h3 class="d" style="font-size: 19px">Tu salud va primero</h3><p class="ps">Nuestras prácticas no reemplazan diagnósticos ni tratamientos médicos o psicológicos.</p></div></li>
+</ol>
+<button type="button" class="press" onClick="{{goPreguntas}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: 0; background: transparent; color: #E8C78A; font-family: 'Figtree', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer">Preguntas frecuentes y cuidado →</button>
+</section>
+
+<section class="img img-cierre" style="padding: 260px 16px 24px">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, #0F241F 0%, rgba(15,36,31,0) 25%, rgba(20,18,44,0) 55%, rgba(20,18,44,.6) 100%)"></div>
+<div class="glass" style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 28px">
+<h2 class="d" style="font-size: 32px">Cada camino tiene <span class="t2">su propio ritmo</span></h2>
+<p class="p">Escríbenos y conversemos sobre el encuentro o el producto que te llama.</p>
+<div class="tornasol" style="padding: 2px; border-radius: 999px"><button type="button" class="btn brillo" onClick="{{waGeneral}}" style="width: 100%; min-height: 54px">Conversemos por WhatsApp</button></div>
+<label for="b-correo" style="margin-top: 6px; font-size: 15px; font-weight: 600">Recibe novedades en tu correo</label>
+<input id="b-correo" type="email" autocomplete="email" placeholder="tu@correo.com" style="min-height: 48px; padding: 0 14px; border: 1px solid rgba(237,227,240,.4); border-radius: 14px; background: rgba(245,237,225,.08); color: #F5EDE1; font-family: 'Figtree', sans-serif; font-size: 16px">
+<div style="display: flex; gap: 10px; align-items: flex-start"><input id="b-datos" type="checkbox" style="width: 22px; height: 22px; margin: 0; accent-color: #CFA24E; flex-shrink: 0"><label for="b-datos" class="ps">Acepto la política de tratamiento de datos.</label></div>
+<button type="button" class="btn b-lc" onClick="{{suscribir}}">Suscribirme</button>
+</div>
+</section>
+
+<footer style="padding: 28px 20px 110px; display: flex; flex-direction: column; gap: 8px; background: #14122C">
+<span class="d" style="font-size: 18px; letter-spacing: .12em">ALAS DE EXPANSIÓN</span>
+<span class="ps">Medellín, Colombia</span>
+<div style="display: flex; flex-direction: column; gap: 0; margin-top: 6px"><button type="button" class="press ps" onClick="{{goPreguntas}}" style="align-self: flex-start; padding: 0; border: 0; background: transparent; font-family: 'Figtree', sans-serif; text-align: left; cursor: pointer; min-height: 40px">Preguntas frecuentes y cuidado</button><button type="button" class="press ps" onClick="{{goDatos}}" style="align-self: flex-start; padding: 0; border: 0; background: transparent; font-family: 'Figtree', sans-serif; text-align: left; cursor: pointer; min-height: 40px">Política de datos</button><button type="button" class="press ps" onClick="{{goTerminos}}" style="align-self: flex-start; padding: 0; border: 0; background: transparent; font-family: 'Figtree', sans-serif; text-align: left; cursor: pointer; min-height: 40px">Términos y condiciones</button><button type="button" class="press ps" onClick="{{goEnvios}}" style="align-self: flex-start; padding: 0; border: 0; background: transparent; font-family: 'Figtree', sans-serif; text-align: left; cursor: pointer; min-height: 40px">Envíos y devoluciones</button><button type="button" class="press ps" onClick="{{goParticipacion}}" style="align-self: flex-start; padding: 0; border: 0; background: transparent; font-family: 'Figtree', sans-serif; text-align: left; cursor: pointer; min-height: 40px">Condiciones de participación</button><button type="button" class="press ps" onClick="{{go404}}" style="align-self: flex-start; padding: 0; border: 0; background: transparent; font-family: 'Figtree', sans-serif; text-align: left; cursor: pointer; opacity: .7; min-height: 40px">Página 404 (demo)</button></div>
+</footer>
+</div>
+</sc-if>
+
+<sc-if value="{{isAgenda}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 84px 20px 110px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<h1 class="d" style="font-size: 46px">Agenda</h1>
+<p class="ps">Próximos encuentros en Medellín y sus alrededores.</p>
+<div class="chips" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px 2px">
+<sc-for list="{{agFilters}}" as="f" hint-placeholder-count="4">
+<button type="button" class="press" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="flex-shrink: 0; min-height: 40px; padding: 0 16px; border: 1px solid {{f.bd}}; border-radius: 999px; background: {{f.bg}}; color: {{f.fg}}; font-family: 'Figtree', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer">{{f.label}}</button>
+</sc-for>
+</div>
+<sc-for list="{{encFiltered}}" as="e" hint-placeholder-count="3">
+<button type="button" class="press" onClick="{{e.open}}" style="position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 320px; padding: 10px; border: 0; border-radius: 28px; overflow: hidden; background: #1E1A3F; text-align: left; color: #F5EDE1; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="img {{e.img}}" aria-hidden="true" style="position: absolute; inset: 0"></span>
+<span aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,44,0) 35%, rgba(20,18,44,.6) 100%)"></span>
+<span class="glass" style="display: flex; flex-direction: column; gap: 6px; position: relative; padding: 16px; border-radius: 20px">
+<span class="lbl" style="font-size: 11px">{{e.tipo}}</span>
+<span style="font-family: 'Marcellus SC', serif; font-size: 22px">{{e.nombre}}</span>
+<span class="ps">{{e.fecha}} · {{e.valor}} · {{e.estado}}</span>
+</span>
+</button>
+</sc-for>
+<div style="padding: 18px; border: 1px dashed rgba(201,192,217,.4); border-radius: 20px" class="ps">Memoria del camino: aquí quedarán los encuentros que ya se realizaron.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isEsencia}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding-bottom: 110px; background: #14122C">
+<section class="img img-caminata" style="min-height: 560px; display: flex; align-items: flex-end; padding: 0 20px 36px; box-sizing: border-box">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,44,.35) 0%, rgba(20,18,44,0) 30%, rgba(20,18,44,.7) 70%, #14122C 100%)"></div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 14px">
+<p class="lbl">NUESTRA ESENCIA</p>
+<h1 class="d" style="font-size: 40px">Una semilla al servicio de <span class="t2">una humanidad más consciente</span></h1>
+<p class="p">Un camino de reconexión con la esencia, la naturaleza y la memoria de la vida.</p>
+</div>
+</section>
+
+<section style="padding: 36px 20px; display: flex; flex-direction: column; gap: 16px">
+<p class="lbl">DE DÓNDE NACEMOS</p>
+<h2 class="d" style="font-size: 30px">Una pausa para <span class="t2">volver a escucharse</span></h2>
+<p class="p" style="color: #F5EDE1">Alas de Expansión nace de la intención de abrir un espacio donde cada persona pueda hacer una pausa, volver a escucharse y recordar el vínculo que la une con su corazón, con la naturaleza, con los demás seres y con el misterio de la existencia.</p>
+<p class="ps">Integramos el autoconocimiento, la contemplación, la espiritualidad, la sabiduría ancestral y la naturaleza como maestra. Acompañamos desde el respeto, la sensibilidad y la presencia.</p>
+<p class="ps" style="padding-left: 14px; border-left: 2px solid #CFA24E">[HISTORIA DEL PROYECTO: cuándo y cómo empezó, quiénes lo iniciaron y qué los movió a hacerlo.]</p>
+</section>
+
+<section style="padding: 52px 20px; display: flex; flex-direction: column; gap: 14px; text-align: center; background: linear-gradient(180deg, #14122C 0%, #1E1A3F 50%, #14122C 100%)">
+<p class="lbl">LO QUE ELEGIMOS</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px">
+<li class="d revela" style="font-size: 34px; line-height: 1.08">El amor <span class="tenue">sobre el miedo</span></li>
+<li class="d revela" style="font-size: 34px; line-height: 1.08">La escucha <span class="tenue">sobre el juicio</span></li>
+<li class="d revela" style="font-size: 34px; line-height: 1.08">La cooperación <span class="tenue">sobre la separación</span></li>
+<li class="d revela" style="font-size: 34px; line-height: 1.08">El cuidado <span class="tenue">sobre la indiferencia</span></li>
+</ul>
+<p class="ps" style="margin-top: 10px">No pretendemos ofrecer verdades únicas ni caminos iguales para todos. Cada quien se acerca a su propia verdad, con libertad y responsabilidad.</p>
+</section>
+
+<section style="padding: 40px 0; display: flex; flex-direction: column; gap: 16px; background: #0F241F">
+<div style="padding: 0 20px; display: flex; flex-direction: column; gap: 14px">
+<p class="lbl">EL NOMBRE Y SUS SÍMBOLOS</p>
+<h2 class="d" style="font-size: 30px">Por qué <span class="t2">Alas de Expansión</span></h2>
+<p class="ps">La expansión comienza en el interior y se refleja en cómo cuidamos, sentimos, pensamos y compartimos la vida. Las alas son la posibilidad de elevarse y mirar con perspectiva, sin perder la raíz.</p>
+</div>
+<div class="scroll" style="display: flex; gap: 16px; overflow-x: auto; padding: 14px 20px 8px; scroll-snap-type: x mandatory">
+<sc-for list="{{simbolos}}" as="y" hint-placeholder-count="4">
+<div style="flex: 0 0 200px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 10px">
+<div style="transform: rotate({{y.rot}})"><span class="{{y.carta}}" aria-hidden="true" style="display: block; aspect-ratio: 3 / 4; border-radius: 12px; box-shadow: 0 16px 30px rgba(0,0,0,.4)"></span></div>
+<h3 class="d" style="font-size: 20px; margin-top: 6px">{{y.nombre}}</h3>
+<p class="ps">{{y.sig}}</p>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="padding: 40px 20px; display: flex; flex-direction: column; gap: 8px">
+<p class="lbl">PRINCIPIOS</p>
+<h2 class="d" style="font-size: 30px; margin-bottom: 8px">Lo que guía <span class="t2">cada paso</span></h2>
+<div>
+<sc-for list="{{principios}}" as="r" hint-placeholder-count="6">
+<div class="voto" style="display: flex; flex-direction: column; gap: 6px; padding: 18px 0"><h3 class="d" style="font-size: 19px">{{r.t}}</h3><p class="ps">{{r.d}}</p></div>
+</sc-for>
+</div>
+</section>
+
+<section style="padding: 28px 20px 44px; display: flex; flex-direction: column; gap: 14px">
+<div class="tornasol" style="padding: 2px; border-radius: 999px 999px 22px 22px"><div class="img img-circulo" role="img" aria-label="Foto provisional" style="aspect-ratio: 4 / 5; border-radius: 999px 999px 20px 20px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 16px; box-sizing: border-box"><span class="tile ps" style="position: relative">[FOTO REAL DE QUIEN GUÍA]</span></div></div>
+<p class="lbl" style="margin-top: 10px">QUIÉN ACOMPAÑA</p>
+<h2 class="d" style="font-size: 28px">[NOMBRE DE <span class="t2">QUIEN GUÍA]</span></h2>
+<p class="ps">[Una historia breve en primera persona: su formación, las tradiciones con las que ha caminado y de quién aprendió, sus años de práctica y por qué abrió este espacio.]</p>
+</section>
+
+<section class="img img-cierre" style="padding: 240px 20px 32px">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, #14122C 0%, rgba(20,18,44,0) 28%, rgba(20,18,44,.2) 55%, rgba(20,18,44,.85) 100%)"></div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 16px; text-align: center">
+<p class="lbl">EL HORIZONTE QUE SOÑAMOS</p>
+<p class="d" style="font-size: 26px; line-height: 1.16">Que quien llegue recuerde la belleza de estar vivo, la fuerza de la escucha y <span class="t2">la posibilidad de caminar con mayor conciencia</span></p>
+<div class="tornasol" style="padding: 2px; border-radius: 999px; margin-top: 6px"><button type="button" class="btn brillo" onClick="{{goExperiencias}}" style="width: 100%; min-height: 54px">Explorar experiencias</button></div>
+<button type="button" class="btn b-lc" onClick="{{waGeneral}}" style="width: 100%">Conversemos por WhatsApp</button>
+</div>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{isPreguntas}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 96px 0 120px; box-sizing: border-box; background: linear-gradient(180deg, #14122C 0%, #0F241F 100%)">
+<div style="padding: 0 20px; display: flex; flex-direction: column; gap: 14px">
+<p class="lbl">CUIDADO</p>
+<h1 class="d" style="font-size: 40px">Preguntas frecuentes <span class="t2">y cuidado</span></h1>
+<p class="ps">Lo que conviene saber antes de inscribirte a un encuentro o hacer un pedido.</p>
+</div>
+<div class="scroll" role="group" aria-label="Temas" style="display: flex; gap: 8px; overflow-x: auto; padding: 22px 20px 8px">
+<sc-for list="{{faqCats}}" as="c" hint-placeholder-count="5"><button type="button" class="press" onClick="{{c.pick}}" aria-pressed="{{c.on}}" style="flex-shrink: 0; min-height: 44px; padding: 0 16px; border: 1px solid {{c.bd}}; border-radius: 999px; background: {{c.bg}}; color: {{c.cfg}}; font-family: 'Figtree', sans-serif; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: background 200ms ease, color 200ms ease">{{c.label}}</button></sc-for>
+</div>
+<div style="padding: 10px 20px 0">
+<div style="border-bottom: 1px solid rgba(232,199,138,.2)">
+<sc-for list="{{faqItems}}" as="q" hint-placeholder-count="5">
+<div class="voto pq" style="display: block; border-bottom: 0">
+<h3 style="margin: 0"><button type="button" class="press" onClick="{{q.toggle}}" aria-expanded="{{q.exp}}" aria-controls="{{q.id}}" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; min-height: 56px; padding: 16px 0; border: 0; background: transparent; color: #F5EDE1; text-align: left; font-family: 'Marcellus SC', serif; font-size: 18px; line-height: 1.25; cursor: pointer"><span class="pqt" style="transition: color 200ms ease">{{q.q}}</span><span class="mas" aria-hidden="true" style="flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(232,199,138,.45); color: #E8C78A; font-family: 'Figtree', sans-serif; font-size: 22px; font-weight: 300; transform: rotate({{q.rot}})">+</span></button></h3>
+<div id="{{q.id}}" class="acc" role="region" style="grid-template-rows: {{q.rows}}; opacity: {{q.op}}"><div><p class="ps" style="padding: 0 56px 18px 0">{{q.a}}</p></div></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="padding: 32px 20px 0; display: flex; flex-direction: column; gap: 12px">
+<p class="ps">¿No encuentras tu respuesta?</p>
+<div class="tornasol" style="padding: 2px; border-radius: 999px"><button type="button" class="btn brillo" onClick="{{waGeneral}}" style="width: 100%; min-height: 54px">Escríbenos por WhatsApp</button></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isLeyes}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding-bottom: 120px; background: #14122C">
+<section style="position: relative; overflow: hidden; padding: 104px 20px 40px; display: flex; flex-direction: column; gap: 16px; background: radial-gradient(120% 80% at 80% 20%, #3A2460 0%, #1E1A3F 50%, #14122C 100%)">
+<div aria-hidden="true" style="position: absolute; right: -150px; top: 30px; opacity: .3"><svg class="girar" width="420" height="420" viewBox="0 0 400 400"><defs><linearGradient id="lu-m" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#CFA24E"></stop><stop offset=".5" stop-color="#9B5FB5"></stop><stop offset="1" stop-color="#6E9B8A"></stop></linearGradient></defs><g fill="none" stroke="url(#lu-m)" stroke-width="1.2"><circle cx="200" cy="200" r="190"></circle><circle cx="200" cy="200" r="140"></circle><circle cx="200" cy="200" r="70"></circle><circle cx="270.0" cy="200.0" r="70"></circle><circle cx="235.0" cy="260.6" r="70"></circle><circle cx="165.0" cy="260.6" r="70"></circle><circle cx="130.0" cy="200.0" r="70"></circle><circle cx="165.0" cy="139.4" r="70"></circle><circle cx="235.0" cy="139.4" r="70"></circle><circle cx="340.0" cy="200.0" r="8"></circle><circle cx="321.2" cy="270.0" r="8"></circle><circle cx="270.0" cy="321.2" r="8"></circle><circle cx="200.0" cy="340.0" r="8"></circle><circle cx="130.0" cy="321.2" r="8"></circle><circle cx="78.8" cy="270.0" r="8"></circle><circle cx="60.0" cy="200.0" r="8"></circle><circle cx="78.8" cy="130.0" r="8"></circle><circle cx="130.0" cy="78.8" r="8"></circle><circle cx="200.0" cy="60.0" r="8"></circle><circle cx="270.0" cy="78.8" r="8"></circle><circle cx="321.2" cy="130.0" r="8"></circle></g></svg></div>
+<div style="position: relative; align-self: flex-end; margin-right: 6px; transform: rotate(4deg)"><span class="carta-mariposa" aria-hidden="true" style="display: block; width: 150px; aspect-ratio: 3 / 4; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,.45)"></span></div>
+<p class="lbl" style="position: relative">EXPERIENCIAS · CAMINO</p>
+<h1 class="d" style="position: relative; font-size: 46px">Leyes <span class="t2">universales</span></h1>
+<p class="p" style="position: relative">Reflexión sobre principios espirituales y filosóficos, con gratitud, oración, intención e integración.</p>
+<div class="tornasol" style="position: relative; padding: 2px; border-radius: 999px; margin-top: 4px"><button type="button" class="btn brillo" onClick="{{waLeyes}}" style="width: 100%; min-height: 54px">Quiero participar</button></div>
+</section>
+
+<section style="padding: 36px 20px; display: flex; flex-direction: column; gap: 14px">
+<p class="d" style="font-size: 26px; line-height: 1.16">Cada persona participa <span class="t2">a su manera, desde su propia creencia</span></p>
+<p class="ps">No hace falta compartir una religión ni una doctrina. Se respeta la pluralidad de creencias y la libertad de participar, preguntar o simplemente escuchar.</p>
+<p class="ps" style="padding-left: 14px; border-left: 2px solid #CFA24E">[QUÉ LEYES O PRINCIPIOS SE TRABAJAN Y DE QUÉ TRADICIONES O AUTORES VIENEN]</p>
+</section>
+
+<section style="padding: 40px 20px 20px; display: flex; flex-direction: column; gap: 10px; background: linear-gradient(180deg, #14122C 0%, #1E1A3F 55%, #14122C 100%)">
+<p class="lbl">CÓMO ES UN ENCUENTRO</p>
+<h2 class="d" style="font-size: 30px; margin-bottom: 18px">Cinco <span class="t2">movimientos</span></h2>
+<div style="position: relative"><span aria-hidden="true" style="position: absolute; left: 19px; top: 20px; bottom: 40px; width: 2px; background: rgba(232,199,138,.16)"><span class="hilo" style="position: absolute; inset: 0; background: linear-gradient(180deg, #F3D9A0, #CFA24E 50%, #9C6FB8)"></span></span>
+<ol style="margin: 0; padding: 0 0 0 60px; list-style: none">
+<sc-for list="{{movs}}" as="m" hint-placeholder-count="5">
+<li class="revela" style="position: relative; padding: 0 0 34px; display: flex; flex-direction: column; gap: 6px">
+<span aria-hidden="true" style="position: absolute; left: -60px; top: 0; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: #1A1736; box-shadow: inset 0 0 0 1.5px rgba(232,199,138,.6)"><span class="num" style="font-size: 15px">{{m.n}}</span></span>
+<h3 class="d" style="font-size: 22px; padding-top: 7px">{{m.t}}</h3>
+<p class="ps">{{m.d}}</p>
+</li>
+</sc-for>
+</ol>
+</div>
+</section>
+
+<section style="padding: 36px 20px 40px; display: flex; flex-direction: column; gap: 12px; background: #0F241F">
+<p class="lbl">ANTES DE VENIR</p>
+<h2 class="d" style="font-size: 30px">Lo <span class="t2">práctico</span></h2>
+<dl style="margin: 4px 0 0; border-bottom: 1px solid rgba(232,199,138,.2)">
+<sc-for list="{{leyesFicha}}" as="f" hint-placeholder-count="4"><div class="voto" style="grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 16px 0; border-bottom: 0"><dt class="lbl" style="font-size: 11px">{{f.k}}</dt><dd class="ps" style="margin: 0; color: #F5EDE1">{{f.v}}</dd></div></sc-for>
+</dl>
+<p class="ps" style="margin-top: 6px">Te confirmamos fecha, hora y lugar por WhatsApp al inscribirte. Trae algo para escribir y, si quieres, un objeto que tenga significado para ti.</p>
+<div class="tornasol" style="padding: 2px; border-radius: 999px; margin-top: 6px"><button type="button" class="btn brillo" onClick="{{waLeyes}}" style="width: 100%; min-height: 54px">Conversemos por WhatsApp</button></div>
+<button type="button" class="btn b-lc" onClick="{{goAgenda}}" style="width: 100%">Ver agenda</button>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{isLegal}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 96px 0 120px; box-sizing: border-box; background: linear-gradient(180deg, #14122C 0%, #171433 100%)">
+<div class="scroll" role="group" aria-label="Documentos legales" style="display: flex; gap: 8px; overflow-x: auto; padding: 0 20px 18px">
+<sc-for list="{{legalDocs}}" as="c" hint-placeholder-count="4"><button type="button" class="press" onClick="{{c.pick}}" aria-current="{{c.on}}" style="flex-shrink: 0; min-height: 44px; padding: 0 16px; border: 1px solid {{c.bd}}; border-radius: 999px; background: {{c.bg}}; color: {{c.cfg}}; font-family: 'Figtree', sans-serif; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: background 200ms ease, color 200ms ease">{{c.label}}</button></sc-for>
+</div>
+<article style="padding: 0 20px; display: flex; flex-direction: column; gap: 12px">
+<p class="lbl" style="color: #E8A27A; font-size: 11px">BORRADOR · DEBE REVISARLO UN ABOGADO</p>
+<h1 class="d" style="font-size: 34px; line-height: 1.08">{{legal.nombre}}</h1>
+<p class="p">{{legal.intro}}</p>
+<p class="ps">Última actualización: [FECHA]</p>
+<ol style="margin: 12px 0 0; padding: 0; list-style: none; border-bottom: 1px solid rgba(232,199,138,.2)">
+<sc-for list="{{legal.secs}}" as="x" hint-placeholder-count="8"><li class="voto" style="grid-template-columns: 34px minmax(0, 1fr); gap: 12px; padding: 18px 0; border-bottom: 0"><span class="num" aria-hidden="true" style="font-size: 17px; padding-top: 2px">{{x.n}}</span><div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 19px">{{x.t}}</h2><p class="ps">{{x.p}}</p></div></li></sc-for>
+</ol>
+<p class="ps" style="margin-top: 12px">¿Dudas sobre estos documentos? Escríbenos a [CORREO].</p>
+</article>
+</div>
+</sc-if>
+
+<sc-if value="{{isBitacora}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 96px 0 120px; box-sizing: border-box; background: linear-gradient(180deg, #14122C 0%, #171433 60%, #0F241F 100%)">
+<div style="padding: 0 20px; display: flex; flex-direction: column; gap: 12px">
+<p class="lbl">SABIDURÍA Y BITÁCORA</p>
+<h1 class="d" style="font-size: 46px">Bitá<span class="t2">cora</span></h1>
+<p class="ps">Reflexiones, relatos, prácticas y saberes compartidos con respeto por sus fuentes.</p>
+</div>
+<div class="scroll" role="group" aria-label="Temas" style="display: flex; gap: 8px; overflow-x: auto; padding: 18px 20px 6px">
+<sc-for list="{{blogCats}}" as="f" hint-placeholder-count="5"><button type="button" class="press" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="flex-shrink: 0; min-height: 44px; padding: 0 16px; border: 1px solid {{f.bd}}; border-radius: 999px; background: {{f.bg}}; color: {{f.fg}}; font-family: 'Figtree', sans-serif; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer">{{f.label}}</button></sc-for>
+</div>
+<div style="padding: 14px 20px 0; display: flex; flex-direction: column">
+<button type="button" class="press" onClick="{{blogDest.open}}" style="display: flex; flex-direction: column; gap: 10px; padding: 0 0 22px; border: 0; background: transparent; color: #F5EDE1; text-align: left; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="img {{blogDest.img}}" aria-hidden="true" style="display: block; width: 100%; height: 230px; border-radius: 22px"></span>
+<span class="lbl" style="font-size: 11px; margin-top: 6px">{{blogDest.cat}} · {{blogDest.min}}</span>
+<span class="d" style="font-size: 28px; line-height: 1.1">{{blogDest.titulo}}</span>
+<span class="ps">{{blogDest.resumen}}</span>
+</button>
+<sc-for list="{{blogResto}}" as="a" hint-placeholder-count="5">
+<button type="button" class="press" onClick="{{a.open}}" style="display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border: 0; border-top: 1px solid rgba(232,199,138,.2); background: transparent; color: #F5EDE1; text-align: left; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="img {{a.img}}" aria-hidden="true" style="flex-shrink: 0; width: 96px; height: 116px; border-radius: 14px"></span>
+<span style="display: flex; flex-direction: column; gap: 6px; min-width: 0"><span class="lbl" style="font-size: 10px">{{a.cat}}</span><span class="d" style="font-size: 19px; line-height: 1.16">{{a.titulo}}</span><span class="ps" style="font-size: 13px; color: #9A90B4">{{a.min}}</span></span>
+</button>
+</sc-for>
+</div>
+<div style="margin: 24px 20px 0; padding-top: 24px; border-top: 1px solid rgba(232,199,138,.2); display: flex; flex-direction: column; gap: 12px">
+<h2 class="d" style="font-size: 26px">La bitácora <span class="t2">en tu correo</span></h2>
+<label for="blm-correo" class="ps">Un texto nuevo cada [FRECUENCIA], sin publicidad.</label>
+<input id="blm-correo" type="email" autocomplete="email" placeholder="tu@correo.com" style="min-height: 48px; padding: 0 14px; border: 1px solid rgba(237,227,240,.4); border-radius: 14px; background: rgba(245,237,225,.06); color: #F5EDE1; font-family: 'Figtree', sans-serif; font-size: 16px">
+<p class="ps" style="font-size: 13px">Al suscribirte aceptas la <button type="button" class="press" onClick="{{goDatos}}" style="padding: 0; border: 0; background: transparent; color: #E8C78A; font: inherit; text-decoration: underline; cursor: pointer">política de datos</button>.</p>
+<button type="button" class="btn b-crema" onClick="{{suscribir}}">Suscribirme</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isArticulo}}" hint-placeholder-val="{{false}}">
+<div class="scroll" data-art="1" style="position: absolute; inset: 0; overflow-y: auto; padding-bottom: 120px; background: #14122C">
+<section class="img {{art.img}}" style="min-height: 520px; display: flex; align-items: flex-end; padding: 0 20px 28px; box-sizing: border-box">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,44,.45) 0%, rgba(20,18,44,0) 30%, rgba(20,18,44,.75) 70%, #14122C 100%)"></div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 10px">
+<p class="lbl" style="font-size: 11px">{{art.cat}} · {{art.min}}</p>
+<h1 class="d" style="font-size: 34px; line-height: 1.08">{{art.titulo}}</h1>
+<p class="ps" style="color: #E6DEEC">[AUTOR] · [FECHA]</p>
+</div>
+</section>
+<article style="padding: 18px 20px 0; display: flex; flex-direction: column; gap: 18px">
+<p class="p capital" style="color: #F5EDE1">{{art.p1}}</p>
+<sc-for list="{{art.resto}}" as="r" hint-placeholder-count="3"><p class="p">{{r.t}}</p></sc-for>
+<blockquote style="margin: 8px 0; padding: 2px 0 2px 18px; border-left: 2px solid #CFA24E"><p class="d" style="font-size: 24px; line-height: 1.2">{{art.cita}}</p></blockquote>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 1px solid rgba(232,199,138,.2)"><h2 class="lbl" style="font-size: 11px">FUENTES Y CUIDADO</h2><p class="ps">{{art.fuentes}}</p></div>
+<button type="button" class="press" onClick="{{art.goExp}}" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 20px 0; border: 0; border-top: 1px solid rgba(232,199,138,.2); border-bottom: 1px solid rgba(232,199,138,.2); background: transparent; color: #F5EDE1; text-align: left; font-family: 'Figtree', sans-serif; cursor: pointer"><span style="display: flex; flex-direction: column; gap: 6px"><span class="lbl" style="font-size: 10px">VIVE ESTA PRÁCTICA · {{art.expTipo}}</span><span class="d" style="font-size: 21px">{{art.expNombre}}</span></span><span aria-hidden="true" style="font-size: 22px; color: #E8C78A">→</span></button>
+</article>
+<section style="padding: 36px 20px 0; display: flex; flex-direction: column">
+<h2 class="d" style="font-size: 26px; margin-bottom: 10px">Sigue <span class="t2">leyendo</span></h2>
+<sc-for list="{{artRel}}" as="a" hint-placeholder-count="3">
+<button type="button" class="press" onClick="{{a.open}}" style="display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border: 0; border-top: 1px solid rgba(232,199,138,.2); background: transparent; color: #F5EDE1; text-align: left; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="img {{a.img}}" aria-hidden="true" style="flex-shrink: 0; width: 96px; height: 116px; border-radius: 14px"></span>
+<span style="display: flex; flex-direction: column; gap: 6px; min-width: 0"><span class="lbl" style="font-size: 10px">{{a.cat}}</span><span class="d" style="font-size: 19px; line-height: 1.16">{{a.titulo}}</span><span class="ps" style="font-size: 13px; color: #9A90B4">{{a.min}}</span></span>
+</button>
+</sc-for>
+<button type="button" class="btn b-lc" onClick="{{goBitacora}}" style="width: 100%; margin-top: 16px">Ver toda la bitácora</button>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{isNoexiste}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 120px 24px 120px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; align-items: center; justify-content: center; text-align: center; background: radial-gradient(120% 70% at 50% 40%, #2A2052 0%, #14122C 75%)">
+<div aria-hidden="true" style="position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); opacity: .2"><svg class="girar" width="460" height="460" viewBox="0 0 400 400"><defs><linearGradient id="nf-m" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#CFA24E"></stop><stop offset=".5" stop-color="#9B5FB5"></stop><stop offset="1" stop-color="#6E9B8A"></stop></linearGradient></defs><g fill="none" stroke="url(#nf-m)" stroke-width="1.2"><circle cx="200" cy="200" r="190"></circle><circle cx="200" cy="200" r="140"></circle><circle cx="200" cy="200" r="70"></circle><circle cx="270.0" cy="200.0" r="70"></circle><circle cx="235.0" cy="260.6" r="70"></circle><circle cx="165.0" cy="260.6" r="70"></circle><circle cx="130.0" cy="200.0" r="70"></circle><circle cx="165.0" cy="139.4" r="70"></circle><circle cx="235.0" cy="139.4" r="70"></circle></g></svg></div>
+<p class="num" style="position: relative; margin: 0; font-size: 110px">404</p>
+<h1 class="d" style="position: relative; font-size: 34px">Este sendero <span class="t2">no lleva a ningún lugar</span></h1>
+<p class="ps" style="position: relative">Puede que la página haya cambiado de lugar o que ya no exista.</p>
+<div class="tornasol" style="position: relative; align-self: stretch; padding: 2px; border-radius: 999px; margin-top: 8px"><button type="button" class="btn brillo" onClick="{{goHome}}" style="width: 100%; min-height: 54px">Volver al inicio</button></div>
+<button type="button" class="btn b-lc" onClick="{{goExperiencias}}" style="position: relative; align-self: stretch">Ver experiencias</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isExperiencias}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 84px 20px 110px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; background: linear-gradient(180deg, #14122C, #0F241F)">
+<h1 class="d" style="font-size: 46px">Experien<span class="t2">cias</span></h1>
+<p class="ps">Cinco caminos para hacer una pausa y volver a escucharte.</p>
+<sc-for list="{{caminos}}" as="c" hint-placeholder-count="5">
+<button type="button" class="press glass" onClick="{{c.go}}" style="display: flex; align-items: center; gap: 14px; padding: 12px; border-radius: 22px; text-align: left; color: #F5EDE1; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="{{c.carta}}" aria-hidden="true" style="flex-shrink: 0; width: 66px; height: 88px; border-radius: 8px"></span>
+<span style="display: flex; flex-direction: column; gap: 4px; flex: 1"><span style="font-family: 'Marcellus SC', serif; font-size: 19px">{{c.nombre}}</span><span class="ps">{{c.desc}}</span></span>
+<span aria-hidden="true" style="font-size: 20px; color: #E8C78A">→</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{isEncuentro}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding-bottom: 120px">
+<div class="img {{enc.img}}" role="img" aria-label="Imagen provisional del encuentro" style="height: 460px">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,44,.2) 0%, rgba(20,18,44,0) 40%, #14122C 100%)"></div>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 16px; display: flex; flex-direction: column; gap: 10px">
+<p class="lbl">{{enc.tipo}}</p>
+<h1 class="d" style="font-size: 44px">{{enc.nombre}}</h1>
+</div>
+</div>
+<div style="padding: 8px 20px 0; display: flex; flex-direction: column; gap: 20px">
+<p class="ps">Un encuentro de Alas de Expansión, Medellín</p>
+<div class="glass" style="padding: 12px; border-radius: 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<div class="tile"><span class="ps" style="font-size: 12px">Fecha</span><span style="font-size: 15px; font-weight: 600">{{enc.fecha}}</span></div>
+<div class="tile"><span class="ps" style="font-size: 12px">Lugar</span><span style="font-size: 15px; font-weight: 600">{{enc.lugar}}</span></div>
+<div class="tile"><span class="ps" style="font-size: 12px">Valor</span><span style="font-size: 15px; font-weight: 600">{{enc.valor}}</span></div>
+<div class="tile"><span class="ps" style="font-size: 12px">Estado</span><span style="font-size: 15px; font-weight: 600; color: #E8C78A">{{enc.estado}}</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Qué es</h2><p class="p">{{enc.desc}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Cómo se desarrolla</h2><p class="p">{{enc.desarrollo}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Quién guía</h2><p class="p">{{enc.guia}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Qué llevar</h2><p class="p">{{enc.llevar}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Cuidados y condiciones</h2><p class="p">{{enc.cuidados}} {{enc.edad}}</p></div>
+<div class="glass" style="padding: 16px; border-radius: 20px; display: flex; flex-direction: column; gap: 6px"><p style="margin: 0; font-weight: 600">¿Qué pasa si no puedo asistir?</p><p class="ps">[POLÍTICA DE CANCELACIÓN Y REPROGRAMACIÓN]</p></div>
+<button type="button" class="press carta" onClick="{{goMermelada}}" style="display: flex; align-items: center; gap: 12px; border: 0; text-align: left; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="marco img img-mermelada" aria-hidden="true" style="flex-shrink: 0; width: 64px; height: 64px"></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span class="oro">Para llevar a casa</span><span style="font-family: 'Marcellus SC', serif; font-size: 17px; color: #1E1A3F">Mermelada artesanal</span></span>
+</button>
+</div>
+</div>
+<div class="bar">
+<button type="button" class="btn b-lc" onClick="{{waEncPregunta}}" style="flex: 1">Tengo una pregunta</button>
+<button type="button" class="btn b-crema" onClick="{{openForm}}" style="flex: 1">Inscribirme</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isCeremonia}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding-bottom: 120px">
+<div class="img img-ceremonia" role="img" aria-label="Imagen provisional de la ceremonia" style="height: 460px">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,44,.2) 0%, rgba(20,18,44,0) 40%, #14122C 100%)"></div>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 16px; display: flex; flex-direction: column; gap: 10px">
+<p class="lbl">{{enc.tipo}}</p>
+<h1 class="d" style="font-size: 40px">Ceremonia de <span class="t2">inspiración ancestral</span></h1>
+</div>
+</div>
+<div style="padding: 8px 20px 0; display: flex; flex-direction: column; gap: 20px">
+<div class="glass" style="padding: 12px; border-radius: 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<div class="tile"><span class="ps" style="font-size: 12px">Fecha</span><span style="font-size: 15px; font-weight: 600">{{enc.fecha}}</span></div>
+<div class="tile"><span class="ps" style="font-size: 12px">Lugar</span><span style="font-size: 15px; font-weight: 600">{{enc.lugar}}</span></div>
+</div>
+<div class="tornasol" style="padding: 2px; border-radius: 24px"><div style="background: #1E1A3F; border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><h2 class="d" style="font-size: 24px">Antes de participar</h2><p class="p">Cada ceremonia tiene una conversación previa, una ficha y un consentimiento que se hacen fuera de la web. La participación es voluntaria y puedes retirarte en cualquier momento.</p></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Qué es</h2><p class="p">{{enc.desc}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Origen de la práctica</h2><p class="p">[ORIGEN, TRADICIÓN Y SENTIDO DE LA PRÁCTICA]</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Quién guía</h2><p class="p">{{enc.guia}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Cuidados</h2><p class="p">{{enc.cuidados}}</p></div>
+</div>
+</div>
+<div class="bar"><div class="tornasol" style="flex: 1; padding: 2px; border-radius: 999px"><button type="button" class="btn brillo" onClick="{{waCeremonia}}" style="width: 100%; font-size: 17px">Conversemos por WhatsApp</button></div></div>
+</sc-if>
+
+<sc-if value="{{isCatalogo}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 84px 20px 110px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; background: #0F241F">
+<h1 class="d" style="font-size: 46px">Produc<span class="t2">tos</span></h1>
+<p class="ps">Hechos a mano. Arma tu pedido y lo cerramos juntos por WhatsApp.</p>
+<div class="chips" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px 2px">
+<sc-for list="{{cats}}" as="f" hint-placeholder-count="6">
+<button type="button" class="press" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="flex-shrink: 0; min-height: 40px; padding: 0 16px; border: 1px solid {{f.bd}}; border-radius: 999px; background: {{f.bg}}; color: {{f.fg}}; font-family: 'Figtree', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer">{{f.label}}</button>
+</sc-for>
+</div>
+<sc-if value="{{catIntro.on}}" hint-placeholder-val="{{false}}"><div class="pop" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid rgba(232,199,138,.2); border-bottom: 1px solid rgba(232,199,138,.2)"><div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px"><h2 class="d" style="font-size: 24px">{{catIntro.titulo}}</h2><span class="ps" style="font-size: 13px">{{catIntro.n}}</span></div><p class="ps">{{catIntro.desc}}</p></div></sc-if>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<sc-for list="{{prodFiltered}}" as="p" hint-placeholder-count="4">
+<div class="carta" style="display: flex; flex-direction: column; gap: 8px">
+<button type="button" class="press marco img {{p.img}}" onClick="{{p.open}}" aria-label="Ver {{p.nombre}}" style="height: 160px; padding: 0; cursor: pointer; color: #F5EDE1; font-family: 'Figtree', sans-serif; font-size: 11px"><sc-if value="{{p.agot}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 999px; background: rgba(20,18,44,.82); color: #F5EDE1; font-size: 11px; font-weight: 700; letter-spacing: .14em">AGOTADO</span></sc-if></button>
+<span class="oro" style="text-align: center">{{p.nombre}}</span>
+<span style="font-size: 14px; color: #3A3450; text-align: center">{{p.precio}}</span>
+<sc-if value="{{p.fuera}}" hint-placeholder-val="{{true}}"><button type="button" class="btn b-terra" onClick="{{p.add}}" style="width: 100%; min-height: 44px; font-size: 15px">Agregar</button></sc-if>
+<sc-if value="{{p.dentro}}" hint-placeholder-val="{{false}}"><div class="pop" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; border-radius: 999px; background: #1E1A3F; color: #F5EDE1"><button type="button" class="press" onClick="{{p.menos}}" aria-label="Quitar uno de {{p.nombre}}" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F5EDE1; font-size: 20px; cursor: pointer">−</button><span aria-live="polite" style="font-size: 15px; font-weight: 700">{{p.cant}}</span><button type="button" class="press" onClick="{{p.mas}}" aria-label="Agregar otro {{p.nombre}}" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F5EDE1; font-size: 20px; cursor: pointer">+</button></div></sc-if>
+<sc-if value="{{p.agot}}" hint-placeholder-val="{{false}}"><button type="button" class="btn b-ln" onClick="{{p.avisar}}" style="width: 100%; min-height: 44px; font-size: 15px;">Avísame</button></sc-if>
+</div>
+</sc-for>
+</div>
+<p class="ps">El costo del envío se confirma por WhatsApp. Entregamos a domicilio en Medellín y enviamos a todo el país.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{isProducto}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 80px 0 120px; background: #0F241F">
+<div style="padding: 0 36px"><div class="carta"><div class="marco img {{prod.img}}" role="img" aria-label="Imagen provisional del producto" style="height: 380px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 16px; box-sizing: border-box; color: #F5EDE1; font-size: 12px"></div><p class="oro" style="margin: 10px 0 4px; text-align: center">{{prod.catLabel}}</p></div></div>
+<div style="padding: 24px 20px 0; display: flex; flex-direction: column; gap: 18px">
+<h1 class="d" style="font-size: 40px">{{prod.nombre}}</h1>
+<p class="p" style="font-size: 18px">{{prod.precio}} · {{prod.pres}}</p>
+<sc-if value="{{prodHasAdv}}" hint-placeholder-val="{{false}}"><div class="glass" style="padding: 14px 16px; border-radius: 16px; border-color: rgba(232,199,138,.5)"><p class="p" style="font-size: 15px">{{prod.adv}}</p></div></sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Cómo te llega</h2><p class="p">{{prod.entrega}} El costo del envío se confirma por WhatsApp.</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Su historia</h2><p class="p">{{prod.hist}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">{{prod.ingrTitulo}}</h2><p class="p">{{prod.ingr}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">{{prod.consTitulo}}</h2><p class="p">{{prod.cons}}</p></div>
+<sc-if value="{{prod.isFood}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 6px"><h2 class="d" style="font-size: 24px">Registro sanitario</h2><p class="p">[REGISTRO SANITARIO, EN TRÁMITE]</p></div></sc-if>
+<button type="button" class="press glass" onClick="{{goCirculo}}" style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 20px; text-align: left; color: #F5EDE1; font-family: 'Figtree', sans-serif; cursor: pointer">
+<span class="img img-circulo" aria-hidden="true" style="flex-shrink: 0; width: 64px; height: 64px; border-radius: 14px"></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span class="lbl" style="font-size: 11px">TAMBIÉN TE PUEDE INTERESAR</span><span style="font-family: 'Marcellus SC', serif; font-size: 17px">Círculo de palabra</span></span>
+</button>
+</div>
+</div>
+<sc-if value="{{prodDisp}}" hint-placeholder-val="{{true}}">
+<div class="bar" style="align-items: center">
+<div style="display: flex; align-items: center; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(245,237,225,.4)">
+<button type="button" class="press" onClick="{{decQty}}" aria-label="Quitar uno" style="width: 44px; height: 50px; border: 0; background: transparent; color: #F5EDE1; font-size: 22px; cursor: pointer">−</button>
+<span aria-live="polite" style="min-width: 22px; text-align: center; font-size: 17px; font-weight: 600">{{qty}}</span>
+<button type="button" class="press" onClick="{{incQty}}" aria-label="Agregar uno" style="width: 44px; height: 50px; border: 0; background: transparent; color: #F5EDE1; font-size: 22px; cursor: pointer">+</button>
+</div>
+<button type="button" class="btn b-crema" onClick="{{addProd}}" style="flex: 1">Agregar a mi pedido</button>
+</div>
+</sc-if>
+<sc-if value="{{prodAgot}}" hint-placeholder-val="{{false}}"><div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: 1px solid rgba(232,199,138,.25); border-bottom: 1px solid rgba(232,199,138,.25)"><p class="lbl" style="font-size: 11px; color: #E8A27A">AGOTADO POR AHORA</p><p class="ps">Esta pieza se hace a mano y volverá pronto. Te avisamos por WhatsApp apenas esté disponible.</p><button type="button" class="btn b-crema" onClick="{{avisarProd}}">Avísame cuando vuelva</button></div></sc-if>
+</sc-if>
+
+<sc-if value="{{isConsulta}}" hint-placeholder-val="{{false}}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; padding-bottom: 120px">
+<div class="img img-tarot" style="height: 440px">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,44,.3) 0%, rgba(20,18,44,.1) 40%, #14122C 100%)"></div>
+<div aria-hidden="true" style="position: absolute; left: 50%; top: 96px; width: 300px; height: 230px; margin-left: -150px">
+<span class="orn" style="position: absolute; left: 20px; top: 20px; width: 126px; height: 168px; border-radius: 10px; transform: rotate(-12deg); box-shadow: 0 16px 30px rgba(0,0,0,.4)"></span>
+<span class="orn" style="position: absolute; left: 160px; top: 20px; width: 126px; height: 168px; border-radius: 10px; transform: rotate(12deg); box-shadow: 0 16px 30px rgba(0,0,0,.4)"></span>
+<span class="orn" style="position: absolute; left: 90px; top: 0; width: 126px; height: 168px; border-radius: 10px; box-shadow: 0 16px 30px rgba(0,0,0,.45)"></span>
+</div>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 16px; display: flex; flex-direction: column; gap: 10px"><p class="lbl">CONSULTA INDIVIDUAL</p><h1 class="d" style="font-size: 44px">Tarot <span class="t2">y oráculo</span></h1></div>
+</div>
+<div style="padding: 8px 20px 0; display: flex; flex-direction: column; gap: 20px">
+<p class="p">Un espacio de exploración simbólica y reflexión personal para formular preguntas y reconocer nuevas perspectivas.</p>
+<div style="display: flex; flex-direction: column; gap: 10px"><h2 class="d" style="font-size: 24px">¿Qué te gustaría?</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{tipos}}" as="t" hint-placeholder-count="3">
+<button type="button" class="press" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="min-height: 44px; padding: 0 16px; border: 1px solid {{t.bd}}; border-radius: 999px; background: {{t.bg}}; color: {{t.fg}}; font-family: 'Figtree', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer">{{t.label}}</button>
+</sc-for>
+</div></div>
+<div class="glass" style="padding: 18px; border-radius: 22px; display: flex; flex-direction: column; gap: 8px"><h2 class="d" style="font-size: 22px">Cómo se agenda</h2><p class="p">1. Toca «Agendar por WhatsApp».</p><p class="p">2. Acordamos contigo el horario y la modalidad.</p><p class="p">3. Te enviamos los datos de pago para confirmar.</p></div>
+<p class="ps">El tarot y el oráculo no predicen el futuro ni reemplazan decisiones personales, asesoría profesional o atención en salud.</p>
+</div>
+</div>
+<div class="bar"><div class="tornasol" style="flex: 1; padding: 2px; border-radius: 999px"><button type="button" class="btn brillo" onClick="{{waConsulta}}" style="width: 100%; font-size: 17px">Agendar por WhatsApp</button></div></div>
+</sc-if>
+
+<sc-if value="{{showFab}}" hint-placeholder-val="{{true}}">
+<div class="tornasol" style="position: absolute; right: 16px; bottom: 22px; z-index: 15; padding: 2px; border-radius: 50%">
+<button type="button" class="press brillo" onClick="{{waGeneral}}" aria-label="Conversemos por WhatsApp" style="width: 58px; height: 58px; border: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg></button>
+</div>
+</sc-if>
+
+<nav aria-label="Menú principal" class="img img-hero" style="position: absolute; inset: 0; z-index: 25; opacity: {{menuOp}}; pointer-events: {{menuPe}}; transform: scale({{menuScale}}); transform-origin: 92% 4%; transition: opacity 260ms ease, transform 420ms cubic-bezier(.32,.72,0,1)">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(16,14,36,.72)"></div>
+<div style="position: relative; height: 100%; padding: 88px 28px 32px; box-sizing: border-box; display: flex; flex-direction: column">
+<sc-for list="{{menuItems}}" as="m" hint-placeholder-count="6">
+<button type="button" class="press" onClick="{{m.go}}" aria-current="{{m.cur}}" style="min-height: 62px; padding: 0; border: 0; border-bottom: 1px solid rgba(237,227,240,.16); background: transparent; color: {{m.fg}}; text-align: left; font-family: 'Marcellus SC', serif; font-size: 30px; cursor: pointer">{{m.label}}</button>
+</sc-for>
+<div style="flex: 1"></div>
+<div class="tornasol" style="padding: 2px; border-radius: 999px"><button type="button" class="btn brillo" onClick="{{waGeneral}}" style="width: 100%; min-height: 54px; font-size: 17px">Conversemos por WhatsApp</button></div>
+<p class="ps" style="margin-top: 16px; text-align: center">Medellín · Colombia</p>
+</div>
+</nav>
+
+<header class="glass" style="position: absolute; left: 0; right: 0; top: 0; height: 60px; z-index: 26; display: flex; align-items: center; justify-content: space-between; padding: 0 6px 0 10px; border-width: 0 0 1px 0; border-radius: 0; background: {{hdrBg}}; box-shadow: none; transition: background 240ms ease">
+<sc-if value="{{showLogo}}" hint-placeholder-val="{{true}}"><span style="padding-left: 6px; font-family: 'Marcellus SC', serif; font-size: 15px; letter-spacing: .16em; color: #F5EDE1">ALAS DE EXPANSIÓN</span></sc-if>
+<sc-if value="{{showBack}}" hint-placeholder-val="{{false}}"><button type="button" class="press" onClick="{{back}}" aria-label="Volver" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F5EDE1; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button></sc-if>
+<div style="display: flex; align-items: center">
+<button type="button" class="press" data-q="carrito" onClick="{{openDrawer}}" aria-label="Abrir mi pedido" style="position: relative; width: 44px; height: 44px; border: 0; background: transparent; color: #F5EDE1; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg>
+<sc-if value="{{hasCart}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 999px; background: #CFA24E; color: #1D1A2E; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; transform: scale({{badgeScale}}); transition: transform 240ms cubic-bezier(.34,1.56,.64,1)">{{count}}</span></sc-if>
+</button>
+<button type="button" class="press" onClick="{{toggleMenu}}" aria-label="{{menuLabel}}" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F5EDE1; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<sc-if value="{{menu}}" hint-placeholder-val="{{false}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
+<sc-if value="{{menuClosed}}" hint-placeholder-val="{{true}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M8 15h12"></path></svg></sc-if>
+</button>
+</div>
+</header>
+
+<button type="button" onClick="{{closeAll}}" aria-label="Cerrar" tabindex="-1" style="position: absolute; inset: 0; z-index: 30; border: 0; padding: 0; background: rgba(10,8,24,.55); opacity: {{scrimOp}}; pointer-events: {{scrimPe}}; transition: opacity 300ms ease"></button>
+
+<aside aria-label="Tu pedido" style="position: absolute; top: 0; right: 0; bottom: 0; width: 344px; z-index: 31; background: #FBF6EE; color: #26203C; border-radius: 28px 0 0 28px; box-shadow: -20px 0 60px rgba(10,8,24,.35); transform: translateX({{drawerX}}); transition: transform 440ms cubic-bezier(.32,.72,0,1); display: flex; flex-direction: column">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 10px 8px 22px">
+<h2 style="margin: 0; font-family: 'Marcellus SC', serif; font-weight: 400; font-size: 28px; color: #1E1A3F">Tu pedido</h2>
+<button type="button" class="press" onClick="{{closeAll}}" aria-label="Cerrar pedido" style="width: 44px; height: 44px; border: 0; background: transparent; color: #1E1A3F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div class="scroll" style="flex: 1; overflow-y: auto; padding: 4px 22px 16px; display: flex; flex-direction: column; gap: 14px">
+<sc-if value="{{cartEmpty}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 30px; align-items: flex-start">
+<p style="margin: 0; font-size: 17px; line-height: 1.5">Tu pedido está vacío. Descubre los productos de la tierra.</p>
+<button type="button" class="btn b-terra" onClick="{{drawerToCatalogo}}">Ver productos</button>
+</div>
+</sc-if>
+<sc-if value="{{hasCart}}" hint-placeholder-val="{{false}}">
+<sc-for list="{{cartItems}}" as="i" hint-placeholder-count="2">
+<div style="display: flex; gap: 12px; align-items: center; padding-bottom: 14px; border-bottom: 1px solid #E6D9C8">
+<span class="img {{i.img}}" aria-hidden="true" style="flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px"></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: 'Marcellus SC', serif; font-size: 16px; color: #1E1A3F">{{i.nombre}}</span>
+<span style="font-size: 14px; color: #5E5670">{{i.precio}}</span>
+<button type="button" class="press" onClick="{{i.del}}" style="align-self: flex-start; min-height: 32px; padding: 0; border: 0; background: transparent; color: #A24A28; font-family: 'Figtree', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer">Quitar</button>
+</div>
+<div style="display: flex; align-items: center; border: 1px solid #CDBFAE; border-radius: 999px">
+<button type="button" class="press" onClick="{{i.dec}}" aria-label="Quitar uno" style="width: 40px; height: 44px; border: 0; background: transparent; color: #1E1A3F; font-size: 20px; cursor: pointer">−</button>
+<span style="min-width: 18px; text-align: center; font-weight: 600">{{i.qty}}</span>
+<button type="button" class="press" onClick="{{i.inc}}" aria-label="Agregar uno" style="width: 40px; height: 44px; border: 0; background: transparent; color: #1E1A3F; font-size: 20px; cursor: pointer">+</button>
+</div>
+</div>
+</sc-for>
+<div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 600"><span>Subtotal</span><span>[SUBTOTAL]</span></div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5E5670">El costo del envío se confirma por WhatsApp.</p>
+<label for="p-ciudad" style="font-size: 15px; font-weight: 600">Ciudad</label>
+<input id="p-ciudad" class="inp" type="text" autocomplete="address-level2" value="{{city}}" onChange="{{onCity}}" placeholder="Ej. Medellín">
+<span style="font-size: 15px; font-weight: 600">Entrega</span>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{entregas}}" as="o" hint-placeholder-count="2">
+<button type="button" class="press" onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 50px; padding: 0 16px; border: 1.5px solid {{o.bd}}; border-radius: 14px; background: {{o.bg}}; color: #26203C; text-align: left; font-family: 'Figtree', sans-serif; font-size: 16px; cursor: pointer">{{o.label}}</button>
+</sc-for>
+</div>
+<sc-if value="{{warnChicha}}" hint-placeholder-val="{{false}}"><p role="alert" style="margin: 0; padding: 12px 14px; border-radius: 14px; background: #F1E3C4; font-size: 14px; line-height: 1.5">Las chichas solo se entregan a domicilio en Medellín. Quítalas del pedido o cambia la entrega.</p></sc-if>
+</sc-if>
+</div>
+<sc-if value="{{hasCart}}" hint-placeholder-val="{{false}}"><div style="padding: 12px 22px 22px; border-top: 1px solid #E6D9C8"><button type="button" class="btn b-terra" onClick="{{sendPedido}}" style="width: 100%; min-height: 54px; font-size: 17px">Enviar pedido por WhatsApp</button></div></sc-if>
+</aside>
+
+<section aria-label="Panel" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 32; max-height: 88%; overflow-y: auto; background: #FBF6EE; color: #26203C; border-radius: 28px 28px 0 0; box-shadow: 0 -20px 60px rgba(10,8,24,.35); padding: 10px 20px 28px; box-sizing: border-box; transform: translateY({{sheetY}}); transition: transform 440ms cubic-bezier(.32,.72,0,1)">
+<div aria-hidden="true" style="width: 40px; height: 5px; border-radius: 3px; background: #DCCDBB; margin: 0 auto 16px"></div>
+<sc-if value="{{sForm}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<p class="oro" style="margin: 0">Inscripción</p>
+<h2 style="margin: 0; font-family: 'Marcellus SC', serif; font-weight: 400; font-size: 28px; line-height: 1.12; color: #1E1A3F">{{enc.nombre}}</h2>
+<p style="margin: 0; font-size: 15px; color: #5E5670">{{enc.fecha}} · {{enc.valor}}</p>
+<label for="f-nombre" style="font-size: 15px; font-weight: 600">Nombre</label><input id="f-nombre" class="inp" type="text" autocomplete="name">
+<label for="f-cel" style="font-size: 15px; font-weight: 600">Celular</label><input id="f-cel" class="inp" type="tel" autocomplete="tel">
+<label for="f-correo" style="font-size: 15px; font-weight: 600">Correo</label><input id="f-correo" class="inp" type="email" autocomplete="email">
+<div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 4px"><input id="f-datos" type="checkbox" style="width: 22px; height: 22px; margin: 0; accent-color: #4A2C6E; flex-shrink: 0"><label for="f-datos" style="font-size: 14px; line-height: 1.5">Autorizo el tratamiento de mis datos según la política de datos.</label></div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5E5670">{{enc.notaPago}}</p>
+<button type="button" class="btn b-noche" onClick="{{submitForm}}" style="min-height: 54px; font-size: 17px">Confirmar inscripción</button>
+</div>
+</sc-if>
+<sc-if value="{{sConfirm}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+<div class="tornasol" style="padding: 2px; border-radius: 50%"><div style="width: 60px; height: 60px; border-radius: 50%; background: #1E1A3F; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8C78A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div></div>
+<sc-if value="{{confirmPago}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 12px; width: 100%">
+<h2 style="margin: 0; font-family: 'Marcellus SC', serif; font-weight: 400; font-size: 28px; color: #1E1A3F">Recibimos tu inscripción</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.6">Para confirmar tu lugar, envía el comprobante de pago.</p>
+<div style="padding: 14px 16px; border-radius: 16px; background: #F5EDE1; border: 1px solid #DCCDBB; display: flex; flex-direction: column; gap: 6px; font-size: 15px"><span>Valor: {{enc.valor}}</span><span>Transferencia: [BANCO Y NÚMERO DE CUENTA]</span><span>Nequi: [NÚMERO]</span></div>
+<button type="button" class="btn b-noche" onClick="{{waComprobante}}" style="min-height: 54px">Enviar comprobante por WhatsApp</button>
+</div>
+</sc-if>
+<sc-if value="{{confirmGratis}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 12px; width: 100%">
+<h2 style="margin: 0; font-family: 'Marcellus SC', serif; font-weight: 400; font-size: 28px; color: #1E1A3F">Tu lugar está confirmado</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.6">Te enviamos los detalles a tu correo. El aporte es voluntario y se da en el lugar.</p>
+<button type="button" class="btn b-noche" onClick="{{waLugar}}" style="min-height: 54px">Pedir detalles del lugar</button>
+</div>
+</sc-if>
+<button type="button" class="btn" onClick="{{goHome}}" style="align-self: stretch; background: transparent; color: #A24A28">Volver al inicio</button>
+</div>
+</sc-if>
+<sc-if value="{{sWa}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<p class="oro" style="margin: 0">WhatsApp</p>
+<h2 style="margin: 0; font-family: 'Marcellus SC', serif; font-weight: 400; font-size: 28px; line-height: 1.12; color: #1E1A3F">Así se abrirá la conversación</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #5E5670">En el sitio real se abre WhatsApp con este mensaje ya escrito. Puedes editarlo antes de enviarlo.</p>
+<div style="align-self: flex-end; max-width: 92%; padding: 14px 16px; border-radius: 20px 20px 6px 20px; background: #E4DDF0; color: #1E1A3F; font-size: 16px; line-height: 1.5; white-space: pre-line">{{waMsg}}</div>
+<p style="margin: 0; font-size: 13px; color: #5E5670">Para: Alas de Expansión · [NÚMERO DE WHATSAPP]</p>
+<button type="button" class="btn b-noche" onClick="{{closeAll}}" style="min-height: 54px">Listo</button>
+</div>
+</sc-if>
+<sc-if value="{{sSus}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: #1E1A3F; color: #E8C78A; font-size: 24px">✉</span>
+<h2 style="margin: 0; font-family: 'Marcellus SC', serif; font-weight: 400; font-size: 28px; line-height: 1.1; color: #1E1A3F">Revisa tu correo</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6">Te enviamos un enlace a <strong>{{susCorreo}}</strong> para confirmar tu suscripción. Solo empezaremos a escribirte cuando lo confirmes.</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5E5670">Si no llega en unos minutos, revisa la carpeta de spam o de promociones.</p>
+<button type="button" class="btn b-noche" onClick="{{closeAll}}" style="width: 100%">Entendido</button>
+</div>
+</sc-if>
+<sc-if value="{{sAge}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Marcellus SC', serif; font-weight: 400; font-size: 28px; line-height: 1.12; color: #1E1A3F">Contenido para mayores de edad</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.6">Las chichas son bebidas fermentadas con alcohol. ¿Tienes 18 años o más?</p>
+<div style="display: flex; gap: 10px"><button type="button" class="btn b-ln" onClick="{{ageNo}}" style="flex: 1">No</button><button type="button" class="btn b-noche" onClick="{{ageYes}}" style="flex: 1.4">Sí, tengo 18 o más</button></div>
+<p style="margin: 0; font-size: 13px; color: #5E5670">El exceso de alcohol es perjudicial para la salud.</p>
+</div>
+</sc-if>
+</section>
+
+<span data-q="flyer" class="img" aria-hidden="true" style="position: absolute; left: 0; top: 0; z-index: 45; width: 64px; height: 64px; border-radius: 16px; opacity: 0; pointer-events: none; box-shadow: 0 12px 30px rgba(0,0,0,.45)"></span>
+
+<div role="status" class="glass" style="position: absolute; top: 68px; left: 12px; right: 12px; z-index: 27; padding: 12px; border-radius: 22px; background: rgba(251,246,238,.95); color: #26203C; border-color: rgba(255,255,255,.6); opacity: {{peekOp}}; pointer-events: {{peekPe}}; transform: translateY({{peekY}}) scale({{peekSc}}); transform-origin: top right; transition: opacity 240ms ease, transform 420ms cubic-bezier(.32,.72,0,1)">
+<div style="display: flex; gap: 12px; align-items: center"><span class="img {{peekImg}}" aria-hidden="true" style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px"></span><div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0"><span class="oro">Agregado a tu pedido</span><span style="font-family: 'Marcellus SC', serif; font-size: 17px; color: #1E1A3F">{{peekNombre}}</span><span style="font-size: 13px; color: #5E5670">{{peekCant}} de este producto · {{count}} en total</span></div></div>
+<div style="display: flex; gap: 8px; margin-top: 10px"><button type="button" class="btn b-ln" onClick="{{cerrarPeek}}" style="flex: 1; min-height: 44px; font-size: 15px">Seguir</button><button type="button" class="btn b-terra" onClick="{{verPedido}}" style="flex: 1; min-height: 44px; font-size: 15px">Ver pedido</button></div>
+</div>
+
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}"><div role="status" style="position: absolute; left: 50%; top: 72px; z-index: 40; transform: translateX(-50%); padding: 10px 16px; border-radius: 999px; background: #F5EDE1; color: #1D1A2E; font-size: 14px; font-weight: 600; white-space: nowrap; box-shadow: 0 10px 30px rgba(10,8,24,.4)">{{toast}}</div></sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { screen: 'inicio', hist: [], cart: {}, menu: false, drawer: false, sheetOpen: false, sheetType: 'wa', encId: 'circulo', prodId: 'mermelada', qty: 1, cat: 'todos', agFilter: 'todos', faqCat: 'encuentros', faqOpen: '', legalDoc: 'datos', blogCat: 'todas', artId: 'respiracion', ageOk: false, pending: null, city: '', entrega: 'medellin', waMsg: '', tipo: 'tarot', toast: '', st: 0, bump: false, confirmPago: false };
+}
+componentDidMount() {
+try { this._rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (err) { this._rm = false; }
+this._pm = (e) => {
+const b = e.target && e.target.closest ? e.target.closest('.brillo') : null;
+if (!b) { return; }
+const r = b.getBoundingClientRect();
+const x = e.clientX - r.left;
+b.style.setProperty('--mx', x + 'px');
+b.style.setProperty('--my', (e.clientY - r.top) + 'px');
+const ring = b.parentElement;
+if (ring && ring.classList.contains('tornasol')) { ring.style.setProperty('--tx', Math.round((x / Math.max(1, r.width)) * 100) + '%'); }
+};
+document.addEventListener('pointermove', this._pm, { passive: true });
+document.addEventListener('pointerdown', this._pm, { passive: true });
+}
+componentWillUnmount() { document.removeEventListener('pointermove', this._pm); document.removeEventListener('pointerdown', this._pm); }
+renderVals() {
+const s = this.state;
+const set = (o) => this.setState(o);
+const showToast = (t) => { set({ toast: t }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 2200); };
+const goObj = (screen, extra) => Object.assign({ screen: screen, hist: s.hist.concat([s.screen]), menu: false, st: 0 }, extra || {});
+const go = (screen, extra) => set(goObj(screen, extra));
+const openSheet = (type, extra) => set(Object.assign({ sheetOpen: true, sheetType: type, menu: false, drawer: false }, extra || {}));
+const wa = (msg) => openSheet('wa', { waMsg: msg });
+const SIMBOLOS = [
+{ carta: 'carta-colibri', nombre: 'Colibrí', sig: 'La alegría y la ligereza: tomar de cada experiencia lo que nutre.', rot: '-3deg' },
+{ carta: 'carta-orquidea', nombre: 'Orquídea', sig: 'La belleza que florece con paciencia y cuidado.', rot: '2deg' },
+{ carta: 'carta-frailejon', nombre: 'Frailejón', sig: 'Guardián del páramo y del agua: la vida que se sostiene con calma.', rot: '-2deg' },
+{ carta: 'carta-mariposa', nombre: 'Mariposa', sig: 'La transformación: cambiar de forma para abrir las alas.', rot: '3deg' }
+];
+const PRINCIPIOS = [
+{ t: 'Autenticidad', d: 'Contamos lo que realmente somos y hacemos, sin promesas exageradas ni afirmaciones que no podamos respaldar.' },
+{ t: 'Respeto ancestral', d: 'Reconocemos las raíces y procedencias de los saberes que compartimos, sin apropiarnos ni generalizar.' },
+{ t: 'Cuidado y consentimiento', d: 'Comunicamos con claridad los alcances, requisitos, riesgos y límites de cada experiencia.' },
+{ t: 'Inclusión', d: 'Recibimos a personas de distintas edades, historias, creencias y caminos espirituales.' },
+{ t: 'Transparencia', d: 'Informamos precios, disponibilidad, ingredientes, materiales, entregas y políticas.' },
+{ t: 'Protección de datos', d: 'Pedimos solo la información necesaria y explicamos cómo la usamos y la cuidamos.' }
+];
+const FAQ = [
+['encuentros', 'Encuentros e inscripción', [
+['¿Cómo me inscribo a un encuentro?', 'Elige el encuentro en la agenda y llena el formulario corto. Te escribimos por WhatsApp con los detalles y, si tiene valor, con los datos de pago. Tu cupo queda confirmado cuando te avisamos.'],
+['¿Necesito experiencia previa?', 'No para los círculos de palabra ni las meditaciones. Algunas ceremonias piden una conversación previa; cada encuentro lo indica.'],
+['¿Qué debo llevar?', 'Cada encuentro dice qué llevar. En general: ropa cómoda, abrigo, agua y disposición para el silencio.'],
+['¿Hay edad mínima?', 'Depende del encuentro y siempre se indica en su página. [EDAD MÍNIMA POR TIPO DE ENCUENTRO]'],
+['¿Los encuentros son presenciales?', 'La mayoría son presenciales en Medellín. [CONFIRMAR SI HABRÁ ENCUENTROS O LECTURAS VIRTUALES]']]],
+['ceremonias', 'Ceremonias y cuidado', [
+['¿Qué es una ceremonia de inspiración ancestral?', 'Un encuentro para cultivar la presencia, la gratitud y la intención, en vínculo respetuoso con la naturaleza. Contamos de qué tradición viene cada práctica, cuál es su sentido y cuáles son sus límites.'],
+['¿Se usan plantas en las ceremonias?', 'Algunas ceremonias incluyen plantas de origen ancestral, que no son alucinógenas ni ilícitas. Antes de inscribirte te contamos por WhatsApp cuáles son, cómo se usan y qué cuidados implican.'],
+['¿Hay contraindicaciones?', 'Algunas prácticas no se recomiendan en embarazo, con ciertos tratamientos o con algunas condiciones de salud. Antes de cada ceremonia conversamos contigo en privado; la web nunca te pide datos de salud.'],
+['¿Puedo retirarme si no me siento bien?', 'Sí. Participas libremente: puedes hacer preguntas, poner límites o retirarte en cualquier momento.'],
+['¿Esto reemplaza un tratamiento médico o psicológico?', 'No. Nuestras prácticas no reemplazan diagnósticos ni tratamientos. Si estás en tratamiento, no lo suspendas.']]],
+['pagos', 'Pagos y cancelaciones', [
+['¿Cómo pago un encuentro?', 'Por transferencia, Nequi o en efectivo en el lugar, según el encuentro. La web no cobra en línea.'],
+['¿Qué significa aporte voluntario?', 'Cada persona aporta lo que siente y puede. Algunos encuentros son gratuitos con inscripción y otros tienen un valor fijo; siempre lo verás en su página.'],
+['¿Puedo cancelar o cambiar de fecha?', '[POLÍTICA DE CANCELACIÓN: con cuánta anticipación se puede cancelar, y si se devuelve el dinero o se pasa a otra fecha.]'],
+['¿Cómo se paga una lectura de tarot?', 'Se agenda por WhatsApp y el valor se conversa al agendar. La lectura es una herramienta de reflexión, no una predicción del futuro.']]],
+['productos', 'Productos y entregas', [
+['¿Cómo hago un pedido?', 'Agrega los productos a tu pedido y envíalo por WhatsApp. Te confirmamos disponibilidad, total y forma de entrega.'],
+['¿Hacen envíos?', 'Sí: domicilio en Medellín y envío nacional por transportadora. [COSTOS Y TIEMPOS DE ENTREGA]'],
+['¿Por qué las chichas solo se entregan en Medellín?', 'Son bebidas fermentadas con alcohol, solo para mayores de 18 años, y las transportadoras no suelen llevarlas.'],
+['¿Las esencias se pueden consumir?', 'No. Son para uso aromático o ambiental, y siempre las mantenemos separadas de los alimentos.'],
+['¿Los alimentos tienen registro sanitario?', 'El registro está en trámite. [CÓMO SE INFORMA MIENTRAS TANTO]'],
+['¿Puedo cambiar o devolver un producto?', '[POLÍTICA DE CAMBIOS Y DEVOLUCIONES]']]],
+['datos', 'Tus datos', [
+['¿Qué datos me piden y para qué?', 'Solo lo necesario para inscribirte o enviarte un pedido: nombre, WhatsApp y ciudad. No pedimos datos de salud.'],
+['¿Me van a escribir con publicidad?', 'Solo si te suscribes al boletín, y puedes darte de baja cuando quieras.']]]
+];
+const MOVS = [
+{ n: 'I', t: 'Reflexión', d: 'Conversamos sobre un principio espiritual o filosófico y lo miramos desde la propia vida, sin dogmas.' },
+{ n: 'II', t: 'Gratitud', d: 'Reconocemos lo recibido: lo que nos sostiene, lo que nos enseña y lo que nos acompaña.' },
+{ n: 'III', t: 'Oración', d: 'Cada quien ora desde su tradición o creencia, o elige el silencio. Ninguna forma es la correcta.' },
+{ n: 'IV', t: 'Intención', d: 'Nombramos con conciencia hacia dónde queremos dirigir la atención y la energía.' },
+{ n: 'V', t: 'Integración', d: 'Llevamos lo vivido a lo cotidiano: un gesto, una práctica o una decisión para los días que siguen.' }
+];
+const LEYES_FICHA = [['Formato', '[ENCUENTRO ÚNICO O CICLO]'], ['Duración', '[DURACIÓN]'], ['Lugar', 'Medellín · [ZONA]'], ['Aporte', '[VALOR O APORTE VOLUNTARIO]']].map((x) => ({ k: x[0], v: x[1] }));
+const LEGAL = [
+{ id: 'datos', nombre: 'Política de tratamiento de datos', intro: 'Cómo recogemos, usamos y cuidamos tu información personal, de acuerdo con la Ley 1581 de 2012 y sus decretos reglamentarios.', secs: [
+['Quién es responsable', '[NOMBRE COMPLETO], persona natural identificada con [CÉDULA] y RUT [NÚMERO], que actúa bajo el nombre Alas de Expansión, con domicilio en Medellín, Colombia. Contacto: [CORREO] · WhatsApp [NÚMERO].'],
+['Qué datos recogemos', 'Solo los necesarios: nombre, número de WhatsApp y ciudad; la dirección cuando pides un envío, y tu correo si te suscribes al boletín. A través de la web no recogemos datos de salud ni otros datos sensibles.'],
+['Para qué los usamos', 'Para gestionar tu inscripción a un encuentro, coordinar pedidos y entregas, responder tus consultas y, solo si lo autorizas, enviarte el boletín.'],
+['Con quién los compartimos', 'No vendemos ni cedemos tus datos. Solo los compartimos con la transportadora que entrega tu pedido y con los servicios que usamos para operar: WhatsApp, el alojamiento del sitio y la herramienta del boletín.'],
+['Tus derechos', 'Puedes conocer, actualizar y rectificar tus datos; pedir prueba de tu autorización; saber cómo se han usado; revocar la autorización o pedir que se eliminen, y presentar quejas ante la Superintendencia de Industria y Comercio.'],
+['Cómo ejercerlos', 'Escríbenos a [CORREO]. Respondemos las consultas en máximo 10 días hábiles y los reclamos en máximo 15 días hábiles.'],
+['Cuánto tiempo los conservamos', '[PLAZO]. Mientras exista la relación contigo y lo exijan las obligaciones legales.'],
+['Vigencia', 'Esta política rige desde [FECHA] y la publicaremos aquí si cambia.']] },
+{ id: 'terminos', nombre: 'Términos y condiciones', intro: 'Las reglas de uso de este sitio y de los pedidos que haces a través de él.', secs: [
+['Sobre este sitio', 'Aquí encuentras información sobre las experiencias y los productos de Alas de Expansión. La web no recibe pagos: las inscripciones y los pedidos se confirman por WhatsApp.'],
+['Precios y disponibilidad', 'Los precios están en pesos colombianos (COP) y pueden cambiar. El valor que aplica es el que te confirmamos por WhatsApp, junto con la disponibilidad.'],
+['Cómo se cierra un pedido', 'Enviar tu pedido por WhatsApp es una solicitud. Queda en firme cuando confirmamos disponibilidad, total y entrega, y recibimos el pago.'],
+['Experiencias espirituales y de bienestar', 'Nuestras experiencias no reemplazan diagnósticos ni tratamientos de salud, y no garantizan curaciones ni resultados. El tarot y el oráculo son herramientas de reflexión, no predicciones.'],
+['Bebidas con alcohol', 'Las chichas son bebidas fermentadas y solo se venden a mayores de 18 años. Podemos pedir un documento de identidad al entregarlas.'],
+['Propiedad intelectual', 'Los textos, imágenes, ilustraciones y la marca Alas de Expansión pertenecen a sus autores. No se pueden usar sin permiso.'],
+['Ley aplicable', 'Estos términos se rigen por las leyes de Colombia, incluido el Estatuto del Consumidor (Ley 1480 de 2011).'],
+['Contacto', '[CORREO] · WhatsApp [NÚMERO] · Medellín, Colombia.']] },
+{ id: 'participacion', nombre: 'Condiciones de participación', intro: 'Los acuerdos que cuidan a cada persona y al grupo en nuestros encuentros.', secs: [
+['Inscripción y cupo', 'Te inscribes en la web, te enviamos los datos de pago por WhatsApp y, cuando recibimos el comprobante, confirmamos tu cupo. Los encuentros gratuitos solo requieren inscripción.'],
+['Información previa', 'Cada encuentro publica su propósito, desarrollo, qué llevar, cuidados y edad mínima. Si algo no está claro, pregúntanos antes de inscribirte.'],
+['Consentimiento', 'Las ceremonias incluyen una conversación previa y un consentimiento informado, que se hacen en persona o por WhatsApp, nunca a través de la web.'],
+['Tu libertad', 'Puedes hacer preguntas, poner límites o retirarte en cualquier momento. Quien guía también puede pedir a alguien que se retire si pone en riesgo su bienestar o el del grupo.'],
+['Tu salud', 'Cuéntanos en privado cualquier condición que debamos conocer. No suspendas tratamientos médicos o psicológicos: nuestras prácticas no los reemplazan.'],
+['Respeto y confidencialidad', 'Lo que se comparte en un círculo se queda en el círculo. No se toman fotos ni grabaciones sin el permiso de todas las personas.'],
+['Cancelaciones', '[POLÍTICA DE CANCELACIÓN]. Si somos nosotros quienes cancelamos, te devolvemos el dinero o te ofrecemos otra fecha.'],
+['Menores de edad', '[EDAD MÍNIMA POR TIPO DE ENCUENTRO]. Los menores participan solo con autorización y compañía de un adulto responsable.']] },
+{ id: 'envios', nombre: 'Envíos, cambios y devoluciones', intro: 'Cómo llegan tus productos y qué hacer si algo no está bien.', secs: [
+['Dónde entregamos', 'Domicilio en Medellín y envío nacional por transportadora. Las chichas solo se entregan a domicilio en Medellín.'],
+['Costos y tiempos', '[COSTO DEL DOMICILIO Y DEL ENVÍO NACIONAL] · [TIEMPOS DE ENTREGA]. Siempre te los confirmamos por WhatsApp antes de cerrar el pedido.'],
+['Al recibir tu pedido', 'Revísalo al recibirlo. Si algo llega dañado o no corresponde, escríbenos dentro de [PLAZO] con una foto y lo resolvemos.'],
+['Derecho de retracto', 'En las compras a distancia tienes 5 días hábiles desde la entrega para retractarte (artículo 47 de la Ley 1480 de 2011). No aplica a alimentos y bebidas perecederos ni a productos de uso personal.'],
+['Garantía', 'Si un producto tiene un defecto, te lo cambiamos o te devolvemos el dinero, según la garantía legal.'],
+['Devolución del dinero', 'Se hace por el mismo medio de pago, dentro de los 30 días calendario siguientes a la solicitud aceptada.']] }
+];
+const BLOG_CATS = [['todas', 'Todas'], ['practicas', 'Prácticas'], ['reflexiones', 'Reflexiones'], ['relatos', 'Relatos'], ['saberes', 'Saberes y fuentes']];
+const ART = [
+{ id: 'respiracion', img: 'img-caminata', cat: 'practicas', titulo: 'Tres minutos para volver a la respiración', resumen: 'Una práctica sencilla para hacer una pausa en medio del día, donde sea que estés.', min: '4 min', p1: 'No hace falta un lugar especial ni mucho tiempo. Basta con detenerte un momento y darte permiso de no hacer nada más que respirar.', resto: ['Siéntate con la espalda cómoda y los pies en el suelo. Cierra los ojos o deja la mirada suave, hacia abajo. Durante el primer minuto, solo observa cómo entra y sale el aire, sin cambiarlo.', 'En el segundo minuto, alarga un poco la exhalación. Si te ayuda, cuenta hasta cuatro al inhalar y hasta seis al exhalar. Si la mente se va, y se irá, vuelve sin juzgarte.', 'En el tercer minuto, lleva la atención a lo que sientes: el peso del cuerpo, los sonidos, la temperatura. Antes de abrir los ojos, nombra en silencio algo por lo que sientes gratitud.'], cita: 'La expansión comienza en el interior.', fuentes: 'La atención a la respiración está presente en muchas tradiciones contemplativas. Esta es una versión básica de uso general; si tienes alguna condición respiratoria, hazla a tu ritmo.', expTipo: 'MEDITACIÓN Y NATURALEZA', expNombre: 'Caminata consciente', exp: ['encuentro', { encId: 'caminata' }] },
+{ id: 'palabra', img: 'img-circulo', cat: 'reflexiones', titulo: 'La palabra como puente', resumen: 'Qué pasa cuando nos sentamos en círculo a escuchar sin corregir ni juzgar.', min: '5 min', p1: 'En un círculo de palabra no hay escenario. Todas las personas están a la misma altura y la palabra circula de una en una, con calma.', resto: ['Quien habla, habla desde su experiencia. Quien escucha, escucha sin preparar una respuesta. Parece poco, pero escuchar así es raro en la vida diaria.', 'Muchas veces lo que alguien comparte nombra algo que otra persona sentía y no sabía decir. Ahí la palabra se vuelve puente, memoria y posibilidad de encuentro.'], cita: 'La palabra se entiende como puente, memoria y posibilidad de encuentro.', fuentes: 'Los círculos de palabra son una forma de encuentro presente en muchas culturas. [ORIGEN O TRADICIÓN QUE INSPIRA NUESTROS CÍRCULOS]', expTipo: 'CÍRCULO DE PALABRA', expNombre: 'Círculo de palabra', exp: ['encuentro', { encId: 'circulo' }] },
+{ id: 'origen', img: 'img-ceremonia', cat: 'saberes', titulo: 'Por qué contamos de dónde viene cada práctica', resumen: 'Sobre honrar los saberes ancestrales sin apropiarnos de lo que pertenece a otros pueblos.', min: '6 min', p1: 'Muchas de las prácticas que compartimos vienen de pueblos que las han cuidado durante generaciones. Usarlas sin decir de dónde vienen es una forma de borrarlos.', resto: ['Por eso, cada vez que una experiencia incluye elementos de una tradición específica, contamos su contexto, su procedencia, su sentido y sus límites.', 'No presentamos como propio lo que no lo es. Y cuando no conocemos el origen de algo, lo decimos.'], cita: 'Honramos la memoria de los pueblos que han conservado prácticas de relación respetuosa con la vida.', fuentes: '[TRADICIONES Y COMUNIDADES CON LAS QUE SE HA APRENDIDO, Y CÓMO SE LES RECONOCE]', expTipo: 'CEREMONIA', expNombre: 'Ceremonia de inspiración ancestral', exp: ['ceremonia', { encId: 'ceremonia' }] },
+{ id: 'frutos', img: 'img-mermelada', cat: 'relatos', titulo: 'Lo que guarda un frasco de mermelada', resumen: 'Las estaciones, las manos y el tiempo que hay detrás de cada preparación.', min: '3 min', p1: '[RELATO EN PRIMERA PERSONA SOBRE CÓMO SE ELABORAN LAS MERMELADAS: de dónde vienen las frutas, quién las prepara y cuánto tarda.]', resto: ['Cada frasco cuenta lo que tiene adentro: ingredientes, fecha de elaboración y cómo conservarlo. La transparencia también es una forma de cuidado.'], cita: 'Que cada objeto cuente una historia honesta sobre su inspiración, sus materiales y su proceso.', fuentes: 'Relato de [QUIEN ELABORA LOS PRODUCTOS].', expTipo: 'PRODUCTO', expNombre: 'Mermelada artesanal', exp: ['producto', { prodId: 'mermelada', qty: 1 }] },
+{ id: 'tarot', img: 'img-tarot', cat: 'reflexiones', titulo: 'El tarot como pregunta, no como respuesta', resumen: 'Una herramienta para formular mejores preguntas, no para adivinar el futuro.', min: '4 min', p1: 'Una lectura de tarot no decide por ti. Ofrece imágenes y símbolos que ayudan a mirar una situación desde otro lugar.', resto: ['Por eso importa tanto la pregunta. «¿Qué va a pasar?» deja poco espacio. «¿Qué necesito ver de esta situación?» abre muchas puertas.', 'Lo que surja en una lectura es material para tu reflexión. Las decisiones siguen siendo tuyas, y una lectura no reemplaza una asesoría profesional ni la atención en salud.'], cita: 'Un recurso para formular preguntas y estimular el autoconocimiento.', fuentes: '[TIPO DE TAROT Y ORÁCULO QUE SE USA, Y SU ORIGEN]', expTipo: 'TAROT Y ORÁCULO', expNombre: 'Lectura de tarot', exp: ['consulta', {}] },
+{ id: 'ciclos', img: 'img-hero', cat: 'saberes', titulo: 'Honrar los ciclos de la Tierra', resumen: 'Lo que la naturaleza enseña sobre el descanso, la siembra y la cosecha.', min: '5 min', p1: 'La naturaleza no florece todo el año. Tiene tiempos para soltar, para descansar, para sembrar y para recoger.', resto: ['Nosotros también. Reconocer en qué momento estamos nos ayuda a ser más amables con nuestro propio ritmo.', '[REFLEXIÓN SOBRE LOS CICLOS LUNARES O ESTACIONALES QUE ACOMPAÑAN LOS ENCUENTROS]'], cita: 'Cada camino tiene su propio ritmo.', fuentes: '[FUENTES O TRADICIONES DE REFERENCIA]', expTipo: 'EXPERIENCIAS', expNombre: 'Los cinco caminos', exp: ['experiencias', {}] }
+];
+const CATN = { practicas: 'PRÁCTICAS', reflexiones: 'REFLEXIONES', relatos: 'RELATOS', saberes: 'SABERES Y FUENTES' };
+const CATDESC = { mermeladas: 'Frutas, hierbas y especias en combinaciones que evocan las estaciones y la riqueza de la tierra.', miel: 'Una celebración de la naturaleza, el trabajo artesanal y los saberes culinarios.', chichas: 'Bebidas fermentadas inspiradas en preparaciones tradicionales. Solo para mayores de 18 años, con entrega en Medellín.', esencias: 'Para experiencias olfativas, ambientales o de contemplación. No son aptas para consumo.', objetos: 'Piezas para la intención, la contemplación y los ciclos naturales, hechas con cuidado.' };
+const suscribirDe = (e) => {
+let box = e && e.currentTarget ? e.currentTarget.parentElement : null; let inp = null; let k = 0;
+while (box && k < 5 && !(inp = box.querySelector('input[type=email]'))) { box = box.parentElement; k += 1; }
+const val = inp ? String(inp.value || '').trim() : '';
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) { showToast('Escribe un correo válido para suscribirte.'); if (inp) { try { inp.focus(); } catch (err) {} } return; }
+let chk = null; let b2 = box; k = 0;
+while (b2 && k < 3 && !(chk = b2.querySelector('input[type=checkbox]'))) { b2 = b2.parentElement; k += 1; }
+if (chk && !chk.checked) { showToast('Acepta la política de datos para suscribirte.'); return; }
+openSheet('sus', { susCorreo: val }); try { inp.value = ''; if (chk) { chk.checked = false; } } catch (err) {}
+};
+const pendiente = () => showToast('Esta página no está en el prototipo');
+const ENC = [
+{ id: 'circulo', img: 'img-circulo', tipo: 'CÍRCULO DE PALABRA', cat: 'circulos', nombre: 'Círculo de palabra', fecha: '[FECHA] · [HORA]', lugar: 'Medellín · [ZONA]', valor: 'Aporte voluntario', estado: 'Disponible', pago: false, ceremonia: false, guia: '[NOMBRE DE QUIEN GUÍA]', desc: 'Un espacio de escucha y expresión en el que la palabra circula con respeto, sin afán de corregir ni juzgar.', desarrollo: 'Abrimos con un momento de silencio, compartimos la palabra en ronda y cerramos con gratitud.', llevar: 'Ropa cómoda, agua y disposición para escuchar.', cuidados: 'La participación es voluntaria: puedes hacer preguntas, expresar límites o retirarte.', edad: 'Edad mínima: [EDAD] años.', notaPago: 'El aporte es voluntario y se da en el lugar. Tu lugar queda confirmado al instante.' },
+{ id: 'caminata', img: 'img-caminata', tipo: 'MEDITACIÓN Y NATURALEZA', cat: 'meditacion', nombre: 'Caminata consciente', fecha: '[FECHA] · [HORA]', lugar: '[LUGAR], cerca de Medellín', valor: '[VALOR] · pago total', estado: 'Disponible', pago: true, ceremonia: false, guia: '[NOMBRE DE QUIEN GUÍA]', desc: 'Una práctica para aquietar el ritmo cotidiano, observar la respiración y abrir espacio a la contemplación.', desarrollo: 'Caminamos en silencio por un sendero, con pausas de conexión sensorial y escritura reflexiva.', llevar: 'Calzado para caminar, abrigo ligero, agua y un cuaderno.', cuidados: 'Si tienes alguna condición de salud, cuéntanos antes del encuentro.', edad: 'Edad mínima: [EDAD] años.', notaPago: 'Después de inscribirte te mostramos los datos de pago. Tu lugar se confirma cuando recibimos el comprobante.' },
+{ id: 'ceremonia', img: 'img-ceremonia', tipo: 'CEREMONIA', cat: 'ceremonias', nombre: 'Ceremonia de inspiración ancestral', fecha: '[FECHA] · [HORA]', lugar: 'Medellín · [ZONA]', valor: 'Se conversa por WhatsApp', estado: 'Disponible', pago: false, ceremonia: true, guia: '[NOMBRE DE QUIEN GUÍA]', desc: 'Un encuentro para cultivar la presencia, la gratitud, la intención y el vínculo respetuoso con la naturaleza.', desarrollo: '', llevar: '', cuidados: 'Puedes hacer preguntas, expresar límites o retirarte. Esta práctica no reemplaza diagnósticos ni tratamientos de salud.', edad: '', notaPago: '' }
+];
+const enc = ENC.find((e) => e.id === s.encId) || ENC[0];
+const openEnc = (e) => () => (e.ceremonia ? go('ceremonia', { encId: e.id }) : go('encuentro', { encId: e.id }));
+const encAll = ENC.map((e) => Object.assign({}, e, { open: openEnc(e) }));
+const encFiltered = encAll.filter((e) => s.agFilter === 'todos' || e.cat === s.agFilter);
+const PROD = [
+{ id: 'mermelada', img: 'img-mermelada', cat: 'mermeladas', catLabel: 'Mermeladas', nombre: 'Mermelada artesanal', precio: '[PRECIO]', pres: '[PRESENTACIÓN]', isFood: true, hist: 'Frutas, hierbas aromáticas y especias en combinaciones que evocan las estaciones y la riqueza de la tierra.', ingrTitulo: 'Ingredientes', ingr: '[INGREDIENTES]', consTitulo: 'Conservación', cons: '[CONSERVACIÓN Y FECHA DE ELABORACIÓN]', entrega: 'Domicilio en Medellín o envío nacional.', adv: '' },
+{ id: 'miel', img: 'img-miel', cat: 'miel', catLabel: 'Miel', nombre: 'Miel artesanal', precio: '[PRECIO]', pres: '[PRESENTACIÓN]', isFood: true, hist: 'Una celebración del trabajo artesanal y de la relación con la naturaleza.', ingrTitulo: 'Origen y composición', ingr: '[ORIGEN Y COMPOSICIÓN]', consTitulo: 'Conservación', cons: '[CONSERVACIÓN]', entrega: 'Domicilio en Medellín o envío nacional.', adv: '' },
+{ id: 'chicha', img: 'img-chicha', cat: 'chichas', catLabel: 'Chichas', nombre: 'Chicha tradicional', precio: '[PRECIO]', pres: '[PRESENTACIÓN]', isFood: true, hist: 'Bebida inspirada en preparaciones tradicionales, con frutas y especias.', ingrTitulo: 'Ingredientes', ingr: '[INGREDIENTES Y GRADO DE ALCOHOL]', consTitulo: 'Conservación', cons: '[CONSERVACIÓN]', entrega: 'Solo domicilio en Medellín.', adv: 'Bebida fermentada con alcohol. Solo para mayores de 18 años. El exceso de alcohol es perjudicial para la salud.' },
+{ id: 'esencia', img: 'img-esencia', cat: 'esencias', catLabel: 'Esencias', nombre: 'Esencia aromática', precio: '[PRECIO]', pres: '[PRESENTACIÓN]', isFood: false, hist: 'Para experiencias olfativas, ambientales o de contemplación.', ingrTitulo: 'Materiales', ingr: '[MATERIALES]', consTitulo: 'Modo de uso', cons: '[INSTRUCCIONES DE USO]', entrega: 'Domicilio en Medellín o envío nacional.', adv: 'No apta para consumo.' },
+{ id: 'objeto', agotado: true, img: 'img-objeto', cat: 'objetos', catLabel: 'Objetos simbólicos', nombre: 'Pieza de contemplación', precio: '[PRECIO]', pres: '[MEDIDAS]', isFood: false, hist: 'Un objeto hecho con intención para acompañar tus prácticas, sin poderes ni efectos garantizados.', ingrTitulo: 'Materiales', ingr: '[MATERIALES]', consTitulo: 'Cuidados', cons: '[CUIDADOS]', entrega: 'Domicilio en Medellín o envío nacional.', adv: '' }
+];
+const prod = PROD.find((p) => p.id === s.prodId) || PROD[0];
+const volar = (e, img, done) => {
+const fl = document.querySelector('[data-q="flyer"]');
+const cart = document.querySelector('[data-q="carrito"]');
+const src = e && e.currentTarget;
+if (!src || !src.getBoundingClientRect || !fl || !cart || !fl.animate || this._rm) { done(); return; }
+const b = src.getBoundingClientRect();
+const t = cart.getBoundingClientRect();
+const par = fl.offsetParent;
+const pr = par && par.getBoundingClientRect ? par.getBoundingClientRect() : { left: 0, top: 0 };
+const sz = 64;
+const x0 = b.left + b.width / 2 - sz / 2 - pr.left;
+const y0 = b.top + b.height / 2 - sz / 2 - pr.top;
+const x1 = t.left + t.width / 2 - sz / 2 - pr.left;
+const y1 = t.top + t.height / 2 - sz / 2 - pr.top;
+const xm = (x0 + x1) / 2;
+const ym = Math.max(20, Math.min(y0, y1) - 120);
+fl.className = 'img ' + img;
+const anim = fl.animate([
+{ transform: `translate(${x0}px, ${y0}px) scale(.5)`, opacity: 0 },
+{ transform: `translate(${x0}px, ${y0 - 20}px) scale(1)`, opacity: 1, offset: 0.16 },
+{ transform: `translate(${xm}px, ${ym}px) scale(.72) rotate(-10deg)`, opacity: 1, offset: 0.58 },
+{ transform: `translate(${x1}px, ${y1}px) scale(.16)`, opacity: 0.2 }
+], { duration: 740, easing: 'cubic-bezier(.45,0,.25,1)' });
+anim.onfinish = () => {
+if (cart.animate) { cart.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.2) rotate(-9deg)' }, { transform: 'scale(.95) rotate(6deg)' }, { transform: 'scale(1)' }], { duration: 440, easing: 'cubic-bezier(.34,1.56,.64,1)' }); }
+done();
+};
+};
+const addToCart = (id, n, e) => {
+const p = PROD.find((x) => x.id === id) || PROD[0];
+const c = Object.assign({}, s.cart);
+c[id] = (c[id] || 0) + n;
+const llegar = () => {
+this.setState({ bump: true, peekOpen: !this.state.drawer });
+setTimeout(() => this.setState({ bump: false }), 260);
+clearTimeout(this._pk);
+this._pk = setTimeout(() => this.setState({ peekOpen: false }), 3600);
+};
+volar(e, p.img, llegar);
+set({ cart: c, peek: id });
+};
+const cambiar = (id, d) => { const c = Object.assign({}, s.cart); c[id] = Math.max(0, (c[id] || 0) + d); set({ cart: c, bump: true }); setTimeout(() => this.setState({ bump: false }), 240); };
+const ageFirst = (p) => p.cat === 'chichas' && !s.ageOk;
+const openProd = (p) => () => (ageFirst(p) ? openSheet('age', { pending: { type: 'prod', id: p.id } }) : go('producto', { prodId: p.id, qty: 1 }));
+const prodCard = (p) => { const cant = s.cart[p.id] || 0; return Object.assign({}, p, { open: openProd(p), cant: cant, dentro: cant > 0 && !p.agotado, fuera: cant === 0 && !p.agotado, agot: !!p.agotado, avisar: () => wa('Hola, ¿me avisan cuando vuelva a estar disponible «' + p.nombre + '»?'), mas: () => cambiar(p.id, 1), menos: () => cambiar(p.id, -1), add: (e) => (ageFirst(p) ? openSheet('age', { pending: { type: 'prod', id: p.id } }) : addToCart(p.id, 1, e)) }); };
+const prodDest = PROD.filter((p) => p.id !== 'chicha').slice(0, 4).map(prodCard);
+const prodFiltered = PROD.filter((p) => s.cat === 'todos' || p.cat === s.cat).map(prodCard);
+const chip = (on) => (on ? { bg: '#F5EDE1', fg: '#1D1A2E', bd: '#F5EDE1' } : { bg: 'transparent', fg: '#F5EDE1', bd: 'rgba(245,237,225,.35)' });
+const CATS = [['todos', 'Todos'], ['mermeladas', 'Mermeladas'], ['miel', 'Miel'], ['chichas', 'Chichas'], ['esencias', 'Esencias'], ['objetos', 'Objetos']];
+const cats = CATS.map((c) => Object.assign({ label: c[1], on: s.cat === c[0], pick: () => (c[0] === 'chichas' && !s.ageOk ? openSheet('age', { pending: { type: 'cat' } }) : set({ cat: c[0] })) }, chip(s.cat === c[0])));
+const AGF = [['todos', 'Todos'], ['circulos', 'Círculos'], ['meditacion', 'Meditación'], ['ceremonias', 'Ceremonias']];
+const agFilters = AGF.map((c) => Object.assign({ label: c[1], on: s.agFilter === c[0], pick: () => set({ agFilter: c[0] }) }, chip(s.agFilter === c[0])));
+const TIPOS = [['tarot', 'Tarot', 'tarot'], ['oraculo', 'Oráculo de los ángeles', 'oráculo de los ángeles'], ['orientacion', 'Orientación espiritual', 'orientación espiritual']];
+const tipos = TIPOS.map((t) => Object.assign({ label: t[1], on: s.tipo === t[0], pick: () => set({ tipo: t[0] }) }, chip(s.tipo === t[0])));
+const tipoSel = TIPOS.find((t) => t[0] === s.tipo) || TIPOS[0];
+const caminos = [
+{ carta: 'carta-colibri', nombre: 'Círculos de palabra', desc: 'La palabra como puente, memoria y encuentro.', go: () => go('encuentro', { encId: 'circulo' }) },
+{ carta: 'carta-orquidea', nombre: 'Ceremonias', desc: 'Presencia, gratitud e intención, con respeto por su origen.', go: () => go('ceremonia', { encId: 'ceremonia' }) },
+{ carta: 'carta-frailejon', nombre: 'Meditación y naturaleza', desc: 'Caminatas conscientes, silencio y contemplación.', go: () => go('encuentro', { encId: 'caminata' }) },
+{ carta: 'orn', nombre: 'Tarot y oráculo', desc: 'Preguntas y símbolos para conocerte.', go: () => go('consulta') },
+{ carta: 'carta-mariposa', nombre: 'Leyes universales', desc: 'Reflexión, gratitud, intención e integración.', go: () => go('leyes') }
+];
+const items = Object.keys(s.cart).filter((k) => s.cart[k] > 0).map((k) => {
+const p = PROD.find((x) => x.id === k);
+const setQ = (q) => { const c = Object.assign({}, s.cart); c[k] = q; set({ cart: c }); };
+return { id: k, nombre: p.nombre, precio: p.precio, img: p.img, qty: s.cart[k], inc: () => setQ(s.cart[k] + 1), dec: () => setQ(Math.max(0, s.cart[k] - 1)), del: () => setQ(0) };
+});
+const count = items.reduce((a, i) => a + i.qty, 0);
+const warnChicha = items.some((i) => i.id === 'chicha') && s.entrega === 'nacional';
+const ENT = [['medellin', 'Domicilio en Medellín'], ['nacional', 'Envío nacional']];
+const entregas = ENT.map((o) => ({ label: o[1], on: s.entrega === o[0], pick: () => set({ entrega: o[0] }), bg: s.entrega === o[0] ? '#E4DDF0' : '#FFFFFF', bd: s.entrega === o[0] ? '#4A2C6E' : '#CDBFAE' }));
+const pedidoMsg = 'Hola, quiero hacer este pedido:\n' + items.map((i) => '• ' + i.qty + ' × ' + i.nombre).join('\n') + '\nTotal: [TOTAL]\nCiudad: ' + (s.city || '[CIUDAD]') + '\nEntrega: ' + (s.entrega === 'medellin' ? 'domicilio en Medellín' : 'envío nacional');
+const st = s.st || 0;
+const p = Math.min(1, Math.max(0, st / 1600));
+const mix = (a, b, t) => { const x = parseInt(a.slice(1), 16); const y = parseInt(b.slice(1), 16); const r = Math.round(((x >> 16) & 255) * (1 - t) + ((y >> 16) & 255) * t); const g = Math.round(((x >> 8) & 255) * (1 - t) + ((y >> 8) & 255) * t); const bl = Math.round((x & 255) * (1 - t) + (y & 255) * t); return 'rgb(' + r + ', ' + g + ', ' + bl + ')'; };
+const pick = (arr) => (p < 0.5 ? mix(arr[0], arr[1], p * 2) : mix(arr[1], arr[2], (p - 0.5) * 2));
+const isInicio = s.screen === 'inicio';
+const nombreLower = enc.nombre.charAt(0).toLowerCase() + enc.nombre.slice(1);
+return {
+isInicio: isInicio, isAgenda: s.screen === 'agenda', isExperiencias: s.screen === 'experiencias', isEncuentro: s.screen === 'encuentro', isCeremonia: s.screen === 'ceremonia', isCatalogo: s.screen === 'catalogo', isProducto: s.screen === 'producto', isConsulta: s.screen === 'consulta',
+showFab: ['inicio', 'agenda', 'experiencias', 'catalogo'].indexOf(s.screen) >= 0 && !s.menu,
+showLogo: isInicio || s.menu, showBack: !isInicio && !s.menu,
+onScroll: (e) => this.setState({ st: e.currentTarget.scrollTop }),
+cA: pick(['#7B3F8E', '#B4552F', '#2E5A48']), cB: pick(['#34338A', '#7B3F8E', '#B4552F']),
+rot: Math.round(st * 0.15),
+hdrBg: s.menu ? 'rgba(20,18,44,0)' : (isInicio && st < 300 ? 'rgba(20,18,44,0.18)' : 'rgba(20,18,44,0.62)'),
+menu: s.menu, menuClosed: !s.menu, menuLabel: s.menu ? 'Cerrar menú' : 'Abrir menú',
+menuOp: s.menu ? 1 : 0, menuPe: s.menu ? 'auto' : 'none', menuScale: s.menu ? '1' : '0.96',
+menuItems: (() => {
+const SEC = { bitacora: 'bitacora', articulo: 'bitacora', esencia: 'esencia', leyes: 'experiencias', agenda: 'agenda', experiencias: 'experiencias', encuentro: 'experiencias', ceremonia: 'experiencias', catalogo: 'productos', producto: 'productos', consulta: 'consultas' };
+const act = SEC[s.screen] || '';
+const NAV = [['esencia', 'Esencia', () => go('esencia')], ['experiencias', 'Experiencias', () => go('experiencias')], ['agenda', 'Agenda', () => go('agenda')], ['productos', 'Productos', () => go('catalogo')], ['bitacora', 'Bitácora', () => go('bitacora')], ['consultas', 'Consultas individuales', () => go('consulta')]];
+return NAV.map((n) => { const on = act === n[0]; return { label: n[1], go: n[2], cur: on ? 'page' : 'false', fg: on ? '#F3D9A0' : '#F5EDE1' }; });
+})(),
+toggleMenu: () => set({ menu: !s.menu }),
+back: () => { const h = s.hist.slice(); const prev = h.pop() || 'inicio'; set({ screen: prev, hist: h, st: 0 }); },
+goAgenda: () => go('agenda'), goCatalogo: () => go('catalogo'),
+openPrimero: openEnc(ENC[0]),
+goMermelada: () => go('producto', { prodId: 'mermelada', qty: 1 }), goCirculo: () => go('encuentro', { encId: 'circulo' }),
+goHome: () => set({ sheetOpen: false, screen: 'inicio', hist: [], st: 0 }),
+isEsencia: s.screen === 'esencia', simbolos: SIMBOLOS, principios: PRINCIPIOS, goEsencia: () => go('esencia'), goExperiencias: () => go('experiencias'),
+faqCats: FAQ.map((c) => { const on = (s.faqCat || 'encuentros') === c[0]; return { label: c[1], n: String(c[2].length), on: on ? 'true' : 'false', pick: () => set({ faqCat: c[0], faqOpen: '' }), fg: on ? '#F3D9A0' : '#C9C0D9', bar: on ? '#CFA24E' : 'rgba(232,199,138,0)', bg: on ? '#F5EDE1' : 'transparent', cfg: on ? '#1D1A2E' : '#F5EDE1', bd: on ? '#F5EDE1' : 'rgba(245,237,225,.35)' }; }),
+faqCatLabel: (FAQ.find((c) => c[0] === (s.faqCat || 'encuentros')) || FAQ[0])[1],
+faqItems: (FAQ.find((c) => c[0] === (s.faqCat || 'encuentros')) || FAQ[0])[2].map((q, i) => { const id = (s.faqCat || 'encuentros') + i; const on = s.faqOpen === id; return { id: 'faq-' + id, q: q[0], a: q[1], exp: on ? 'true' : 'false', rows: on ? '1fr' : '0fr', op: on ? '1' : '0', rot: on ? '45deg' : '0deg', toggle: () => set({ faqOpen: on ? '' : id }) }; }),
+isPreguntas: s.screen === 'preguntas', goPreguntas: () => go('preguntas', { faqCat: 'encuentros', faqOpen: '' }),
+isLeyes: s.screen === 'leyes', movs: MOVS, leyesFicha: LEYES_FICHA, waLeyes: () => wa('Hola, quisiera saber cuándo es el próximo encuentro de Leyes universales.'),
+legalDocs: LEGAL.map((d) => { const on = (s.legalDoc || 'datos') === d.id; return { label: d.nombre, on: on ? 'true' : 'false', pick: () => { set({ legalDoc: d.id }); }, fg: on ? '#F3D9A0' : '#C9C0D9', bar: on ? '#CFA24E' : 'rgba(232,199,138,0)', bg: on ? '#F5EDE1' : 'transparent', cfg: on ? '#1D1A2E' : '#F5EDE1', bd: on ? '#F5EDE1' : 'rgba(245,237,225,.35)' }; }),
+legal: (() => { const d = LEGAL.find((x) => x.id === (s.legalDoc || 'datos')) || LEGAL[0]; return { nombre: d.nombre, intro: d.intro, secs: d.secs.map((x, i) => ({ n: String(i + 1).padStart(2, '0'), t: x[0], p: x[1] })) }; })(),
+isLegal: s.screen === 'legal', goDatos: () => go('legal', { legalDoc: 'datos' }), goTerminos: () => go('legal', { legalDoc: 'terminos' }), goParticipacion: () => go('legal', { legalDoc: 'participacion' }), goEnvios: () => go('legal', { legalDoc: 'envios' }),
+...(() => { const bc = s.blogCat || 'todas'; const lista = ART.filter((a) => bc === 'todas' || a.cat === bc); const card = (a) => ({ id: a.id, img: a.img, cat: CATN[a.cat], titulo: a.titulo, resumen: a.resumen, min: a.min + ' de lectura', open: () => { go('articulo', { artId: a.id }); setTimeout(() => { try { const el = document.querySelector('[data-art]'); if (el) { el.scrollTop = 0; } } catch (err) {} }, 30); } });
+const a = ART.find((x) => x.id === s.artId) || ART[0];
+return { blogCats: BLOG_CATS.map((c) => Object.assign({ label: c[1], on: bc === c[0] ? 'true' : 'false', pick: () => set({ blogCat: c[0] }) }, chip(bc === c[0]))), blogDest: card(lista[0] || ART[0]), blogResto: lista.slice(1).map(card),
+art: { img: a.img, cat: CATN[a.cat], titulo: a.titulo, resumen: a.resumen, min: a.min + ' de lectura', p1: a.p1, resto: a.resto.map((t) => ({ t: t })), cita: a.cita, fuentes: a.fuentes, expTipo: a.expTipo, expNombre: a.expNombre, goExp: () => go(a.exp[0], a.exp[1]) },
+artRel: ART.filter((x) => x.id !== a.id).slice(0, 3).map(card) }; })(),
+isBitacora: s.screen === 'bitacora', isArticulo: s.screen === 'articulo', goBitacora: () => go('bitacora'),
+catIntro: (() => { const d = CATDESC[s.cat]; const c = CATS.find((x) => x[0] === s.cat); const n = PROD.filter((p) => p.cat === s.cat).length; return { on: !!d, titulo: c ? c[1] : '', desc: d || '', n: n === 1 ? '1 producto' : n + ' productos' }; })(),
+prodAgot: !!prod.agotado, prodDisp: !prod.agotado, avisarProd: () => wa('Hola, ¿me avisan cuando vuelva a estar disponible «' + prod.nombre + '»?'),
+sSus: s.sheetType === 'sus', susCorreo: s.susCorreo || '', isNoexiste: s.screen === 'noexiste', go404: () => go('noexiste'), goCatalogo2: () => go('catalogo'),
+pendiente: pendiente, suscribir: suscribirDe,
+encAll: encAll, encFiltered: encFiltered, agFilters: agFilters, caminos: caminos, enc: enc,
+prodDest: prodDest, prodFiltered: prodFiltered, cats: cats, prod: prod, prodHasAdv: !!prod.adv,
+qty: s.qty, incQty: () => set({ qty: s.qty + 1 }), decQty: () => set({ qty: Math.max(1, s.qty - 1) }), addProd: (e) => addToCart(prod.id, s.qty, e),
+peekOp: s.peekOpen ? 1 : 0, peekPe: s.peekOpen ? 'auto' : 'none', peekY: s.peekOpen ? '0px' : '-14px', peekSc: s.peekOpen ? '1' : '0.97',
+peekImg: (PROD.find((x) => x.id === s.peek) || PROD[0]).img, peekNombre: (PROD.find((x) => x.id === s.peek) || PROD[0]).nombre, peekCant: s.cart[s.peek] || 0,
+cerrarPeek: () => set({ peekOpen: false }), verPedido: () => set({ peekOpen: false, drawer: true, menu: false }),
+tipos: tipos,
+waGeneral: () => wa('Hola, quisiera conversar y conocer más sobre Alas de Expansión.'),
+waEncPregunta: () => wa('Hola, quisiera saber más sobre ' + enc.nombre + ' del [FECHA].'),
+waCeremonia: () => wa('Hola, me interesa la ' + nombreLower + ' del [FECHA]. Quisiera conocer las condiciones para participar.'),
+waConsulta: () => wa('Hola, quisiera agendar una consulta de ' + tipoSel[2] + '. ¿Qué horarios tienen?'),
+waComprobante: () => wa('Hola, me inscribí a ' + enc.nombre + ' del [FECHA]. Les envío el comprobante de pago.'),
+waLugar: () => wa('Hola, me inscribí a ' + enc.nombre + '. Quisiera los detalles del lugar.'),
+openForm: () => openSheet('form'), submitForm: () => openSheet('confirm', { confirmPago: !!enc.pago }),
+confirmPago: !!s.confirmPago, confirmGratis: !s.confirmPago,
+openDrawer: () => set({ drawer: true, menu: false, peekOpen: false }),
+drawerToCatalogo: () => set(Object.assign({ drawer: false }, goObj('catalogo'))),
+closeAll: () => set({ drawer: false, sheetOpen: false }),
+drawerX: s.drawer ? '0%' : '108%', sheetY: s.sheetOpen ? '0%' : '108%',
+scrimOp: (s.drawer || s.sheetOpen) ? 1 : 0, scrimPe: (s.drawer || s.sheetOpen) ? 'auto' : 'none',
+sForm: s.sheetType === 'form', sConfirm: s.sheetType === 'confirm', sWa: s.sheetType === 'wa', sAge: s.sheetType === 'age',
+waMsg: s.waMsg,
+ageYes: () => { const pd = s.pending || {}; const o = { ageOk: true, sheetOpen: false, pending: null }; if (pd.type === 'cat') { o.cat = 'chichas'; } if (pd.type === 'prod') { Object.assign(o, goObj('producto', { prodId: pd.id, qty: 1 })); } set(o); },
+ageNo: () => set({ sheetOpen: false, pending: null }),
+cartItems: items, cartEmpty: items.length === 0, hasCart: items.length > 0, count: count, badgeScale: s.bump ? '1.35' : '1',
+city: s.city, onCity: (e) => this.setState({ city: e.target.value }),
+entregas: entregas, warnChicha: warnChicha,
+sendPedido: () => { if (warnChicha) { showToast('Las chichas solo van a Medellín'); return; } openSheet('wa', { waMsg: pedidoMsg }); },
+hasToast: !!s.toast, toast: s.toast
+};
+}
+}
+</script>
+</body>
+</html>

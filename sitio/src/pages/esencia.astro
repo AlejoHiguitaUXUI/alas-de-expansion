@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image, Picture } from 'astro:assets';
+import BotonWa from '../components/BotonWa.astro';
+import caminata from '../content/media/caminata.jpg';
+import circulo from '../content/media/circulo.jpg';
+import cierre from '../assets/cierre.jpg';
+import emblema from '../assets/logo/emblema-sinhalo.png';
+import colibri from '../content/media/carta-colibri.jpg';
+import orquidea from '../content/media/carta-orquidea.jpg';
+import frailejon from '../content/media/carta-frailejon.jpg';
+import mariposa from '../content/media/carta-mariposa.jpg';
+
+const SIMBOLOS = [
+  { carta: colibri, nombre: 'Colibrí', sig: 'La alegría y la ligereza: tomar de cada experiencia lo que nutre.', rot: '-3deg' },
+  { carta: orquidea, nombre: 'Orquídea', sig: 'La belleza que florece con paciencia y cuidado.', rot: '2deg' },
+  { carta: frailejon, nombre: 'Frailejón', sig: 'Guardián del páramo y del agua: la vida que se sostiene con calma.', rot: '-2deg' },
+  { carta: mariposa, nombre: 'Mariposa', sig: 'La transformación: cambiar de forma para abrir las alas.', rot: '3deg' },
+];
+const PRINCIPIOS = [
+  ['Autenticidad', 'Contamos lo que realmente somos y hacemos, sin promesas exageradas ni afirmaciones que no podamos respaldar.'],
+  ['Respeto ancestral', 'Reconocemos las raíces y procedencias de los saberes que compartimos, sin apropiarnos ni generalizar.'],
+  ['Cuidado y consentimiento', 'Comunicamos con claridad los alcances, requisitos, riesgos y límites de cada experiencia.'],
+  ['Inclusión', 'Recibimos a personas de distintas edades, historias, creencias y caminos espirituales.'],
+  ['Transparencia', 'Informamos precios, disponibilidad, ingredientes, materiales, entregas y políticas.'],
+  ['Protección de datos', 'Pedimos solo la información necesaria y explicamos cómo la usamos y la cuidamos.'],
+];
+const ELEGIMOS = [['El amor', 'sobre el miedo'], ['La escucha', 'sobre el juicio'], ['La cooperación', 'sobre la separación'], ['El cuidado', 'sobre la indiferencia']];
+---
+<Base titulo="Nuestra esencia" seccion="esencia" descripcion="Alas de Expansión nace para abrir un espacio donde cada persona pueda hacer una pausa, volver a escucharse y recordar su vínculo con la naturaleza y con los demás." imagen={caminata}>
+  <section class="heroe heroe-alto">
+    <span class="foto" style="position:absolute;inset:0"><Picture src={caminata} alt="" formats={['avif', 'webp']} widths={[800, 1400, 1920]} sizes="100vw" class="cubre" loading="eager" /></span>
+    <div class="velo" style="background:linear-gradient(90deg,rgba(20,18,44,.86) 0%,rgba(20,18,44,.4) 60%,rgba(20,18,44,.12) 100%),linear-gradient(180deg,rgba(20,18,44,.3) 0%,rgba(20,18,44,0) 40%,#14122C 100%)"></div>
+    <span class="estrella" aria-hidden="true" style="left:70%;top:180px"></span>
+    <div class="wrap stack g22">
+      <p class="lbl">Nuestra esencia</p>
+      <h1 class="d h-xxl" style="max-width:1000px">Una semilla al servicio de <span class="t2">una humanidad más consciente</span></h1>
+      <p class="p p-l" style="max-width:600px">Un camino de reconexión con la esencia, la naturaleza y la memoria de la vida.</p>
+    </div>
+  </section>
+
+  <section class="sec bg-noche" aria-labelledby="es-origen">
+    <div class="wrap grid12">
+      <div class="c5 sticky stack g22"><p class="lbl">De dónde nacemos</p><h2 id="es-origen" class="d h-m">Una pausa para <span class="t2">volver a escucharse</span></h2></div>
+      <div class="c7 stack g22">
+        <p class="p" style="font-size:clamp(19px,2vw,23px);line-height:1.55;color:var(--crema)">Alas de Expansión nace de la intención de abrir un espacio donde cada persona pueda hacer una pausa, volver a escucharse y recordar el vínculo que la une con su corazón, con la naturaleza, con los demás seres y con el misterio de la existencia.</p>
+        <p class="p">Integramos el autoconocimiento, la contemplación, la espiritualidad, la sabiduría ancestral y el reconocimiento de la naturaleza como maestra. Honramos los ciclos de la Tierra, el valor de la palabra compartida, el silencio que permite escuchar y la memoria de los pueblos que han conservado prácticas de relación respetuosa con la vida.</p>
+        <p class="p">Acompañamos procesos personales desde el respeto, la sensibilidad y la presencia: reconocer las emociones sin juzgarlas, mirar las experiencias con apertura y descubrir los recursos internos que cada quien puede cultivar.</p>
+        <p class="ps nota">[HISTORIA DEL PROYECTO: cuándo y cómo empezó, quiénes lo iniciaron y qué los movió a hacerlo.]</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-onda" aria-labelledby="es-elige" style="padding:clamp(90px,11vw,140px) 0">
+    <div class="wrap stack g22" style="align-items:center;text-align:center">
+      <p id="es-elige" class="lbl">Lo que elegimos</p>
+      <ul class="stack g10" style="margin:0;padding:0;list-style:none">
+        {ELEGIMOS.map(([a, b]) => <li class="d revela" style="font-size:clamp(36px,5.4vw,84px)">{a} <span class="tenue">{b}</span></li>)}
+      </ul>
+      <p class="p" style="max-width:620px;margin-top:26px">No pretendemos ofrecer verdades únicas ni caminos iguales para todos. Queremos abrir espacios donde cada quien pueda acercarse a su propia verdad, con libertad y responsabilidad.</p>
+    </div>
+  </section>
+
+  <section class="sec bg-bosque" aria-labelledby="es-nombre">
+    <div class="wrap stack" style="gap:60px">
+      <Image src={emblema} alt="Emblema de Alas de Expansión: un águila con alas de hojas y de cielo estrellado, una luna creciente y una gota de amatista" widths={[440, 880]} sizes="(max-width: 520px) 86vw, 440px" style="width:440px;max-width:100%;margin:0 auto" />
+      <div class="grid12" style="align-items:end">
+        <div class="c6 stack g22"><p class="lbl">El nombre y sus símbolos</p><h2 id="es-nombre" class="d h-m">Por qué <span class="t2">Alas de Expansión</span></h2></div>
+        <p class="p c6">Creemos que la expansión comienza en el interior y se refleja en la manera en que cuidamos, sentimos, pensamos y compartimos la vida. Las alas son la posibilidad de elevarse y mirar con perspectiva, sin perder la raíz.</p>
+      </div>
+      <div class="cols-4" style="gap:32px">
+        {SIMBOLOS.map((y) => (
+          <div class="stack g14">
+            <div style={`transform:rotate(${y.rot})`}><span class="naipe lift"><Image src={y.carta} alt="" widths={[300, 560]} sizes="(max-width: 640px) 44vw, 22vw" /></span></div>
+            <h3 class="d" style="font-size:26px;margin-top:8px">{y.nombre}</h3>
+            <p class="ps">{y.sig}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-noche" aria-labelledby="es-principios">
+    <div class="wrap stack g40">
+      <div class="stack g22"><p class="lbl">Principios</p><h2 id="es-principios" class="d h-m">Lo que guía <span class="t2">cada paso</span></h2></div>
+      <div class="cols-3" style="column-gap:48px;row-gap:0">
+        {PRINCIPIOS.map(([t, d]) => <div class="voto stack g10" style="display:flex;padding:30px 0 34px;border-bottom:0"><h3 class="d" style="font-size:24px">{t}</h3><p class="ps">{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="es-guia" style="background:linear-gradient(180deg,#14122C,#0F241F)">
+    <div class="wrap grid12" style="gap:64px;align-items:center">
+      <div class="c5"><span class="tornasol" style="display:block;border-radius:999px 999px 26px 26px"><span class="foto" role="img" aria-label="Foto provisional" style="display:flex;aspect-ratio:4/5;border-radius:999px 999px 24px 24px;align-items:flex-end;justify-content:center;padding-bottom:22px"><Image src={circulo} alt="" widths={[480, 900]} sizes="(max-width: 900px) 92vw, 40vw" class="cubre" /><span class="tile ps" style="position:relative">[FOTO REAL DE QUIEN GUÍA]</span></span></span></div>
+      <div class="c7 stack g22">
+        <p class="lbl">Quién acompaña</p>
+        <h2 id="es-guia" class="d" style="font-size:clamp(34px,3.8vw,52px)">[NOMBRE DE <span class="t2">QUIEN GUÍA]</span></h2>
+        <p class="p">[Una historia breve en primera persona: su formación, las tradiciones con las que ha caminado y de quién aprendió, sus años de práctica y por qué abrió este espacio.]</p>
+        <p class="ps">[Si hay más personas que guían, cada una tendrá foto, nombre y su camino.]</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="heroe" style="padding:clamp(160px,18vw,220px) 0 140px">
+    <span class="foto" style="position:absolute;inset:0"><Image src={cierre} alt="" widths={[800, 1400, 1920]} sizes="100vw" class="cubre" style="object-position:center 60%" /></span>
+    <div class="velo" style="background:linear-gradient(180deg,#0F241F 0%,rgba(15,36,31,0) 24%,rgba(20,18,44,.2) 60%,rgba(20,18,44,.8) 100%)"></div>
+    <div class="wrap stack g28" style="align-items:center;text-align:center">
+      <p class="lbl">El horizonte que soñamos</p>
+      <p class="d" style="font-size:clamp(32px,3.8vw,52px);line-height:1.12;max-width:1000px">Que quien llegue recuerde la belleza de estar vivo, la fuerza de la escucha y <span class="t2">la posibilidad de caminar con mayor conciencia</span></p>
+      <div class="fila" style="justify-content:center">
+        <span class="tornasol"><a class="btn brillo btn-l" href="/experiencias/">Explorar experiencias</a></span>
+        <BotonWa msg="Hola, quisiera conversar y conocer más sobre Alas de Expansión." clase="" />
+      </div>
+    </div>
+  </section>
+</Base>

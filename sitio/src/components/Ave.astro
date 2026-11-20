@@ -1,0 +1,9 @@
+---
+interface Props { w?: number; clase?: string; attrs?: Record<string, string> }
+const { w = 64, clase = '', attrs = {} } = Astro.props;
+---
+<svg class={clase} width={w} height={w / 2} viewBox="0 0 80 40" aria-hidden="true" {...attrs}>
+  <g class="ala"><path d="M40 22 Q 22 2 2 10 Q 20 16 40 26 Z" fill="#CFA24E" /></g>
+  <g class="ala"><path d="M40 22 Q 58 2 78 10 Q 60 16 40 26 Z" fill="#E08A5A" /></g>
+  <ellipse cx="40" cy="25" rx="3" ry="6" fill="#F5EDE1" />
+</svg>

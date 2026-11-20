@@ -1,0 +1,7 @@
+tema: "Tus datos"
+orden: 5
+preguntas:
+  - pregunta: "¿Qué datos me piden y para qué?"
+    respuesta: "Solo lo necesario para inscribirte o enviarte un pedido: nombre, WhatsApp, correo y ciudad. No pedimos datos de salud."
+  - pregunta: "¿Me van a escribir con publicidad?"
+    respuesta: "Solo si te suscribes al boletín, y puedes darte de baja cuando quieras."

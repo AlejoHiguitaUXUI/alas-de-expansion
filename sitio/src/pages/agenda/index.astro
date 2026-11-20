@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import TarjetaEncuentro from '../../components/TarjetaEncuentro.astro';
+
+const encuentros = (await getCollection('encuentros')).sort((a, b) => +a.data.fecha - +b.data.fecha);
+const pasados = [...encuentros].reverse();
+const experiencias = (await getCollection('experiencias')).filter((x) => x.id !== 'consultas').sort((a, b) => a.data.orden - b.data.orden);
+const FILTROS = [['todos', 'Todos'], ...experiencias.map((x) => [x.id, x.data.nombre.replace(' de palabra', '').replace(' y naturaleza', '')])];
+---
+<Base titulo="Agenda" seccion="agenda" descripcion="Próximos encuentros de Alas de Expansión en Medellín y sus alrededores: círculos de palabra, ceremonias, meditación y naturaleza.">
+  <section class="wrap stack g28 pad-top" style="padding-bottom:120px">
+    <h1 class="d h-xxl">Agen<span class="t2">da</span></h1>
+    <div class="cabeza" style="align-items:center">
+      <p class="p">Próximos encuentros en Medellín y sus alrededores.</p>
+      <div class="chips" data-filtros="agenda" role="group" aria-label="Filtrar por camino">
+        {FILTROS.map(([id, label]) => <button type="button" class="chip press" data-filtro={id} aria-pressed={id === 'todos' ? 'true' : 'false'}>{label}</button>)}
+      </div>
+    </div>
+    <div class="cols-3" data-lista-fechas="agenda">
+      {encuentros.map((e) => <TarjetaEncuentro e={e} grupo="agenda" alto={460} />)}
+    </div>
+    <p class="ps" data-vacio-de="agenda" hidden>No hay encuentros próximos de este camino. Escríbenos por WhatsApp y te avisamos cuando abramos fecha.</p>
+    <p class="ps" data-vacio-fechas="agenda" hidden>Pronto publicaremos nuevas fechas.</p>
+
+    <div class="stack g22" style="margin-top:60px;padding-top:48px;border-top:1px solid var(--linea)">
+      <div class="cabeza"><h2 class="d h-m">Memoria <span class="t2">del camino</span></h2><p class="ps" style="max-width:420px">Los encuentros que ya se realizaron.</p></div>
+      <div class="cols-3" data-lista-fechas="pasados">
+        {pasados.map((e) => <TarjetaEncuentro e={e} pasado alto={360} />)}
+      </div>
+      <p class="ps" data-vacio-fechas="pasados" hidden style="padding:24px;border:1px dashed rgba(201,192,217,.4);border-radius:22px">Aquí quedarán los encuentros que ya se realizaron.</p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,18 @@
+---
+titulo: "Círculo de palabra"
+experiencia: "circulos"
+fecha: "2026-11-08"
+hora: "[HORA]"
+lugar: "Medellín · [ZONA]"
+valor: "Aporte voluntario"
+cobro: "voluntario"
+estado: "Disponible"
+imagen: "../media/circulo.jpg"
+guia: "[NOMBRE DE QUIEN GUÍA]"
+descripcion: "Un espacio de escucha y expresión en el que la palabra circula con respeto."
+desarrollo: ""
+llevar: ""
+cuidados: ""
+edad: ""
+relato: "[RELATO BREVE DE CÓMO FUE ESTE ENCUENTRO]"
+---

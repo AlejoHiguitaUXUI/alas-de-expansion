@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { Picture, Image } from 'astro:assets';
+import { CATEGORIAS, ajustes, precio, waHref } from '../../lib/sitio';
+
+export async function getStaticPaths() {
+  const ps = await getCollection('productos');
+  return ps.map((p) => ({ params: { id: p.id }, props: { p } }));
+}
+const { p } = Astro.props;
+const d = p.data;
+const cat = CATEGORIAS.find((c) => c.id === d.categoria)!;
+const comida = ['mermeladas', 'miel', 'chichas'].includes(d.categoria);
+const tituloComp = comida ? (d.categoria === 'miel' ? 'Origen y composición' : 'Ingredientes') : 'Materiales';
+const tituloCuid = d.categoria === 'esencias' ? 'Modo de uso' : comida ? 'Conservación' : 'Cuidados';
+const entrega = d.solo_medellin ? 'Solo domicilio en Medellín.' : 'Domicilio en Medellín o envío nacional.';
+const encuentro = await getEntry('experiencias', 'circulos');
+const msgAvisar = `Hola, ¿me avisan cuando vuelva a estar disponible «${d.nombre}»?`;
+---
+<Base titulo={d.nombre} seccion="productos" descripcion={d.historia || cat.desc} imagen={d.imagen} conBarra>
+  {d.categoria === 'chichas' && <div data-pagina-edad hidden></div>}
+  <section class="pad-top bg-bosque" style="padding-bottom:120px">
+    <div class="wrap grid12" style="gap:56px">
+      <div class="c6 sticky" style="top:110px">
+        <a class="enlace" href={`/productos/#${d.categoria}`} style="font-size:15px;color:var(--crema);margin-bottom:12px">← {cat.label}</a>
+        <div class="carta">
+          <div class="marco foto" style="height:clamp(360px,44vw,600px)"><Picture src={d.imagen} alt={d.nombre} formats={['avif', 'webp']} widths={[480, 800, 1200]} sizes="(max-width: 900px) 92vw, 46vw" class="cubre" loading="eager" /></div>
+          <p class="oro" style="margin:12px 0 6px;text-align:center">{cat.label}</p>
+        </div>
+      </div>
+      <div class="c6 stack g22" style="padding-top:20px">
+        <h1 class="d h-xl">{d.nombre}</h1>
+        <p class="p" style="font-size:22px">{precio(d.precio)}{d.presentacion && <> · {d.presentacion}</>}</p>
+        {d.advertencia && <div class="glass" style="padding:16px 18px;border-radius:18px;border-color:rgba(232,199,138,.5)"><p class="p" style="font-size:16px">{d.advertencia}</p></div>}
+        {d.disponible ? (
+          <div class="fila oculto-barra" style="flex-wrap:nowrap">
+            <div data-paso style="display:flex;align-items:center;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(245,237,225,.4)">
+              <button type="button" class="press" data-paso-d="-1" aria-label="Quitar uno" style="width:52px;height:56px;border:0;background:transparent;font-size:22px;cursor:pointer">−</button>
+              <span aria-live="polite" id="cant-ficha" data-paso-valor style="min-width:26px;text-align:center;font-size:18px;font-weight:600">1</span>
+              <button type="button" class="press" data-paso-d="1" aria-label="Agregar uno" style="width:52px;height:56px;border:0;background:transparent;font-size:22px;cursor:pointer">+</button>
+            </div>
+            <button type="button" class="btn b-crema btn-l" style="flex:1" data-agregar={p.id} data-cant-de="#cant-ficha">Agregar a mi pedido</button>
+          </div>
+        ) : (
+          <div class="stack g14" style="padding:18px 0;border-top:1px solid rgba(232,199,138,.25);border-bottom:1px solid rgba(232,199,138,.25)">
+            <p class="lbl lbl-s" style="color:#E8A27A">Agotado por ahora</p>
+            <p class="p">Esta pieza se hace a mano y volverá pronto. Te avisamos por WhatsApp apenas esté disponible.</p>
+            <a class="btn b-crema btn-l" style="align-self:flex-start" href={waHref(msgAvisar)} target="_blank" rel="noopener">Avísame cuando vuelva</a>
+          </div>
+        )}
+        <div class="stack g6"><h2 class="d" style="font-size:28px">Cómo te llega</h2><p class="p">{entrega} {ajustes.costo_envio}</p></div>
+        {d.historia && <div class="stack g6"><h2 class="d" style="font-size:28px">Su historia</h2><p class="p">{d.historia}</p></div>}
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+          {d.composicion && <div class="glass stack g6" style="padding:20px;border-radius:20px"><h3 class="d" style="font-size:22px">{tituloComp}</h3><p class="ps">{d.composicion}</p></div>}
+          {d.cuidados && <div class="glass stack g6" style="padding:20px;border-radius:20px"><h3 class="d" style="font-size:22px">{tituloCuid}</h3><p class="ps">{d.cuidados}</p></div>}
+        </div>
+        {comida && d.registro_sanitario && <p class="ps">Registro sanitario: {d.registro_sanitario}</p>}
+        {encuentro && (
+          <a class="press glass" href="/experiencias/circulos/" style="display:flex;align-items:center;gap:14px;padding:12px;border-radius:22px;color:var(--crema);text-decoration:none">
+            <span class="foto" style="flex-shrink:0;width:72px;height:72px;border-radius:16px"><Image src={encuentro.data.imagen} alt="" width={144} height={144} class="cubre" /></span>
+            <span class="stack" style="gap:4px"><span class="lbl lbl-s">También te puede interesar</span><span class="d" style="font-size:20px">{encuentro.data.nombre}</span></span>
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+  <div class="barra">
+    {d.disponible
+      ? <button type="button" class="btn b-crema" data-agregar={p.id}>Agregar a mi pedido</button>
+      : <a class="btn b-crema" href={waHref(msgAvisar)} target="_blank" rel="noopener">Avísame cuando vuelva</a>}
+  </div>
+</Base>

@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import { fecha, iso } from '../lib/sitio';
+interface Props { e: CollectionEntry<'encuentros'>; grupo?: string; pasado?: boolean; alto?: number }
+const { e, grupo, pasado = false, alto } = Astro.props;
+const exp = await getEntry(e.data.experiencia);
+const img = e.data.imagen ?? exp!.data.imagen;
+const estado = e.data.estado === 'Agotado' ? 'Agotado' : 'Disponible';
+---
+<a class="tarjeta-enc press lift" href={`/agenda/${e.id}/`} data-fecha={iso(e.data.fecha)} data-proximo={!pasado ? '' : undefined} data-pasado={pasado ? '' : undefined} data-grupo={grupo} data-cat={exp!.id} style={alto ? `min-height:${alto}px` : undefined}>
+  <span class="foto" aria-hidden="true" style="position:absolute;inset:0"><Picture src={img} alt="" formats={['avif', 'webp']} widths={[480, 760]} sizes="(max-width: 900px) 92vw, 30vw" /></span>
+  <span class="velo" aria-hidden="true"></span>
+  {e.data.estado === 'Agotado' && !pasado && <span class="etiqueta-agotado">AGOTADO</span>}
+  <span class="info glass">
+    <span class="lbl lbl-s">{exp!.data.etiqueta}</span>
+    <span class="nombre">{e.data.titulo}</span>
+    <span class="ps">{fecha(e.data.fecha)}{!pasado && <> · {e.data.valor}{estado === 'Agotado' ? ' · Agotado' : ''}</>}</span>
+    <span class="pastilla">{pasado ? 'Ver memoria' : 'Ver encuentro'}</span>
+  </span>
+</a>

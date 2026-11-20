@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import PaginaCamino from '../../components/PaginaCamino.astro';
+export async function getStaticPaths() {
+  const xs = await getCollection('experiencias', (x) => x.id !== 'consultas');
+  return xs.map((x) => ({ params: { id: x.id }, props: { x } }));
+}
+const { x } = Astro.props;
+---
+<PaginaCamino x={x} seccion="experiencias" />

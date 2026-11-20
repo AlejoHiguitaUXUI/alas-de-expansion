@@ -1,0 +1,17 @@
+---
+titulo: "Leyes universales"
+experiencia: "leyes"
+fecha: "2027-01-17"
+hora: "[HORA]"
+lugar: "Medellín · [ZONA]"
+valor: "Aporte voluntario"
+cobro: "voluntario"
+estado: "Disponible"
+imagen: "../media/circulo.jpg"
+guia: "[NOMBRE DE QUIEN GUÍA]"
+descripcion: "Un encuentro de reflexión sobre principios espirituales y filosóficos, con prácticas de gratitud, oración, intención e integración."
+desarrollo: "Reflexión, gratitud, oración, intención e integración: un hilo que va de la palabra al silencio, y del silencio a la vida diaria."
+llevar: "Algo para escribir y, si quieres, un objeto que tenga significado para ti."
+cuidados: "Cada persona participa a su manera, desde su propia creencia."
+edad: ""
+---

@@ -1,0 +1,17 @@
+---
+titulo: "Ceremonia de inspiración ancestral"
+experiencia: "ceremonias"
+fecha: "2026-12-20"
+hora: "[HORA]"
+lugar: "Medellín · [ZONA]"
+valor: "Se conversa por WhatsApp"
+cobro: "conversar"
+estado: "Disponible"
+imagen: "../media/ceremonia.jpg"
+guia: "[NOMBRE DE QUIEN GUÍA]"
+descripcion: "Un encuentro para cultivar la presencia, la gratitud, la intención y el vínculo respetuoso con la naturaleza."
+desarrollo: ""
+llevar: ""
+cuidados: "Puedes hacer preguntas, expresar límites o retirarte. Esta práctica no reemplaza diagnósticos ni tratamientos de salud."
+edad: ""
+---

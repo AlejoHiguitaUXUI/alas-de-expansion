@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import TarjetaProducto from '../../components/TarjetaProducto.astro';
+import { CATEGORIAS, ajustes } from '../../lib/sitio';
+const productos = (await getCollection('productos')).sort((a, b) => a.data.orden - b.data.orden);
+const cuenta = (c: string) => { const n = productos.filter((p) => p.data.categoria === c).length; return n === 1 ? '1 producto' : `${n} productos`; };
+---
+<Base titulo="Productos" seccion="productos" descripcion="Mermeladas, miel, chichas, esencias y objetos simbólicos hechos a mano en Medellín. Arma tu pedido y lo cerramos por WhatsApp.">
+  <section class="pad-top bg-bosque" style="min-height:900px;padding-bottom:120px">
+    <div class="wrap stack g28">
+      <h1 class="d h-xxl">Produc<span class="t2">tos</span></h1>
+      <div class="cabeza" style="align-items:center">
+        <p class="p">Hechos a mano. Arma tu pedido y lo cerramos juntos por WhatsApp.</p>
+        <div class="chips" data-filtros="productos" role="group" aria-label="Filtrar por categoría">
+          <button type="button" class="chip press" data-filtro="todos" aria-pressed="true">Todos</button>
+          {CATEGORIAS.map((c) => <button type="button" class="chip press" data-filtro={c.id} aria-pressed="false" data-edad-requerida={c.id === 'chichas' ? '' : undefined}>{c.label}</button>)}
+        </div>
+      </div>
+      {CATEGORIAS.map((c) => (
+        <div class="pop grid12" data-intro-de="productos" data-cat={c.id} hidden style="align-items:baseline;padding:26px 0;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)">
+          <h2 class="d c4" style="font-size:clamp(30px,3vw,40px)">{c.label}</h2>
+          <p class="p c6">{c.desc}</p>
+          <span class="ps c2" style="grid-column:span 2;text-align:right">{cuenta(c.id)}</span>
+        </div>
+      ))}
+      <div class="cols-4">{productos.map((p) => <TarjetaProducto p={p} grupo="productos" />)}</div>
+      <p class="ps" data-vacio-de="productos" hidden>Pronto habrá productos en esta categoría.</p>
+      <p class="ps">{ajustes.costo_envio} Entregamos a domicilio en Medellín y enviamos a todo el país.</p>
+    </div>
+  </section>
+</Base>

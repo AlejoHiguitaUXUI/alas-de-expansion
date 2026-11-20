@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import { CAT_BITACORA } from '../lib/sitio';
+interface Props { a: CollectionEntry<'bitacora'>; grupo?: string; esDestacado?: boolean }
+const { a, grupo, esDestacado = false } = Astro.props;
+---
+<a class="camino press" href={`/bitacora/${a.id}/`} data-grupo={grupo} data-cat={a.data.categoria} data-es-destacado={esDestacado ? '' : undefined} hidden={esDestacado} style="gap:14px">
+  <span class="foto lift" aria-hidden="true" style="display:block;height:clamp(200px,22vw,260px);border-radius:20px;box-shadow:0 20px 44px rgba(0,0,0,.35)">
+    <Picture src={a.data.imagen} alt="" formats={['avif', 'webp']} widths={[420, 720]} sizes="(max-width: 900px) 92vw, 30vw" />
+  </span>
+  <span class="lbl lbl-s" style="margin-top:6px">{CAT_BITACORA[a.data.categoria]}</span>
+  <span class="d" style="font-size:27px;line-height:1.12">{a.data.titulo}</span>
+  <span class="ps">{a.data.resumen}</span>
+  <span class="ps" style="font-size:13px;color:var(--tenue)">{a.data.minutos} min de lectura</span>
+</a>

@@ -1,0 +1,260 @@
+# Panel de administración de Alas de Expansión (Pages CMS · https://pagescms.org)
+# Cada sección de abajo aparece en el menú del panel. Al guardar, el sitio se actualiza solo en 1–2 minutos.
+
+media:
+  input: src/content/media
+  output: ../media
+  extensions: [jpg, jpeg, png, webp, avif]
+
+content:
+  # ---------------- Encuentros ----------------
+  - name: encuentros
+    label: Encuentros (agenda)
+    type: collection
+    path: src/content/encuentros
+    filename: "{fields.fecha}-{primary}.md"
+    view:
+      fields: [titulo, fecha, estado, experiencia]
+      primary: titulo
+      sort: [fecha]
+      default:
+        sort: fecha
+        order: desc
+    fields:
+      - { name: titulo, label: Nombre del encuentro, type: string, required: true }
+      - name: experiencia
+        label: Camino
+        type: select
+        required: true
+        options:
+          values:
+            - { value: circulos, label: Círculos de palabra }
+            - { value: ceremonias, label: Ceremonias }
+            - { value: meditacion, label: Meditación y naturaleza }
+            - { value: leyes, label: Leyes universales }
+      - { name: fecha, label: Fecha, type: date, required: true }
+      - { name: hora, label: Hora, type: string, description: "Ej. 5:00 p. m. a 7:30 p. m." }
+      - { name: lugar, label: Lugar, type: string, description: "Zona general. La dirección exacta se envía por WhatsApp." }
+      - { name: valor, label: Valor que se muestra, type: string, description: "Ej. Aporte voluntario · $60.000 · Se conversa por WhatsApp" }
+      - name: cobro
+        label: Cómo se confirma el cupo
+        type: select
+        required: true
+        default: voluntario
+        options:
+          values:
+            - { value: voluntario, label: "Gratis o aporte voluntario: se confirma al inscribirse" }
+            - { value: pago, label: "Con pago: se confirma al recibir el comprobante" }
+            - { value: conversar, label: "Ceremonia: sin formulario, todo por WhatsApp" }
+      - name: estado
+        label: Estado
+        type: select
+        default: Disponible
+        description: Cuando se llenen los cupos, cámbialo a Agotado.
+        options:
+          values: [Disponible, Agotado]
+      - { name: imagen, label: Foto, type: image, description: "Opcional. Si no hay, se usa la foto del camino." }
+      - { name: guia, label: Quién guía, type: string }
+      - { name: descripcion, label: Qué es, type: text }
+      - { name: desarrollo, label: Cómo se desarrolla, type: text }
+      - { name: llevar, label: Qué llevar, type: text }
+      - { name: cuidados, label: Cuidados y condiciones, type: text }
+      - { name: edad, label: Edad mínima, type: string, description: "Ej. Edad mínima: 16 años." }
+      - name: producto
+        label: Producto para llevar a casa
+        type: reference
+        options:
+          collection: productos
+          search: nombre
+          value: "{path}"
+          label: "{nombre}"
+      - { name: relato, label: "Memoria (después del encuentro)", type: text, description: "Un relato breve para cuando el encuentro ya pasó." }
+
+  # ---------------- Productos ----------------
+  - name: productos
+    label: Productos
+    type: collection
+    path: src/content/productos
+    filename: "{primary}.md"
+    view:
+      fields: [nombre, categoria, precio, disponible]
+      primary: nombre
+      sort: [orden, nombre]
+    fields:
+      - { name: nombre, label: Nombre, type: string, required: true }
+      - name: categoria
+        label: Categoría
+        type: select
+        required: true
+        options:
+          values:
+            - { value: mermeladas, label: Mermeladas }
+            - { value: miel, label: Miel }
+            - { value: chichas, label: Chichas }
+            - { value: esencias, label: Esencias }
+            - { value: objetos, label: Objetos simbólicos }
+      - { name: precio, label: Precio en pesos, type: number, description: "Solo el número, sin puntos. Ej. 28000" }
+      - { name: presentacion, label: Presentación o medidas, type: string, description: "Ej. Frasco de 250 g" }
+      - { name: imagen, label: Foto, type: image, required: true }
+      - { name: disponible, label: Disponible, type: boolean, default: true, description: Apágalo cuando se agote. }
+      - { name: destacado, label: Mostrar en el inicio, type: boolean, default: false }
+      - { name: orden, label: Orden en el catálogo, type: number, default: 10 }
+      - { name: historia, label: Su historia, type: text }
+      - { name: composicion, label: Ingredientes o materiales, type: text }
+      - { name: cuidados, label: Conservación o modo de uso, type: text }
+      - { name: registro_sanitario, label: Registro sanitario, type: string }
+      - { name: solo_medellin, label: Solo se entrega en Medellín, type: boolean, default: false }
+      - { name: advertencia, label: Advertencia, type: text, description: "Ej. No apta para consumo." }
+
+  # ---------------- Bitácora ----------------
+  - name: bitacora
+    label: Bitácora
+    type: collection
+    path: src/content/bitacora
+    filename: "{primary}.md"
+    view:
+      fields: [titulo, fecha, categoria]
+      primary: titulo
+      default:
+        sort: fecha
+        order: desc
+    fields:
+      - { name: titulo, label: Título, type: string, required: true }
+      - name: categoria
+        label: Tema
+        type: select
+        required: true
+        options:
+          values:
+            - { value: practicas, label: Prácticas }
+            - { value: reflexiones, label: Reflexiones }
+            - { value: relatos, label: Relatos }
+            - { value: saberes, label: Saberes y fuentes }
+      - { name: fecha, label: Fecha, type: date, required: true }
+      - { name: autor, label: Quién escribe, type: string }
+      - { name: resumen, label: Resumen corto, type: text, required: true }
+      - { name: imagen, label: Foto, type: image, required: true }
+      - { name: minutos, label: Minutos de lectura, type: number, default: 4 }
+      - { name: destacado, label: Destacar arriba en la bitácora, type: boolean, default: false }
+      - { name: body, label: Texto, type: rich-text }
+      - { name: cita, label: Frase destacada, type: text }
+      - { name: fuentes, label: Fuentes y cuidado, type: text }
+      - name: experiencia
+        label: Camino relacionado
+        type: select
+        options:
+          values:
+            - { value: circulos, label: Círculos de palabra }
+            - { value: ceremonias, label: Ceremonias }
+            - { value: meditacion, label: Meditación y naturaleza }
+            - { value: consultas, label: Tarot y oráculo }
+            - { value: leyes, label: Leyes universales }
+      - name: producto
+        label: Producto relacionado
+        type: reference
+        options:
+          collection: productos
+          search: nombre
+          value: "{path}"
+          label: "{nombre}"
+
+  # ---------------- Caminos ----------------
+  - name: experiencias
+    label: Caminos (experiencias)
+    type: collection
+    path: src/content/experiencias
+    filename: "{primary}.md"
+    view:
+      fields: [nombre, orden]
+      primary: nombre
+      sort: [orden]
+    fields:
+      - { name: nombre, label: Nombre, type: string, required: true }
+      - { name: etiqueta, label: Etiqueta en mayúsculas, type: string }
+      - { name: orden, label: Orden, type: number }
+      - { name: carta, label: Carta ilustrada, type: image, required: true }
+      - { name: imagen, label: Foto, type: image, required: true }
+      - { name: resumen, label: Frase corta para la carta, type: string }
+      - { name: intro, label: Presentación, type: text }
+      - { name: origen, label: Origen y sentido de la práctica, type: text }
+      - { name: desarrollo, label: Cómo se vive, type: text }
+      - { name: cuidados, label: Cuidados, type: text }
+      - { name: guia, label: Quién guía, type: string }
+      - { name: tipos, label: Tipos de consulta, type: string, list: true }
+      - name: pasos
+        label: Pasos o movimientos
+        type: object
+        list: true
+        fields:
+          - { name: titulo, label: Título, type: string }
+          - { name: texto, label: Texto, type: text }
+      - name: ficha
+        label: Lo práctico
+        type: object
+        list: true
+        fields:
+          - { name: dato, label: Dato, type: string }
+          - { name: valor, label: Valor, type: string }
+
+  # ---------------- Preguntas frecuentes ----------------
+  - name: preguntas
+    label: Preguntas frecuentes
+    type: collection
+    path: src/content/preguntas
+    format: yaml
+    filename: "{primary}.yml"
+    view:
+      fields: [tema, orden]
+      primary: tema
+      sort: [orden]
+    fields:
+      - { name: tema, label: Tema, type: string, required: true }
+      - { name: orden, label: Orden, type: number }
+      - name: preguntas
+        label: Preguntas
+        type: object
+        list: true
+        fields:
+          - { name: pregunta, label: Pregunta, type: string }
+          - { name: respuesta, label: Respuesta, type: text }
+
+  # ---------------- Legal ----------------
+  - name: legal
+    label: Textos legales
+    type: collection
+    path: src/content/legal
+    filename: "{primary}.md"
+    view:
+      fields: [titulo]
+      primary: titulo
+      sort: [orden]
+    fields:
+      - { name: titulo, label: Título, type: string, required: true }
+      - { name: orden, label: Orden, type: number }
+      - { name: intro, label: Introducción, type: text }
+      - { name: actualizado, label: Última actualización, type: string }
+      - name: secciones
+        label: Secciones
+        type: object
+        list: true
+        fields:
+          - { name: titulo, label: Título, type: string }
+          - { name: texto, label: Texto, type: text }
+
+  # ---------------- Ajustes generales ----------------
+  - name: ajustes
+    label: Datos de contacto y pagos
+    type: file
+    path: src/data/ajustes.json
+    format: json
+    fields:
+      - { name: whatsapp, label: "Número de WhatsApp (con indicativo, solo números)", type: string, description: "Ej. 573001234567" }
+      - { name: whatsapp_visible, label: Número como se muestra, type: string, description: "Ej. 300 123 4567" }
+      - { name: correo, label: Correo de contacto, type: string }
+      - { name: instagram, label: Enlace de Instagram, type: string }
+      - { name: facebook, label: Enlace de Facebook, type: string }
+      - { name: ciudad, label: Ciudad, type: string }
+      - { name: pago_transferencia, label: Datos de transferencia, type: string, description: "Banco, tipo y número de cuenta, titular" }
+      - { name: pago_nequi, label: Número de Nequi, type: string }
+      - { name: costo_envio, label: Texto sobre el costo del envío, type: string }
+      - { name: google_analytics, label: ID de Google Analytics (opcional), type: string, description: "Ej. G-XXXXXXX. Si se deja vacío, no se mide nada y no aparece aviso de cookies." }

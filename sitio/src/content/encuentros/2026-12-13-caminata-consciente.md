@@ -1,0 +1,18 @@
+---
+titulo: "Caminata consciente"
+experiencia: "meditacion"
+fecha: "2026-12-13"
+hora: "[HORA]"
+lugar: "[LUGAR], cerca de Medellín"
+valor: "[VALOR] · pago total"
+cobro: "pago"
+estado: "Disponible"
+imagen: "../media/caminata.jpg"
+guia: "[NOMBRE DE QUIEN GUÍA]"
+descripcion: "Una práctica para aquietar el ritmo cotidiano, observar la respiración y abrir espacio a la contemplación."
+desarrollo: "Caminamos en silencio por un sendero, con pausas de conexión sensorial y escritura reflexiva."
+llevar: "Calzado para caminar, abrigo ligero, agua y un cuaderno."
+cuidados: "Si tienes alguna condición de salud, cuéntanos antes del encuentro."
+edad: "Edad mínima: [EDAD] años."
+producto: "miel-artesanal"
+---

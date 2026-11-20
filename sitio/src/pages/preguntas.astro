@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import BotonWa from '../components/BotonWa.astro';
+const temas = (await getCollection('preguntas')).sort((a, b) => a.data.orden - b.data.orden);
+// Datos estructurados para buscadores
+const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: temas.flatMap((t) => t.data.preguntas.map((q) => ({ '@type': 'Question', name: q.pregunta, acceptedAnswer: { '@type': 'Answer', text: q.respuesta } }))) };
+---
+<Base titulo="Preguntas frecuentes y cuidado" seccion="preguntas" descripcion="Lo que conviene saber antes de inscribirte a un encuentro o hacer un pedido: inscripción, ceremonias, pagos, entregas y datos.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <section class="pad-top bg-noche-bosque" style="min-height:900px;padding-bottom:140px">
+    <div class="wrap stack g64">
+      <div class="stack g22" style="max-width:900px">
+        <p class="lbl">Cuidado</p>
+        <h1 class="d h-xxl">Preguntas frecuentes <span class="t2">y cuidado</span></h1>
+        <p class="p p-l" style="max-width:620px">Lo que conviene saber antes de inscribirte a un encuentro o hacer un pedido. Si tu pregunta no está aquí, escríbenos.</p>
+      </div>
+      <div class="grid12">
+        <nav class="c4 sticky stack" aria-label="Temas">
+          <div class="lateral" data-filtros="faq">
+            {temas.map((t, i) => <button type="button" class="press" data-filtro={t.id} aria-pressed={i === 0 ? 'true' : 'false'}><span>{t.data.tema}</span><span class="cuenta" style="font-size:13px;font-weight:500;opacity:.7">{t.data.preguntas.length}</span></button>)}
+          </div>
+          <div class="stack g14 solo-desk" style="margin-top:32px;padding-left:20px;align-items:flex-start">
+            <p class="ps">¿No encuentras tu respuesta?</p>
+            <BotonWa msg="Hola, tengo una pregunta sobre Alas de Expansión." texto="Escríbenos por WhatsApp" grande={false} />
+          </div>
+        </nav>
+        <div class="c8">
+          {temas.map((t, i) => (
+            <div class="stack g18" data-grupo="faq" data-cat={t.id} hidden={i !== 0}>
+              <h2 class="lbl">{t.data.tema}</h2>
+              <div style="border-bottom:1px solid var(--linea)">
+                {t.data.preguntas.map((q, j) => (
+                  <div class="voto pq" style="display:block;border-bottom:0">
+                    <h3><button type="button" aria-expanded="false" aria-controls={`faq-${t.id}-${j}`}><span class="pqt">{q.pregunta}</span><span class="mas" aria-hidden="true">+</span></button></h3>
+                    <div id={`faq-${t.id}-${j}`} class="acc" role="region"><div><p class="p">{q.respuesta}</p></div></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

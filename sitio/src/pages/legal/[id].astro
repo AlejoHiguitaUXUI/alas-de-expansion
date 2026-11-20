@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { ajustes } from '../../lib/sitio';
+export async function getStaticPaths() {
+  const docs = (await getCollection('legal')).sort((a, b) => a.data.orden - b.data.orden);
+  return docs.map((doc) => ({ params: { id: doc.id }, props: { doc, docs } }));
+}
+const { doc, docs } = Astro.props;
+const d = doc.data;
+---
+<Base titulo={d.titulo} seccion="legal" descripcion={d.intro}>
+  <section class="pad-top" style="min-height:900px;padding-bottom:140px;background:linear-gradient(180deg,#14122C 0%,#171433 100%)">
+    <div class="wrap grid12">
+      <nav class="c4 sticky stack" aria-label="Documentos legales">
+        <p class="lbl" style="margin-bottom:14px;padding-left:20px">Legal</p>
+        <div class="lateral">{docs.map((x) => <a class="press" href={`/legal/${x.id}/`} aria-current={x.id === doc.id ? 'page' : undefined}>{x.data.titulo}</a>)}</div>
+        <p class="ps solo-desk" style="margin-top:28px;padding-left:20px;max-width:300px">¿Dudas sobre estos documentos? Escríbenos a {ajustes.correo}.</p>
+      </nav>
+      <article class="c8 stack g22" style="max-width:760px">
+        <h1 class="d" style="font-size:clamp(38px,4.6vw,64px);line-height:1.04">{d.titulo}</h1>
+        <p class="p p-l">{d.intro}</p>
+        {d.actualizado && <p class="ps">Última actualización: {d.actualizado}</p>}
+        <ol class="votos" style="margin-top:26px">
+          {d.secciones.map((s, i) => (
+            <li class="voto" style="grid-template-columns:64px minmax(0,1fr);gap:20px;padding:28px 0;border-bottom:0">
+              <span class="num" aria-hidden="true" style="font-size:26px">{String(i + 1).padStart(2, '0')}</span>
+              <div class="stack g10"><h2 class="d" style="font-size:26px">{s.titulo}</h2><p class="p">{s.texto}</p></div>
+            </li>
+          ))}
+        </ol>
+      </article>
+    </div>
+  </section>
+</Base>

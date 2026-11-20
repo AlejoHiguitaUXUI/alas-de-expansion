@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E3550"/><stop offset=".45" stop-color="#5B6A85"/><stop offset=".75" stop-color="#9A9DB4"/><stop offset="1" stop-color="#C7B9AE"/></linearGradient>
+<radialGradient id="sun" cx=".7" cy=".55" r=".4"><stop offset="0" stop-color="#F2C98A" stop-opacity=".55"/><stop offset="1" stop-color="#F2C98A" stop-opacity="0"/></radialGradient>
+<linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E6E1EE" stop-opacity="0"/><stop offset=".5" stop-color="#E6E1EE" stop-opacity=".5"/><stop offset="1" stop-color="#E6E1EE" stop-opacity="0"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E211B" stop-opacity="0"/><stop offset="1" stop-color="#0B1814"/></linearGradient>
+<filter id="b4"><feGaussianBlur stdDeviation="4"/></filter>
+<filter id="b28"><feGaussianBlur stdDeviation="28"/></filter>
+</defs>
+<rect width="1600" height="1000" fill="url(#sky)"/>
+<rect width="1600" height="1000" fill="url(#sun)"/>
+<path d="M0 520 q 40 -70 90 -20 q 30 -60 80 -10 q 50 -80 110 -10 q 40 -50 90 0 q 60 -90 130 -10 q 40 -60 90 -5 q 50 -70 110 -5 q 40 -50 90 5 q 60 -80 130 -10 q 40 -60 90 0 q 50 -70 110 -5 q 40 -50 90 0 q 60 -80 130 -10 q 40 -40 80 10 V1000 H0Z" fill="#7C86A0" filter="url(#b4)"/>
+<rect y="500" width="1600" height="180" fill="url(#fog)" filter="url(#b28)"/>
+<path d="M0 620 q 50 -80 110 -20 q 40 -70 100 -10 q 60 -90 130 -10 q 50 -60 110 0 q 70 -100 150 -10 q 50 -70 110 -5 q 60 -80 130 -5 q 50 -60 110 5 q 70 -90 150 -10 q 50 -70 110 0 q 60 -80 130 -5 q 40 -50 80 0 q 40 -40 80 10 V1000 H0Z" fill="#4F6177"/>
+<rect y="610" width="1600" height="160" fill="url(#fog)" filter="url(#b28)"/>
+<g stroke="#2D4339" stroke-width="5" fill="none" stroke-linecap="round">
+<path d="M260 760 L256 560"/><path d="M256 560 q -40 -6 -70 22 M256 560 q 40 -6 70 22 M256 560 q -20 -30 -50 -40 M256 560 q 20 -30 50 -40"/>
+<path d="M1220 760 L1214 540"/><path d="M1214 540 q -42 -6 -74 24 M1214 540 q 42 -6 74 24 M1214 540 q -22 -32 -54 -42 M1214 540 q 22 -32 54 -42"/>
+</g>
+<path d="M0 730 q 60 -90 130 -20 q 50 -80 120 -10 q 70 -100 160 -10 q 60 -70 130 0 q 80 -110 180 -10 q 60 -80 130 -5 q 70 -90 160 -5 q 60 -70 130 5 q 80 -100 180 -10 q 60 -80 130 0 q 60 -70 130 -5 V1000 H0Z" fill="#2B4A3E"/>
+<rect y="720" width="1600" height="120" fill="url(#fog)" filter="url(#b28)" opacity=".8"/>
+<path d="M0 860 q 80 -100 170 -20 q 60 -90 150 -10 q 80 -110 190 -10 q 70 -80 160 0 q 90 -120 210 -10 q 70 -90 160 -5 q 80 -100 190 -5 q 70 -80 160 5 q 70 -70 210 -15 V1000 H0Z" fill="#15302A"/>
+<path d="M640 1000 Q 760 900 800 860 Q 840 900 980 1000 Z" fill="#6F6A62" opacity=".55"/>
+<rect y="780" width="1600" height="220" fill="url(#floor)"/>
+</svg>

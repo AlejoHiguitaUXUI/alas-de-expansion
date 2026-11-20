@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import TarjetaCamino from '../../components/TarjetaCamino.astro';
+const experiencias = (await getCollection('experiencias')).sort((a, b) => a.data.orden - b.data.orden);
+---
+<Base titulo="Experiencias" seccion="experiencias" descripcion="Cinco caminos para hacer una pausa y volver a escucharte: círculos de palabra, ceremonias, meditación y naturaleza, tarot y oráculo, y leyes universales.">
+  <section class="pad-top bg-noche-bosque" style="min-height:900px;padding-bottom:120px">
+    <div class="wrap stack g40">
+      <h1 class="d h-xxl">Experien<span class="t2">cias</span></h1>
+      <p class="p" style="max-width:640px">Cinco caminos para hacer una pausa y volver a escucharte. Cada encuentro cuenta de dónde viene su práctica y qué cuidados implica.</p>
+      <div class="cols-5">{experiencias.map((x) => <TarjetaCamino x={x} titulo="display" />)}</div>
+    </div>
+  </section>
+</Base>

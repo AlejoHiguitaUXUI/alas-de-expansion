@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import { precio, waHref } from '../lib/sitio';
+interface Props { p: CollectionEntry<'productos'>; grupo?: string }
+const { p, grupo } = Astro.props;
+const d = p.data;
+const href = `/productos/${p.id}/`;
+const edad = d.categoria === 'chichas';
+---
+<div class="carta prod lift" data-prod-card={p.id} data-grupo={grupo} data-cat={d.categoria}>
+  <a class="marco foto press" href={href} aria-label={`Ver ${d.nombre}`} data-edad-requerida={edad ? '' : undefined}>
+    <Picture src={d.imagen} alt="" formats={['avif', 'webp']} widths={[320, 560]} sizes="(max-width: 640px) 46vw, (max-width: 1080px) 46vw, 23vw" />
+    {!d.disponible && <span class="etiqueta-agotado">AGOTADO</span>}
+  </a>
+  <a class="oro nombre" href={href} style="text-decoration:none" data-edad-requerida={edad ? '' : undefined}>{d.nombre}</a>
+  <span class="precio">{precio(d.precio)}</span>
+  {d.disponible ? (
+    <>
+      <div data-fuera><button type="button" class="btn b-terra" data-agregar={p.id}>Agregar a mi pedido</button></div>
+      <div class="paso" data-dentro hidden>
+        <button type="button" class="press" data-menos aria-label={`Quitar uno de ${d.nombre}`}>−</button>
+        <span aria-live="polite"><b data-cant>0</b><span class="en-pedido"> en tu pedido</span></span>
+        <button type="button" class="press" data-mas aria-label={`Agregar otro ${d.nombre}`}>+</button>
+      </div>
+    </>
+  ) : (
+    <a class="btn b-ln" href={waHref(`Hola, ¿me avisan cuando vuelva a estar disponible «${d.nombre}»?`)} target="_blank" rel="noopener">Avísame cuando vuelva</a>
+  )}
+</div>

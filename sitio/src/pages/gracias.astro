@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import Mandala from '../components/Mandala.astro';
+---
+<Base titulo="Suscripción confirmada">
+  <section style="position:relative;overflow:hidden;min-height:100svh;display:flex;align-items:center;padding:140px 0;background:radial-gradient(100% 80% at 50% 40%,#2A2052 0%,#14122C 70%)">
+    <div aria-hidden="true" style="position:absolute;left:50%;top:50%;width:min(760px,130vw);aspect-ratio:1;translate:-50% -50%;opacity:.2"><Mandala id="m-gracias" size="100%" variante="semilla" grosor={1.2} clase="girar" /></div>
+    <div class="wrap stack g22" style="position:relative;align-items:center;text-align:center">
+      <p class="lbl">Boletín</p>
+      <h1 class="d h-l" style="max-width:860px">Gracias por <span class="t2">caminar con nosotros</span></h1>
+      <p class="p" style="max-width:520px">Tu suscripción quedó confirmada. Te escribiremos con nuevos encuentros y textos de la bitácora.</p>
+      <div class="fila" style="justify-content:center;margin-top:8px">
+        <span class="tornasol"><a class="btn brillo" href="/agenda/">Ver próximos encuentros</a></span>
+        <a class="btn b-lc" href="/bitacora/">Leer la bitácora</a>
+      </div>
+    </div>
+  </section>
+</Base>

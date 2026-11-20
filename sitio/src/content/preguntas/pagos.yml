@@ -1,0 +1,11 @@
+tema: "Pagos y cancelaciones"
+orden: 3
+preguntas:
+  - pregunta: "¿Cómo pago un encuentro?"
+    respuesta: "Por transferencia, Nequi o en efectivo en el lugar, según el encuentro. La web no cobra en línea."
+  - pregunta: "¿Qué significa aporte voluntario?"
+    respuesta: "Cada persona aporta lo que siente y puede. Algunos encuentros son gratuitos con inscripción y otros tienen un valor fijo; siempre lo verás en su página."
+  - pregunta: "¿Puedo cancelar o cambiar de fecha?"
+    respuesta: "[POLÍTICA DE CANCELACIÓN: con cuánta anticipación se puede cancelar, y si se devuelve el dinero o se pasa a otra fecha.]"
+  - pregunta: "¿Cómo se paga una lectura de tarot?"
+    respuesta: "Se agenda por WhatsApp y el valor se conversa al agendar. La lectura es una herramienta de reflexión, no una predicción del futuro."

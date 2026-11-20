@@ -1,0 +1,12 @@
+---
+// Botón dorado con anillo tornasol que abre WhatsApp con un mensaje ya escrito.
+import Icono from './Icono.astro';
+import { waHref } from '../lib/sitio';
+interface Props { msg: string; texto?: string; full?: boolean; grande?: boolean; icono?: boolean; clase?: string }
+const { msg, texto = 'Conversemos por WhatsApp', full = false, grande = true, icono = false, clase = '' } = Astro.props;
+---
+<span class:list={['tornasol', { full }, clase]}>
+  <a class:list={['btn brillo', { 'btn-l': grande }]} href={waHref(msg)} target="_blank" rel="noopener" data-wa={msg}>
+    {icono && <Icono n="wa" s={20} />}{texto}
+  </a>
+</span>

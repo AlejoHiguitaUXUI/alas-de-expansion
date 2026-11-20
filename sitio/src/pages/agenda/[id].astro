@@ -1,0 +1,147 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { Picture, Image } from 'astro:assets';
+import BotonWa from '../../components/BotonWa.astro';
+import Icono from '../../components/Icono.astro';
+import { ajustes, fecha, iso, waHref } from '../../lib/sitio';
+import { urlExp } from '../../lib/rutas';
+
+export async function getStaticPaths() {
+  const encuentros = await getCollection('encuentros');
+  return encuentros.map((e) => ({ params: { id: e.id }, props: { e } }));
+}
+const { e } = Astro.props;
+const d = e.data;
+const exp = (await getEntry(d.experiencia))!;
+const prod = d.producto ? await getEntry('productos', d.producto) : undefined;
+const img = d.imagen ?? exp.data.imagen;
+const ceremonia = d.cobro === 'conversar';
+const agotado = d.estado === 'Agotado';
+const cuando = `${fecha(d.fecha)}${d.hora ? ` · ${d.hora}` : ''}`;
+const nombreMin = d.titulo.charAt(0).toLowerCase() + d.titulo.slice(1);
+const msgPregunta = `Hola, quisiera saber más sobre ${d.titulo} del ${fecha(d.fecha)}.`;
+const msgCeremonia = `Hola, me interesa la ${nombreMin} del ${fecha(d.fecha)}. Quisiera conocer las condiciones para participar.`;
+const msgEspera = `Hola, vi que ${d.titulo} del ${fecha(d.fecha)} está agotado. ¿Me pueden avisar si se libera un cupo o abren otra fecha?`;
+const notaPago = d.cobro === 'pago'
+  ? 'Después de inscribirte te mostramos los datos de pago. Tu lugar se confirma cuando recibimos el comprobante.'
+  : 'El aporte es voluntario y se da en el lugar. Tu lugar queda confirmado al instante.';
+const SECCIONES = ceremonia
+  ? [['Qué es', d.descripcion], ['Origen de la práctica', exp.data.origen], ['Quién guía', d.guia || exp.data.guia], ['Cuidados', d.cuidados]]
+  : [['Qué es', d.descripcion], ['Cómo se desarrolla', d.desarrollo], ['Quién guía', d.guia || exp.data.guia], ['Qué llevar', d.llevar], ['Cuidados y condiciones', [d.cuidados, d.edad].filter(Boolean).join(' ')]];
+---
+<Base titulo={`${d.titulo} · ${fecha(d.fecha)}`} seccion="agenda" descripcion={d.descripcion} imagen={img} conBarra>
+  <div data-encuentro-fecha={iso(d.fecha)} hidden></div>
+  <section class="heroe heroe-pag">
+    <span class="foto" style="position:absolute;inset:0"><Picture src={img} alt="" formats={['avif', 'webp']} widths={[800, 1400, 1920]} sizes="100vw" class="cubre" loading="eager" /></span>
+    <div class="velo" style="background:linear-gradient(180deg,rgba(20,18,44,.25) 0%,rgba(20,18,44,0) 40%,#14122C 100%)"></div>
+    <div class="wrap stack g14">
+      <a class="enlace" href={urlExp(exp.id)} style="font-size:15px;color:var(--crema)">← {exp.data.nombre}</a>
+      <p class="lbl">{exp.data.etiqueta}</p>
+      <h1 class="d h-xxl">{d.titulo}</h1>
+    </div>
+  </section>
+
+  <section class="wrap grid12" style="padding-top:24px;padding-bottom:120px">
+    <div class="c7 stack g28">
+      <p class="ps">Un encuentro de Alas de Expansión, Medellín</p>
+      <div data-solo-pasado hidden class="nota stack g10">
+        <p class="lbl lbl-s">Este encuentro ya se realizó</p>
+        <p class="p">{d.relato || 'Gracias a quienes caminaron con nosotros.'}</p>
+        <a class="enlace" href="/agenda/">Ver próximos encuentros →</a>
+      </div>
+      {SECCIONES.filter(([, t]) => t).map(([h, t]) => (
+        <div class="stack g10"><h2 class="d h-s">{h}</h2><p class="p">{t}</p></div>
+      ))}
+      {!ceremonia && (
+        <div class="glass stack g6" style="padding:22px;border-radius:22px" data-solo-proximo>
+          <p style="margin:0;font-weight:600;font-size:17px">¿Qué pasa si no puedo asistir?</p>
+          <p class="ps">Escríbenos por WhatsApp lo antes posible. <a href="/legal/participacion/">Condiciones de participación</a>.</p>
+        </div>
+      )}
+    </div>
+
+    <aside class="c5 sticky" style="top:100px">
+      {ceremonia ? (
+        <span class="tornasol" style="display:block;border-radius:30px">
+          <div class="stack g14" style="background:#1E1A3F;border-radius:28px;padding:26px">
+            <h2 class="d" style="font-size:30px">Antes de participar</h2>
+            <p class="p" style="font-size:16px">{exp.data.desarrollo}</p>
+            <div class="tiles"><div class="tile"><span class="k">Fecha</span><span class="v">{cuando}</span></div><div class="tile"><span class="k">Lugar</span><span class="v">{d.lugar}</span></div></div>
+            <div data-solo-proximo><BotonWa msg={msgCeremonia} full /></div>
+          </div>
+        </span>
+      ) : (
+        <div class="glass stack g14" style="padding:18px;border-radius:30px">
+          <div class="tiles">
+            <div class="tile"><span class="k">Fecha</span><span class="v">{cuando}</span></div>
+            <div class="tile"><span class="k">Lugar</span><span class="v">{d.lugar}</span></div>
+            <div class="tile"><span class="k">Valor</span><span class="v">{d.valor}</span></div>
+            <div class="tile"><span class="k">Estado</span><span class="v" style="color:var(--oro-claro)" data-solo-proximo>{d.estado}</span><span class="v" data-solo-pasado hidden>Realizado</span></div>
+          </div>
+          <div class="stack g10 solo-desk-flex" data-solo-proximo>
+            {agotado
+              ? <a class="btn b-crema btn-l btn-full" href={waHref(msgEspera)} target="_blank" rel="noopener">Avísame si hay cupo</a>
+              : <button type="button" class="btn b-crema btn-l btn-full" data-abrir-hoja="inscripcion">Inscribirme</button>}
+            <a class="btn b-lc btn-full" href={waHref(msgPregunta)} target="_blank" rel="noopener">Tengo una pregunta</a>
+          </div>
+          {prod && (
+            <a class="press carta" href={`/productos/${prod.id}/`} style="display:flex;align-items:center;gap:12px;margin-top:6px;text-decoration:none">
+              <span class="marco foto" style="flex-shrink:0;width:60px;height:60px"><Image src={prod.data.imagen} alt="" width={120} height={120} class="cubre" /></span>
+              <span class="stack" style="gap:3px"><span class="oro">Para llevar a casa</span><span class="d" style="font-size:17px;color:#1E1A3F">{prod.data.nombre}</span></span>
+            </a>
+          )}
+        </div>
+      )}
+    </aside>
+  </section>
+
+  <div class="barra" data-solo-proximo>
+    {ceremonia ? <BotonWa msg={msgCeremonia} full grande={false} /> : agotado
+      ? <a class="btn b-crema" href={waHref(msgEspera)} target="_blank" rel="noopener">Avísame si hay cupo</a>
+      : <><a class="btn b-lc" href={waHref(msgPregunta)} target="_blank" rel="noopener" style="flex:0 0 auto;padding:0 18px" aria-label="Tengo una pregunta"><Icono n="wa" /></a><button type="button" class="btn b-crema" data-abrir-hoja="inscripcion">Inscribirme</button></>}
+  </div>
+
+  {!ceremonia && !agotado && (
+    <section slot="hojas" class="hoja" role="dialog" aria-modal="true" aria-labelledby="h-ins" data-hoja="inscripcion" aria-hidden="true">
+      <form class="stack g14" data-panel="form" data-inscripcion novalidate data-encuentro={e.id} data-cobro={d.cobro} data-nombre={d.titulo} data-fecha={cuando}>
+        <p class="oro">Inscripción</p>
+        <h2 id="h-ins">{d.titulo}</h2>
+        <p class="sub" style="margin-bottom:6px">{cuando} · {d.valor}</p>
+        <div class="campo"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" class="inp" type="text" autocomplete="name" required /></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+          <div class="campo"><label for="f-cel">Celular (WhatsApp)</label><input id="f-cel" name="celular" class="inp" type="tel" autocomplete="tel" inputmode="tel" required /></div>
+          <div class="campo"><label for="f-correo">Correo</label><input id="f-correo" name="correo" class="inp" type="email" autocomplete="email" required /></div>
+        </div>
+        <div class="trampa" aria-hidden="true"><label>No llenar <input name="sitio" tabindex="-1" autocomplete="off" /></label></div>
+        <div class="chk" style="margin-top:4px"><input id="f-datos" name="acepta" type="checkbox" value="si" /><label for="f-datos">Autorizo el tratamiento de mis datos según la <a href="/legal/datos/" style="color:#4A2C6E">política de datos</a>.</label></div>
+        <p class="sub">{notaPago}</p>
+        <div style="display:flex;gap:10px;margin-top:6px"><button type="button" class="btn b-ln" style="flex:1" data-cerrar>Cancelar</button><button type="submit" class="btn b-noche" style="flex:1.6">Confirmar inscripción</button></div>
+      </form>
+
+      <div class="stack g14" data-panel="confirmado" hidden style="align-items:flex-start">
+        <span class="tornasol" style="border-radius:50%"><span class="sello" style="color:#E8C78A"><Icono n="check" s={30} /></span></span>
+        <h2>Tu lugar está confirmado</h2>
+        <p class="txt">Te enviamos los detalles a tu correo. El aporte es voluntario y se da en el lugar.</p>
+        <a class="btn b-noche" href={waHref(`Hola, me inscribí a ${d.titulo} del ${fecha(d.fecha)}. Quisiera los detalles del lugar.`)} target="_blank" rel="noopener">Pedir detalles del lugar</a>
+        <button type="button" class="btn b-texto" style="align-self:stretch" data-cerrar>Listo</button>
+      </div>
+
+      <div class="stack g14" data-panel="pago" hidden style="align-items:flex-start">
+        <span class="tornasol" style="border-radius:50%"><span class="sello" style="color:#E8C78A"><Icono n="check" s={30} /></span></span>
+        <h2>Recibimos tu inscripción</h2>
+        <p class="txt">Para confirmar tu lugar, envía el comprobante de pago. También te enviamos estos datos a tu correo.</p>
+        <div class="dato-pago" style="width:100%"><span>Valor: {d.valor}</span><span>Transferencia: {ajustes.pago_transferencia}</span><span>Nequi: {ajustes.pago_nequi}</span></div>
+        <a class="btn b-noche" href={waHref(`Hola, me inscribí a ${d.titulo} del ${fecha(d.fecha)}. Les envío el comprobante de pago.`)} target="_blank" rel="noopener">Enviar comprobante por WhatsApp</a>
+        <button type="button" class="btn b-texto" style="align-self:stretch" data-cerrar>Listo</button>
+      </div>
+
+      <div class="stack g14" data-panel="respaldo" hidden style="align-items:flex-start">
+        <h2>Terminemos por WhatsApp</h2>
+        <p class="txt">No pudimos registrar tu inscripción en este momento. Envíanos tus datos por WhatsApp y te confirmamos el cupo.</p>
+        <a class="btn b-noche" href="#" target="_blank" rel="noopener" data-wa-respaldo>Enviar inscripción por WhatsApp</a>
+        <button type="button" class="btn b-texto" style="align-self:stretch" data-cerrar>Cerrar</button>
+      </div>
+    </section>
+  )}
+</Base>

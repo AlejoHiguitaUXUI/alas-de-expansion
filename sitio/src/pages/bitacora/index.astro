@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import TarjetaArticulo from '../../components/TarjetaArticulo.astro';
+import Boletin from '../../components/Boletin.astro';
+import { CAT_BITACORA } from '../../lib/sitio';
+const arts = (await getCollection('bitacora')).sort((a, b) => +b.data.fecha - +a.data.fecha);
+const dest = arts.find((a) => a.data.destacado) ?? arts[0];
+const resto = arts.filter((a) => a.id !== dest?.id);
+---
+<Base titulo="Bitácora" seccion="bitacora" descripcion="Reflexiones, relatos, prácticas de contemplación y saberes compartidos con respeto por sus fuentes.">
+  <section class="pad-top" style="min-height:900px;padding-bottom:120px;background:linear-gradient(180deg,#14122C 0%,#171433 60%,#0F241F 100%)">
+    <div class="wrap stack g40">
+      <div class="grid12" style="align-items:end">
+        <div class="c7 stack g22"><p class="lbl">Sabiduría y bitácora</p><h1 class="d h-xxl">Bitá<span class="t2">cora</span></h1></div>
+        <p class="p c5">Reflexiones, relatos, prácticas de contemplación y saberes compartidos con respeto por sus fuentes.</p>
+      </div>
+      <div class="chips" data-filtros="bitacora" role="group" aria-label="Temas">
+        <button type="button" class="chip press" data-filtro="todos" aria-pressed="true">Todas</button>
+        {Object.entries(CAT_BITACORA).map(([id, l]) => <button type="button" class="chip press" data-filtro={id} aria-pressed="false">{l}</button>)}
+      </div>
+      {dest && (
+        <a class="grid12 press" href={`/bitacora/${dest.id}/`} data-destacado-de="bitacora" style="align-items:center;color:var(--crema);text-decoration:none">
+          <span class="c7 foto lift" style="display:block;height:clamp(280px,34vw,480px);border-radius:28px;box-shadow:0 30px 60px rgba(0,0,0,.4)"><Picture src={dest.data.imagen} alt="" formats={['avif', 'webp']} widths={[600, 1000]} sizes="(max-width: 900px) 92vw, 56vw" class="cubre" loading="eager" /></span>
+          <span class="c5 stack g18">
+            <span class="lbl lbl-s">{CAT_BITACORA[dest.data.categoria]} · {dest.data.minutos} min de lectura</span>
+            <span class="d" style="font-size:clamp(34px,3.6vw,50px);line-height:1.06">{dest.data.titulo}</span>
+            <span class="p">{dest.data.resumen}</span>
+            <span style="color:var(--oro-claro);font-size:17px;font-weight:600">Leer →</span>
+          </span>
+        </a>
+      )}
+      <div class="cols-3" style="gap:56px 32px;padding-top:40px;border-top:1px solid var(--linea)">
+        {arts.map((a) => <TarjetaArticulo a={a} grupo="bitacora" esDestacado={a.id === dest?.id} />)}
+      </div>
+      <p class="ps" data-vacio-de="bitacora" hidden>Pronto publicaremos textos de este tema.</p>
+      <div class="grid12" style="align-items:center;margin-top:40px;padding-top:48px;border-top:1px solid var(--linea)">
+        <div class="c6 stack g10"><h2 class="d" style="font-size:clamp(30px,3vw,40px)">La bitácora <span class="t2">en tu correo</span></h2><p class="ps">Textos nuevos, sin publicidad. Te das de baja cuando quieras.</p></div>
+        <div class="c6"><Boletin id="bitacora" compacto /></div>
+      </div>
+    </div>
+  </section>
+</Base>
